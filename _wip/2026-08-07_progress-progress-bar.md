@@ -24,17 +24,13 @@
 ## 検証
 
 - `git diff --check`: エラーなし。
-- Python構文検査、サンプル生成、内部リンク検査を実行しようとしたが、環境の `.venv` が削除済みのPython 3.14実体を参照しており、また `python` / `py` がPATHに存在しないため未実行。
+- Python 3.14.6で `.venv` を再構築し、`python -m compileall -q tools` が成功。
+- `generate_numbers.py --offline --no-wikidata --no-wikipedia --only 6,57,496` が成功し、数字ページ3件とビューアー索引1000件の進捗・ETA表示を確認。
+- `check_internal_links.py` が成功（Markdown 1015ファイル、相対リンク9780件、Missing links: 0）。
 
 ## 未完了タスク
 
-- Python実行環境を復旧後、次を実行する。
-
-  ```powershell
-  python -m py_compile tools/progress.py tools/generate_numbers.py tools/wikipedia_ja.py tools/build_viewer_index.py tools/check_internal_links.py
-  python tools/generate_numbers.py --offline --no-wikidata --no-wikipedia --only 6,57,496
-  python tools/check_internal_links.py
-  ```
+- なし。
 
 ## 参考リンク
 
