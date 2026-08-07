@@ -46,7 +46,9 @@
 ├── _template/               # 執筆テンプレート（number.md）
 ├── tools/                   # 生成・補助スクリプト
 │   ├── generate_numbers.py  # メイン生成スクリプト
+│   ├── build_viewer_index.py    # ビューアー検索インデックス生成（フィルタ定義もここ）
 │   ├── check_internal_links.py  # 内部リンク検査
+│   ├── check_viewer_filters.py  # ページのフラグとビューアーのフィルタの同期検査
 │   ├── wikipedia_ja.py      # Wikipedia（日本語）連携
 │   ├── wikidata_cc0.py      # Wikidata（CC0）連携
 │   ├── wikipedia_ja_pins_v1.json                 # 引用ピン留め設定
@@ -174,7 +176,31 @@ Wikidata Query Service / Action API から以下を自動追記（ネットワ�
 
 1. `tools/` や設定を更新したら、まずサンプル生成（`--only 6,57,496` など）で意図した変更を確認
 2. 全数生成: `python tools/generate_numbers.py --wikipedia-sections`
+   - ネットワークが使えない環境（Cowork のサンドボックス等）では `--offline` を付けてキャッシュのみで生成する。`--offline` 単体だと Wikipedia の『性質』『その他』が消えるので、**必ず `--wikipedia-sections` と併用**すること。
 3. 内部リンク検査: `python tools/check_internal_links.py`（Missing links: 0 を確認）
+4. ビューアー同期検査: `python tools/check_viewer_filters.py`（不整合 0 を確認）
+
+### フラグを追加・改名したときの必須手順
+
+数学フラグや『いわれ』カテゴリを増やすと、更新箇所が 3 ファイルに分かれる。**どれか 1 つでも漏れるとページとビューアーがずれる**ので、必ずまとめて更新すること。
+
+| 追加するもの | 更新するファイル |
+| --- | --- |
+| 数列・数学フラグ | `tools/generate_numbers.py` の `_SEQUENCE_SPECS`（判定と定義文）＋ `tools/build_viewer_index.py` の `PROPERTY_FILTER_DEFS` と `FLAG_NAME_TO_KEY` |
+| いわれカテゴリ | `tools/generate_numbers.py` の `LORE_CATEGORY_ORDER` / `LORE_CATEGORY_JA` ＋ `tools/build_viewer_index.py` の `LORE_FILTER_DEFS` |
+| OEIS コメント和訳 | `tools/oeis_comments_ja_v1.json`（キーは `_SEQUENCE_SPECS` の数列名と一致させる） |
+
+最後に `python tools/check_viewer_filters.py` を実行して、不整合 0 を確認する。
+
+### 新しい数列を追加するときの検算
+
+数列の所属は**必ず OEIS の公表値と突き合わせて検算**すること（実装の思い込みで誤りが入りやすい）。過去に見つかった実例:
+
+- 半素数判定で演算子の優先順位（`A or B and C`）を誤り、陳素数から 2・7・23 が欠落
+- NSW 素数で「奇数番項のみ」の条件を落とし、3・17・577 が誤って混入
+- 六芒星数と中心つき十二角数が同一数列（ともに A003154）で、フラグが二重に立った
+
+検算用データは `oeis.org` を叩かず、GitHub ミラー `oeis/oeisdata` を sparse clone して `%S`/`%T`/`%U`（値）と `%N`（定義）を参照する。
 
 ### 公開（リリース）
 

@@ -5,7 +5,10 @@
       "label": "Generate numbers (wikipedia sections)",
       "type": "shell",
       "command": "${command:python.interpreterPath}",
-      "args": ["tools/generate_numbers.py", "--wikipedia-sections"],
+      "args": [
+        "tools/generate_numbers.py",
+        "--wikipedia-sections"
+      ],
       "isBackground": false,
       "problemMatcher": []
     },
@@ -26,7 +29,31 @@
       "label": "Check internal links",
       "type": "shell",
       "command": "${command:python.interpreterPath}",
-      "args": ["tools/check_internal_links.py"],
+      "args": [
+        "tools/check_internal_links.py"
+      ],
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "Check viewer filters",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "tools/check_viewer_filters.py"
+      ],
+      "isBackground": false,
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate offline (cache only)",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "tools/generate_numbers.py",
+        "--wikipedia-sections",
+        "--offline"
+      ],
       "isBackground": false,
       "problemMatcher": []
     }
