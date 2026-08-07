@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import sys
+import threading
 import time
 from dataclasses import dataclass, field
 from typing import TextIO
@@ -103,3 +104,65 @@ class ProgressBar:
             self.stream.write("\n")
             self.stream.flush()
             self._closed = True
+
+
+@dataclass
+class ProgressSpinner:
+    """Show activity and elapsed time while the amount of work is unknown."""
+
+    label: str
+    stream: TextIO = field(default_factory=lambda: sys.stderr)
+    interval: float = 0.2
+    log_interval: float = 15.0
+    _started: float = field(default_factory=time.monotonic, init=False)
+    _stop_event: threading.Event = field(default_factory=threading.Event, init=False)
+    _thread: threading.Thread | None = field(default=None, init=False)
+    _last_line_length: int = field(default=0, init=False)
+
+    @property
+    def interactive(self) -> bool:
+        return bool(getattr(self.stream, "isatty", lambda: False)())
+
+    def _render(self, frame: str = "") -> None:
+        elapsed = _format_duration(time.monotonic() - self._started)
+        if self.interactive:
+            line = f"{self.label} {frame}  elapsed {elapsed}"
+            padding = " " * max(0, self._last_line_length - len(line))
+            self.stream.write(f"\r{line}{padding}")
+            self.stream.flush()
+            self._last_line_length = len(line)
+        else:
+            self.stream.write(f"[progress] {self.label}: running, elapsed {elapsed}\n")
+            self.stream.flush()
+
+    def _run(self) -> None:
+        frames = "|/-\\"
+        index = 0
+        next_log = time.monotonic() + self.log_interval
+        while not self._stop_event.wait(self.interval):
+            if self.interactive:
+                self._render(frames[index % len(frames)])
+                index += 1
+            elif time.monotonic() >= next_log:
+                self._render()
+                next_log = time.monotonic() + self.log_interval
+
+    def __enter__(self) -> "ProgressSpinner":
+        self._render("|")
+        self._thread = threading.Thread(target=self._run, daemon=True)
+        self._thread.start()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        self._stop_event.set()
+        if self._thread is not None:
+            self._thread.join(timeout=max(1.0, self.interval * 2))
+        elapsed = _format_duration(time.monotonic() - self._started)
+        status = "done" if exc_type is None else "failed"
+        if self.interactive:
+            line = f"{self.label} {status}  elapsed {elapsed}"
+            padding = " " * max(0, self._last_line_length - len(line))
+            self.stream.write(f"\r{line}{padding}\n")
+        else:
+            self.stream.write(f"[progress] {self.label}: {status}, elapsed {elapsed}\n")
+        self.stream.flush()

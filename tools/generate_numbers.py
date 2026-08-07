@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 import re
 
-from progress import ProgressBar
+from progress import ProgressBar, ProgressSpinner
 from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
 from wikipedia_ja import (
     extract_wikipedia_facts,
@@ -2862,12 +2862,14 @@ def main() -> None:
         try:
             cache_path = ROOT / "tools" / "_cache" / "wikidata_enrichment_v1.json"
             if args.offline:
+                print("[phase] Wikidata cache", flush=True)
                 if cache_path.exists():
                     wikidata = load_or_build_enrichment(
                         cache_path=cache_path, refresh=False)
             else:
-                wikidata = load_or_build_enrichment(
-                    cache_path=cache_path, refresh=args.refresh_wikidata)
+                with ProgressSpinner("Wikidata enrichment"):
+                    wikidata = load_or_build_enrichment(
+                        cache_path=cache_path, refresh=args.refresh_wikidata)
         except Exception as e:  # noqa: BLE001
             print(f"[warn] Wikidata enrichment skipped: {e}")
 
@@ -2875,12 +2877,22 @@ def main() -> None:
     if not args.no_wikipedia:
         try:
             cache_path = ROOT / "tools" / "_cache" / "wikipedia_ja_intros_v1.json"
-            wikipedia_intros = load_or_build_wikipedia_intros_for_numbers(
-                cache_path=cache_path,
-                refresh=args.refresh_wikipedia,
-                numbers=only_numbers,
-                offline=args.offline,
-            )
+            if args.offline:
+                print("[phase] Wikipedia intro cache", flush=True)
+                wikipedia_intros = load_or_build_wikipedia_intros_for_numbers(
+                    cache_path=cache_path,
+                    refresh=args.refresh_wikipedia,
+                    numbers=only_numbers,
+                    offline=True,
+                )
+            else:
+                with ProgressSpinner("Wikipedia intros"):
+                    wikipedia_intros = load_or_build_wikipedia_intros_for_numbers(
+                        cache_path=cache_path,
+                        refresh=args.refresh_wikipedia,
+                        numbers=only_numbers,
+                        offline=False,
+                    )
         except Exception as e:  # noqa: BLE001
             print(f"[warn] Wikipedia intro fetch skipped: {e}")
 
@@ -2893,6 +2905,7 @@ def main() -> None:
     wikipedia_pins = _load_wikipedia_pins_config(pins_path)
     if args.wikipedia_sections:
         try:
+            print("[phase] Wikipedia properties", flush=True)
             cache_path = ROOT / "tools" / "_cache" / "wikipedia_ja_properties_v1.json"
             numbers = only_numbers if only_numbers is not None else list(
                 range(1000))
@@ -2908,6 +2921,7 @@ def main() -> None:
             print(f"[warn] Wikipedia section fetch skipped: {e}")
 
         try:
+            print("[phase] Wikipedia other items", flush=True)
             cache_path = ROOT / "tools" / "_cache" / "wikipedia_ja_others_v1.json"
             numbers = only_numbers if only_numbers is not None else list(
                 range(1000))
