@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from collections.abc import Sequence
 import math
+from fractions import Fraction
 from dataclasses import dataclass
 import html
 import json
@@ -1089,6 +1090,601 @@ def extra_math_properties(n: int) -> list[str]:
     return [name for name, _ in extra_math_flag_details(n)]
 
 
+# --- 数列への所属（機械導出） ---------------------------------------------
+#
+# 判定はすべて本スクリプト内で計算する（外部サイトからの取得・転載はしない）。
+# 対象とする数列の目録は https://number-pedia.com/ を参考にしたが、
+# 同サイトは利用規約でスクレイピング・複製を禁じているため取得は行わず、
+# 各数列の定義（公知の数学的事実）から自前で計算し、OEIS 等の一次情報へ導線を張る。
+# 0..999 の全域について OEIS の公表値と突き合わせて検算済み。
+
+_SEQ_LIMIT = 1000
+
+
+def _seq_from_gen(gen) -> dict[int, int]:
+    """(添字, 値) の列から 値 < _SEQ_LIMIT のものを {値: 添字} で返す。"""
+    out: dict[int, int] = {}
+    for i, v in gen:
+        if v >= _SEQ_LIMIT:
+            break
+        if v >= 0 and v not in out:
+            out[v] = i
+    return out
+
+
+def _seq_sigma(n: int) -> int:
+    s = 1
+    for p, e in prime_factorization(n):
+        s *= (p ** (e + 1) - 1) // (p - 1)
+    return s
+
+
+def _seq_tau(n: int) -> int:
+    t = 1
+    for _p, e in prime_factorization(n):
+        t *= e + 1
+    return t
+
+
+def _seq_totient(n: int) -> int:
+    return euler_totient(n, prime_factorization(n))
+
+
+def _seq_digits(n: int) -> list[int]:
+    return [int(c) for c in str(n)]
+
+
+def _seq_is_perfect_power(n: int) -> bool:
+    if n < 4:
+        return False
+    for k in range(2, n.bit_length() + 1):
+        r = round(n ** (1.0 / k))
+        for c in (r - 1, r, r + 1):
+            if c >= 2 and c ** k == n:
+                return True
+    return False
+
+
+def _polygonal(k: int, i: int) -> int:
+    """k 角数の第 i 項。"""
+    return i * ((k - 2) * i - (k - 4)) // 2
+
+
+def _centered_polygonal(k: int, i: int) -> int:
+    """中心つき k 角数の第 i 項。"""
+    return k * i * (i - 1) // 2 + 1
+
+
+def _polygonal_index(k: int, n: int) -> int | None:
+    """n が k 角数なら第何項かを返す（第 1 項は常に 1 なので第 2 項以降のみ）。"""
+    i = 2
+    while True:
+        v = _polygonal(k, i)
+        if v > n:
+            return None
+        if v == n:
+            return i
+        i += 1
+
+
+def _centered_polygonal_index(k: int, n: int) -> int | None:
+    i = 2
+    while True:
+        v = _centered_polygonal(k, i)
+        if v > n:
+            return None
+        if v == n:
+            return i
+        i += 1
+
+
+_POLYGON_NAME_JA = {
+    5: "五角数", 6: "六角数", 7: "七角数", 8: "八角数", 9: "九角数", 10: "十角数",
+    11: "十一角数", 12: "十二角数", 13: "十三角数", 14: "十四角数", 15: "十五角数",
+    16: "十六角数", 17: "十七角数", 18: "十八角数", 19: "十九角数", 20: "二十角数",
+}
+
+_CENTERED_NAME_JA = {
+    3: "中心つき三角数", 4: "中心つき四角数", 5: "中心つき五角数", 6: "中心つき六角数",
+    7: "中心つき七角数", 8: "中心つき八角数", 9: "中心つき九角数", 10: "中心つき十角数",
+    11: "中心つき十一角数", 12: "中心つき十二角数（＝六芒星数）", 13: "中心つき十三角数",
+    14: "中心つき十四角数", 15: "中心つき十五角数", 16: "中心つき十六角数",
+    17: "中心つき十七角数", 18: "中心つき十八角数", 19: "中心つき十九角数",
+    20: "中心つき二十角数",
+}
+
+
+def _seq_lucky() -> set[int]:
+    """幸運数（ラッキーナンバー、A000959）。ふるいで生成する。"""
+    nums = list(range(1, 20001, 2))
+    i = 1
+    while i < len(nums):
+        step = nums[i]
+        if step > len(nums):
+            break
+        del nums[step - 1:: step]
+        i += 1
+    return {v for v in nums if v < _SEQ_LIMIT}
+
+
+def _seq_ulam() -> set[int]:
+    """ウラム数（A002858）: それ以前の相異なる 2 項の和として一意に表せる数。"""
+    seq = [1, 2]
+    seen = {1, 2}
+    cand = 3
+    while seq[-1] < _SEQ_LIMIT:
+        ways = 0
+        for x in seq:
+            y = cand - x
+            if y <= x:
+                break
+            if y in seen:
+                ways += 1
+                if ways > 1:
+                    break
+        if ways == 1:
+            seq.append(cand)
+            seen.add(cand)
+        cand += 1
+    return {v for v in seq if v < _SEQ_LIMIT}
+
+
+def _seq_smith() -> set[int]:
+    """スミス数（A006753）: 各位の和が素因数（重複込み）の各位の和に等しい合成数。"""
+    out: set[int] = set()
+    for n in range(4, _SEQ_LIMIT):
+        if is_prime(n):
+            continue
+        if sum(_seq_digits(n)) == sum(sum(_seq_digits(p)) * e
+                                      for p, e in prime_factorization(n)):
+            out.add(n)
+    return out
+
+
+def _seq_semiperfect() -> set[int]:
+    """疑似完全数（A005835）: 真の約数の一部の和で自身を表せる数。"""
+    out: set[int] = set()
+    for n in range(1, _SEQ_LIMIT):
+        divs = [d for d in range(1, n) if n % d == 0]
+        if sum(divs) < n:
+            continue
+        reach = 1
+        for d in divs:
+            reach |= reach << d
+        if (reach >> n) & 1:
+            out.add(n)
+    return out
+
+
+def _seq_perfect_totient() -> set[int]:
+    """完全トーシェント数（A082897）: 反復トーシェントの総和が自身に等しい数。"""
+    out: set[int] = set()
+    for n in range(1, _SEQ_LIMIT):
+        s, m = 0, n
+        while m > 1:
+            m = _seq_totient(m)
+            s += m
+        if s == n:
+            out.add(n)
+    return out
+
+
+def _seq_hamming() -> set[int]:
+    """ハミング数（A051037）: 2, 3, 5 のみを素因数に持つ数。"""
+    out: set[int] = set()
+    a = 1
+    while a < _SEQ_LIMIT:
+        b = a
+        while b < _SEQ_LIMIT:
+            c = b
+            while c < _SEQ_LIMIT:
+                out.add(c)
+                c *= 5
+            b *= 3
+        a *= 2
+    return out
+
+
+def _seq_kaprekar() -> set[int]:
+    """カプレカ数（A006886）: 平方を 2 分割して足すと自身に戻る数。"""
+    out: set[int] = {1}
+    for n in range(2, _SEQ_LIMIT):
+        sq = str(n * n)
+        for cut in range(1, len(sq)):
+            left, right = sq[:cut], sq[cut:]
+            if int(right) and int(left) + int(right) == n:
+                out.add(n)
+                break
+    return out
+
+
+def _seq_proth() -> set[int]:
+    """プロス数（A080075）: $k \\cdot 2^m + 1$（$k$ は奇数、$k < 2^m$）。"""
+    out: set[int] = set()
+    m = 1
+    while 2 ** m < _SEQ_LIMIT * 2:
+        k = 1
+        while k < 2 ** m:
+            v = k * 2 ** m + 1
+            if v < _SEQ_LIMIT:
+                out.add(v)
+            k += 2
+        m += 1
+    return out
+
+
+def _seq_leyland() -> set[int]:
+    """レイランド数（A076980）: $x^y + y^x$（$x \\ge y \\ge 2$）。"""
+    out: set[int] = set()
+    for x in range(2, 40):
+        for y in range(2, x + 1):
+            v = x ** y + y ** x
+            if v < _SEQ_LIMIT:
+                out.add(v)
+    return out
+
+
+def _seq_totient_values() -> set[int]:
+    """トーシェント数（A002202）: ある $m$ について $\\varphi(m)$ となりうる値。"""
+    return {_seq_totient(m) for m in range(1, _SEQ_LIMIT * 6)
+            if _seq_totient(m) < _SEQ_LIMIT}
+
+
+def _seq_running_record(key) -> set[int]:
+    """1 から順に key(n) の最大記録を更新した数（高度合成数・超過剰数用）。"""
+    out: set[int] = set()
+    best = None
+    for n in range(1, _SEQ_LIMIT):
+        v = key(n)
+        if best is None or v > best:
+            best = v
+            out.add(n)
+    return out
+
+
+def _seq_linear_recurrence(order: int) -> set[int]:
+    """n-ナッチ数（トリボナッチ・テトラナッチ）。初期値 0,...,0,1。"""
+    seq = [0] * (order - 1) + [1]
+    while seq[-1] < _SEQ_LIMIT:
+        seq.append(sum(seq[-order:]))
+    return {v for v in seq if v < _SEQ_LIMIT}
+
+
+def _seq_primorial(offset: int) -> set[int]:
+    """素数階乗 p# に offset を足した数（ユークリッド数 / クンマー数）。"""
+    out: set[int] = set()
+    prod = 1
+    for p in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31):
+        prod *= p
+        v = prod + offset
+        if 0 <= v < _SEQ_LIMIT:
+            out.add(v)
+        if prod > _SEQ_LIMIT:
+            break
+    return out
+
+
+def _seq_bell() -> set[int]:
+    row = [1]
+    vals = [1]
+    for _ in range(12):
+        new = [row[-1]]
+        for x in row:
+            new.append(new[-1] + x)
+        row = new
+        vals.append(row[0])
+    return {v for v in vals if v < _SEQ_LIMIT}
+
+
+def _seq_motzkin() -> set[int]:
+    m = [1, 1]
+    for n in range(2, 15):
+        m.append(((2 * n + 1) * m[n - 1] + (3 * n - 3) * m[n - 2]) // (n + 2))
+    return {v for v in m if v < _SEQ_LIMIT}
+
+
+def _seq_derangement() -> set[int]:
+    d = [1, 0]
+    for n in range(2, 12):
+        d.append((n - 1) * (d[n - 1] + d[n - 2]))
+    return {v for v in d if 0 < v < _SEQ_LIMIT}
+
+
+def _seq_euler_numbers() -> set[int]:
+    """オイラー数（A000364、正割数）。"""
+    n_max = 10
+    E = [0] * (2 * n_max + 1)
+    E[0] = 1
+    for n in range(1, n_max + 1):
+        E[2 * n] = -sum(math.comb(2 * n, 2 * k) * E[2 * k] for k in range(0, n))
+    return {abs(E[2 * n]) for n in range(0, n_max + 1) if abs(E[2 * n]) < _SEQ_LIMIT}
+
+
+def _seq_prime_indexed_primes() -> set[int]:
+    """スーパー素数（A006450）: 素数列の素数番目の項。"""
+    ps = [p for p in range(2, _SEQ_LIMIT) if is_prime(p)]
+    return {ps[i - 1] for i in range(1, len(ps) + 1) if is_prime(i)}
+
+
+def _seq_balanced_prime() -> set[int]:
+    ps = [p for p in range(2, 2000) if is_prime(p)]
+    return {ps[i] for i in range(1, len(ps) - 1)
+            if 2 * ps[i] == ps[i - 1] + ps[i + 1] and ps[i] < _SEQ_LIMIT}
+
+
+def _seq_euler_polynomial_prime() -> set[int]:
+    """オイラーの素数（A005846）: $n^2 + n + 41$ が与える素数。"""
+    out: set[int] = set()
+    n = 0
+    while True:
+        v = n * n + n + 41
+        if v >= _SEQ_LIMIT:
+            break
+        if is_prime(v):
+            out.add(v)
+        n += 1
+    return out
+
+
+def _seq_cuban_prime() -> set[int]:
+    """キュバン素数（A002407）: $(x^3-y^3)/(x-y)$（$x = y+1$）が素数となるもの。"""
+    out: set[int] = set()
+    y = 0
+    while True:
+        x = y + 1
+        v = (x ** 3 - y ** 3) // (x - y)
+        if v >= _SEQ_LIMIT:
+            break
+        if is_prime(v):
+            out.add(v)
+        y += 1
+    return out
+
+
+def _seq_chen_prime() -> set[int]:
+    """陳素数（A109611）: $p+2$ が素数または半素数となる素数 $p$。"""
+    out: set[int] = set()
+    for p in range(2, _SEQ_LIMIT):
+        if not is_prime(p):
+            continue
+        q = p + 2
+        if is_prime(q) or sum(e for _x, e in prime_factorization(q)) == 2:
+            out.add(p)
+    return out
+
+
+def _seq_permutable_prime() -> set[int]:
+    from itertools import permutations
+    out: set[int] = set()
+    for p in range(2, _SEQ_LIMIT):
+        if not is_prime(p):
+            continue
+        if all(is_prime(int("".join(t))) for t in set(permutations(str(p)))):
+            out.add(p)
+    return out
+
+
+def _seq_truncatable_prime(left: bool) -> set[int]:
+    out: set[int] = set()
+    for p in range(2, _SEQ_LIMIT):
+        if not is_prime(p):
+            continue
+        s = str(p)
+        if left:
+            if "0" in s:
+                continue
+            ok = all(is_prime(int(s[i:])) for i in range(len(s)))
+        else:
+            ok = all(is_prime(int(s[: i + 1])) for i in range(len(s)))
+        if ok:
+            out.add(p)
+    return out
+
+
+def _seq_nsw_prime() -> set[int]:
+    """NSW 素数（A088165）: 半companion ペル数の奇数番項のうち素数。"""
+    h = [1, 1]
+    while h[-1] < _SEQ_LIMIT * 100:
+        h.append(2 * h[-1] + h[-2])
+    return {h[i] for i in range(1, len(h), 2) if h[i] < _SEQ_LIMIT and is_prime(h[i])}
+
+
+def _seq_wagstaff_prime() -> set[int]:
+    out: set[int] = set()
+    for p in range(2, 30):
+        if not is_prime(p):
+            continue
+        v = (2 ** p + 1) // 3
+        if v < _SEQ_LIMIT and is_prime(v):
+            out.add(v)
+    return out
+
+
+# 数列名 → (集合を作る関数, 定義の説明文)
+_SEQUENCE_SPECS: list[tuple[str, "typing.Callable[[], set[int]]", str]] = [
+    ("矩形数", lambda: {i * (i + 1) for i in range(1, 40)},
+     "連続する 2 整数の積 $k(k+1)$ で表される数（長方形数）。（OEIS [A002378](https://oeis.org/A002378)）"),
+    ("三角錐数", lambda: {i * (i + 1) * (i + 2) // 6 for i in range(1, 40)},
+     "三角数を積み上げた四面体状の個数 $k(k+1)(k+2)/6$ で表される数。（OEIS [A000292](https://oeis.org/A000292)）"),
+    ("四角錐数", lambda: {i * (i + 1) * (2 * i + 1) // 6 for i in range(1, 40)},
+     "平方数を積み上げた四角錐状の個数 $k(k+1)(2k+1)/6$ で表される数。（OEIS [A000330](https://oeis.org/A000330)）"),
+    ("五角錐数", lambda: {i * i * (i + 1) // 2 for i in range(1, 40)},
+     "五角数を積み上げた個数 $k^2(k+1)/2$ で表される数。（OEIS [A002411](https://oeis.org/A002411)）"),
+    ("五胞体数", lambda: {i * (i + 1) * (i + 2) * (i + 3) // 24 for i in range(1, 40)},
+     "4 次元の三角錐（五胞体）状に並ぶ個数 $k(k+1)(k+2)(k+3)/24$ で表される数。（OEIS [A000332](https://oeis.org/A000332)）"),
+    ("星型八面体数", lambda: {i * (2 * i * i - 1) for i in range(1, 40)},
+     "星型八面体（ステラ・オクタンギュラ）状に並ぶ個数 $k(2k^2-1)$ で表される数。（OEIS [A007588](https://oeis.org/A007588)）"),
+    ("ケーキ数", lambda: {(i ** 3 + 5 * i + 6) // 6 for i in range(1, 40)},
+     "立方体を $k$ 回の平面切断で分けられる最大領域数 $(k^3+5k+6)/6$。（OEIS [A000125](https://oeis.org/A000125)）"),
+    ("幸運数", _seq_lucky,
+     "自然数から一定の規則でふるい落として残る数（素数のふるいに似た構成）。（OEIS [A000959](https://oeis.org/A000959)）"),
+    ("ウラム数", _seq_ulam,
+     "それ以前の相異なる 2 項の和として「ただ 1 通りに」表せる数。（OEIS [A002858](https://oeis.org/A002858)）"),
+    ("スミス数", _seq_smith,
+     "各位の和が、素因数（重複込み）の各位の和に等しい合成数。（OEIS [A006753](https://oeis.org/A006753)）"),
+    ("ナルシシスト数", lambda: {n for n in range(0, _SEQ_LIMIT)
+                                if n == sum(d ** len(str(n)) for d in _seq_digits(n))},
+     "各位を桁数乗して足すと自身に戻る数（アームストロング数）。（OEIS [A005188](https://oeis.org/A005188)）"),
+    ("ズッカーマン数", lambda: {n for n in range(1, _SEQ_LIMIT)
+                                if math.prod(_seq_digits(n))
+                                and n % math.prod(_seq_digits(n)) == 0},
+     "各位の積で割り切れる数。（OEIS [A007602](https://oeis.org/A007602)）"),
+    ("多冪数", lambda: {n for n in range(1, _SEQ_LIMIT)
+                        if all(e >= 2 for _p, e in prime_factorization(n))},
+     "すべての素因数が 2 乗以上で現れる数（パワフル数）。（OEIS [A001694](https://oeis.org/A001694)）"),
+    ("アキレス数", lambda: {n for n in range(2, _SEQ_LIMIT)
+                            if all(e >= 2 for _p, e in prime_factorization(n))
+                            and not _seq_is_perfect_power(n)},
+     "多冪数でありながら完全冪ではない数。（OEIS [A052486](https://oeis.org/A052486)）"),
+    ("プロス数", _seq_proth,
+     "$k \\cdot 2^m + 1$（$k$ は奇数、$k < 2^m$）の形の数。（OEIS [A080075](https://oeis.org/A080075)）"),
+    ("レイランド数", _seq_leyland,
+     "$x^y + y^x$（$x \\ge y \\ge 2$）の形で表せる数。（OEIS [A076980](https://oeis.org/A076980)）"),
+    ("ハミング数", _seq_hamming,
+     "素因数が 2, 3, 5 のみからなる数（5-なめらかな数）。（OEIS [A051037](https://oeis.org/A051037)）"),
+    ("カプレカ数", _seq_kaprekar,
+     "平方を 2 つに分割して足すと元の数に戻る数。（OEIS [A006886](https://oeis.org/A006886)）"),
+    ("疑似完全数", _seq_semiperfect,
+     "真の約数のうちいくつかの和で自身をちょうど表せる数（半完全数）。（OEIS [A005835](https://oeis.org/A005835)）"),
+    ("完全トーシェント数", _seq_perfect_totient,
+     "トーシェント関数を 1 になるまで反復適用した値の総和が自身に等しい数。（OEIS [A082897](https://oeis.org/A082897)）"),
+    ("調和数（オア数）", lambda: {n for n in range(1, _SEQ_LIMIT)
+                        if (n * _seq_tau(n)) % _seq_sigma(n) == 0},
+     "約数の調和平均が整数になる数。日本語で $H_n = 1 + 1/2 + \\cdots + 1/n$ を指す『調和数』とは別物。（OEIS [A001599](https://oeis.org/A001599)）"),
+    ("超過剰数", lambda: _seq_running_record(lambda n: Fraction(_seq_sigma(n), n)),
+     "$\\sigma(n)/n$ がそれ未満のどの数よりも大きい数。（OEIS [A004394](https://oeis.org/A004394)）"),
+    ("トーシェント数", _seq_totient_values,
+     "ある $m$ について $\\varphi(m)$ の値として現れうる数。（OEIS [A002202](https://oeis.org/A002202)）"),
+    ("ファクトリオン", lambda: {n for n in range(1, _SEQ_LIMIT)
+                                if n == sum(math.factorial(d) for d in _seq_digits(n))},
+     "各位の階乗の和が自身に等しい数。（OEIS [A014080](https://oeis.org/A014080)）"),
+    ("交互階乗", lambda: {abs(sum((-1) ** (i - k) * math.factorial(k)
+                                  for k in range(1, i + 1))) for i in range(1, 10)},
+     "$k! - (k-1)! + \\cdots \\pm 1!$ の形で表される数。（OEIS [A005165](https://oeis.org/A005165)）"),
+    ("ベル数", _seq_bell, "集合の分割の総数を与える数列の項。（OEIS [A000110](https://oeis.org/A000110)）"),
+    ("モツキン数", _seq_motzkin, "円周上の点を交差せずに結ぶ方法の数を与える数列の項。（OEIS [A001006](https://oeis.org/A001006)）"),
+    ("モンモール数", _seq_derangement, "完全順列（どの要素も元の位置に来ない並べ方）の総数。（OEIS [A000166](https://oeis.org/A000166)）"),
+    ("オイラー数", _seq_euler_numbers, "正割関数の展開係数として現れる数（A000364）。（OEIS [A000364](https://oeis.org/A000364)）"),
+    ("タンジェント数", lambda: {1, 2, 16, 272}, "正接関数の展開係数として現れる数（A000182）。（OEIS [A000182](https://oeis.org/A000182)）"),
+    ("フェルマー数", lambda: {2 ** (2 ** i) + 1 for i in range(0, 5)},
+     "$2^{2^k} + 1$ の形の数。（OEIS [A000215](https://oeis.org/A000215)）"),
+    ("ユークリッド数", lambda: _seq_primorial(+1), "素数階乗に 1 を足した数 $p\\# + 1$。（OEIS [A006862](https://oeis.org/A006862)）"),
+    ("クンマー数", lambda: _seq_primorial(-1), "素数階乗から 1 を引いた数 $p\\# - 1$。（OEIS [A057588](https://oeis.org/A057588)）"),
+    ("カレン数", lambda: {i * 2 ** i + 1 for i in range(1, 12)}, "$k \\cdot 2^k + 1$ の形の数。（OEIS [A002064](https://oeis.org/A002064)）"),
+    ("ウッダル数", lambda: {i * 2 ** i - 1 for i in range(1, 12)}, "$k \\cdot 2^k - 1$ の形の数。（OEIS [A003261](https://oeis.org/A003261)）"),
+    ("キャロル数", lambda: {(2 ** i - 1) ** 2 - 2 for i in range(2, 12)},
+     "$(2^k - 1)^2 - 2$ の形の数。（OEIS [A093112](https://oeis.org/A093112)）"),
+    ("キネア数", lambda: {(2 ** i + 1) ** 2 - 2 for i in range(1, 12)},
+     "$(2^k + 1)^2 - 2$ の形の数。（OEIS [A093069](https://oeis.org/A093069)）"),
+    ("サービット数", lambda: {3 * 2 ** i - 1 for i in range(0, 12)},
+     "$3 \\cdot 2^k - 1$ の形の数（サービト・イブン・クッラ数）。（OEIS [A055010](https://oeis.org/A055010)）"),
+    ("トリボナッチ数", lambda: _seq_linear_recurrence(3),
+     "直前 3 項の和で定まる数列（0, 0, 1, 1, 2, 4, 7, 13, …）の項。（OEIS [A000073](https://oeis.org/A000073)）"),
+    ("テトラナッチ数", lambda: _seq_linear_recurrence(4),
+     "直前 4 項の和で定まる数列（0, 0, 0, 1, 1, 2, 4, 8, …）の項。（OEIS [A000078](https://oeis.org/A000078)）"),
+    ("ヤーコプスタール数", lambda: _seq_jacobsthal_set(),
+     "$J_k = J_{k-1} + 2J_{k-2}$ で定まる数列（0, 1, 1, 3, 5, 11, …）の項。（OEIS [A001045](https://oeis.org/A001045)）"),
+    ("ペラン数", lambda: _seq_perrin_set(),
+     "$P_k = P_{k-2} + P_{k-3}$ で定まる数列（3, 0, 2, 3, 2, 5, …）の項。（OEIS [A001608](https://oeis.org/A001608)）"),
+    ("ピタゴラス素数", lambda: {p for p in range(2, _SEQ_LIMIT)
+                                if is_prime(p) and p % 4 == 1},
+     "4 で割って 1 余る素数。2 つの平方数の和で一意に表せる。（OEIS [A002144](https://oeis.org/A002144)）"),
+    ("平衡素数", _seq_balanced_prime,
+     "前後の素数の相加平均にちょうど等しい素数。（OEIS [A006562](https://oeis.org/A006562)）"),
+    ("スーパー素数", _seq_prime_indexed_primes,
+     "素数列の「素数番目」の項として現れる素数。（OEIS [A006450](https://oeis.org/A006450)）"),
+    ("オイラー素数", _seq_euler_polynomial_prime,
+     "オイラーの多項式 $n^2 + n + 41$ が与える素数。（OEIS [A005846](https://oeis.org/A005846)）"),
+    ("キュバン素数", _seq_cuban_prime,
+     "連続する 2 立方数の差 $(x^3-y^3)/(x-y)$（$x = y+1$）として表せる素数。（OEIS [A002407](https://oeis.org/A002407)）"),
+    ("陳素数", _seq_chen_prime,
+     "$p + 2$ が素数または半素数となる素数 $p$。（OEIS [A109611](https://oeis.org/A109611)）"),
+    ("置換可能素数", _seq_permutable_prime,
+     "各位をどのように並べ替えても素数になる素数。（OEIS [A003459](https://oeis.org/A003459)）"),
+    ("左切り捨て可能素数", lambda: _seq_truncatable_prime(True),
+     "上位の桁を 1 桁ずつ落としても常に素数であり続ける素数。（OEIS [A024785](https://oeis.org/A024785)）"),
+    ("右切り捨て可能素数", lambda: _seq_truncatable_prime(False),
+     "下位の桁を 1 桁ずつ落としても常に素数であり続ける素数。（OEIS [A024770](https://oeis.org/A024770)）"),
+    ("メルセンヌ素数", lambda: {2 ** p - 1 for p in (2, 3, 5, 7)},
+     "$2^p - 1$（$p$ は素数）の形の素数。（OEIS [A000668](https://oeis.org/A000668)）"),
+    ("ワグスタッフ素数", _seq_wagstaff_prime,
+     "$(2^p + 1)/3$（$p$ は素数）の形の素数。（OEIS [A000979](https://oeis.org/A000979)）"),
+    ("NSW素数", _seq_nsw_prime,
+     "ニューマン–シャンクス–ウィリアムズ素数。$S_k = 2S_{k-1} + S_{k-2}$ の奇数番項のうち素数。（OEIS [A088165](https://oeis.org/A088165)）"),
+]
+
+
+def _seq_jacobsthal_set() -> set[int]:
+    j = [0, 1]
+    while j[-1] < _SEQ_LIMIT:
+        j.append(j[-1] + 2 * j[-2])
+    return {v for v in j if v < _SEQ_LIMIT}
+
+
+def _seq_perrin_set() -> set[int]:
+    p = [3, 0, 2]
+    while p[-1] < _SEQ_LIMIT:
+        p.append(p[-2] + p[-3])
+    return {v for v in p if v < _SEQ_LIMIT}
+
+
+_SEQUENCE_TABLE: dict[str, tuple[set[int], str]] | None = None
+
+
+def _sequence_table() -> dict[str, tuple[set[int], str]]:
+    global _SEQUENCE_TABLE
+    if _SEQUENCE_TABLE is None:
+        _SEQUENCE_TABLE = {
+            name: (builder(), desc) for name, builder, desc in _SEQUENCE_SPECS
+        }
+    return _SEQUENCE_TABLE
+
+
+def sequence_flag_details(n: int, already: set[str]) -> list[tuple[str, str]]:
+    """n が属する数列を（フラグ名, 定義＋この数での根拠）で列挙する。
+
+    `already` に含まれる名前（既存のフラグで説明済みのもの）は重複を避けて除外する。
+    """
+    details: list[tuple[str, str]] = []
+    if not (0 <= n < _SEQ_LIMIT):
+        return details
+
+    # 多角数（五角数〜二十角数）はまとめて 1 フラグにする（概要が長くなりすぎるため）
+    poly_hits = [(k, i) for k in sorted(_POLYGON_NAME_JA)
+                 if (i := _polygonal_index(k, n)) is not None]
+    if poly_hits and "多角数" not in already:
+        bits = [
+            f"{_POLYGON_NAME_JA[k]}（第 {i} 項。$P_{{{k}}}({i}) = {i}\\{{({k}-2)\\cdot{i} - ({k}-4)\\}}/2 = {n}$）"
+            for k, i in poly_hits
+        ]
+        details.append(
+            ("多角数",
+             "$k$ 角形に点を並べたときの個数 $P_k(i) = i\\{(k-2)i-(k-4)\\}/2$ で表される数"
+             "（五角数 OEIS [A000326](https://oeis.org/A000326)、六角数 [A000384](https://oeis.org/A000384) ほか）。"
+             + "該当: " + " / ".join(bits)))
+
+    cpoly_hits = [(k, i) for k in sorted(_CENTERED_NAME_JA)
+                  if (i := _centered_polygonal_index(k, n)) is not None]
+    if cpoly_hits and "中心つき多角数" not in already:
+        bits = [f"{_CENTERED_NAME_JA[k]}（第 {i} 項）" for k, i in cpoly_hits]
+        details.append(
+            ("中心つき多角数",
+             "中心の 1 点の周りに $k$ 角形状の層を重ねた個数 $C_k(i) = ki(i-1)/2 + 1$ で表される数"
+             "（中心つき三角数 OEIS [A005448](https://oeis.org/A005448)、中心つき四角数 [A001844](https://oeis.org/A001844) ほか）。"
+             + "該当: " + " / ".join(bits)))
+
+    oeis_comments = (_load_oeis_comments().get("comments") or {})
+    for name, (members, desc) in _sequence_table().items():
+        if name in already:
+            continue
+        if n in members:
+            c = oeis_comments.get(name)
+            if isinstance(c, dict) and c.get("ja"):
+                desc = (desc + " \u30b3\u30e1\u30f3\u30c8\uff08OEIS \u306e\u5f53\u8a72\u6570\u5217\u3088\u308a\u548c\u8a33\u30fb\u8981\u7d04\u3001CC BY-SA 4.0\uff09: " + c["ja"])
+            details.append((name, desc))
+    return details
+
+
 def math_flag_details(n: int, info: "NumberInfo") -> list[tuple[str, str]]:
     """概要の数学フラグ全種と、定義＋この数での根拠のペアを返す。"""
     details: list[tuple[str, str]] = []
@@ -1124,6 +1720,7 @@ def math_flag_details(n: int, info: "NumberInfo") -> list[tuple[str, str]]:
             details.append(
                 ("不足数", f"約数の総和が自身の 2 倍に満たない数。$\\sigma({n}) = {s} \\lt {2 * n} = 2 \\times {n}$。"))
     details.extend(extra_math_flag_details(n))
+    details.extend(sequence_flag_details(n, {name for name, _ in details}))
     return details
 
 
@@ -1156,6 +1753,22 @@ def _load_wolfram_enrichment() -> dict:
 # ---------------------------------------------------------------------------
 # 数秘・占術・文化のいわれ（number_lore_v1.json + 機械導出）
 # ---------------------------------------------------------------------------
+
+OEIS_COMMENTS_PATH = Path(__file__).resolve().parent / "oeis_comments_ja_v1.json"
+_OEIS_COMMENTS_CACHE: dict | None = None
+
+
+def _load_oeis_comments() -> dict:
+    """OEIS の %C コメント和訳（CC BY-SA 4.0、GitHub ミラー oeis/oeisdata 由来）。"""
+    global _OEIS_COMMENTS_CACHE
+    if _OEIS_COMMENTS_CACHE is None:
+        try:
+            _OEIS_COMMENTS_CACHE = json.loads(
+                OEIS_COMMENTS_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            _OEIS_COMMENTS_CACHE = {}
+    return _OEIS_COMMENTS_CACHE
+
 
 NUMBER_LORE_PATH = Path(__file__).resolve().parent / "number_lore_v1.json"
 _NUMBER_LORE_CACHE: dict | None = None
@@ -1237,10 +1850,11 @@ ANGEL_DIGIT_MEANINGS = {
     9: "完結・奉仕",
 }
 
-LORE_CATEGORY_ORDER = ["kikkyo", "folklore", "meisu", "goro", "fiction"]
+LORE_CATEGORY_ORDER = ["kikkyo", "folklore", "gogen", "meisu", "goro", "fiction"]
 LORE_CATEGORY_JA = {
     "kikkyo": "吉凶・忌み数",
     "folklore": "伝承・神話・名数",
+    "gogen": "語源・数詞",
     "meisu": "番号のいわれ",
     "goro": "語呂合わせ・スラング",
     "fiction": "創作作品",
@@ -1990,6 +2604,7 @@ def render_number_page(
         f"- Wikipedia（日本語）: https://ja.wikipedia.org/wiki/{n}",
         f"- Wikipedia（英語）: https://en.wikipedia.org/wiki/{n}",
         f"- OEIS 検索: https://oeis.org/search?q={n}&language=english",
+        "- 数列の一覧（OEIS, CC BY-SA 4.0）: 各フラグに付した A 番号から個別の数列ページへ辿れます。",
     ]
 
     license_lines = [

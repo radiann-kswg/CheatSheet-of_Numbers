@@ -7,14 +7,16 @@
    "断定を避け『〜とされる』の表記で要約し、一次情報（主に Wikipedia）へのリンクを付す。",
    "性的・差別的・反社会的な含意を持つネットスラングは収録しない。",
    "現役占術家の独自体系（数意学・数魂など）は著作権・独自性への配慮から収録しない。",
-   "長文転載をせず、事実の指摘＋参照リンクにとどめる（CC BY-SA 運用）。"
+   "長文転載をせず、事実の指摘＋参照リンクにとどめる（CC BY-SA 運用）。",
+   "多言語出典（zh/en Wikipedia・en.wiktionary・PD 古典）からの和訳エントリは、text 末尾に出典と「和訳・要約（改変あり）」の旨を明記する（CC BY-SA / PD の帰属要件）。"
   ],
   "categories": {
    "kikkyo": "吉凶・忌み数",
    "folklore": "伝承・神話・名数",
    "meisu": "番号のいわれ（スポーツ・社会・製品）",
    "goro": "語呂合わせ・ポケベル・ネットスラング",
-   "fiction": "創作作品"
+   "fiction": "創作作品",
+   "gogen": "語源・数詞"
   }
  },
  "notable_gematria": {
@@ -72,6 +74,32 @@
   }
  },
  "entries": {
+  "0": [
+   {
+    "cat": "folklore",
+    "text": "『無』を表す数としてインドで概念化され、哲学・宗教でも『空（くう）』と結び付けて語られることがある。",
+    "url": "https://ja.wikipedia.org/wiki/0"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 zero はアラビア語 صفر（ṣifr、『空』）がイタリア語 zero を経て入った語とされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/zero"
+   }
+  ],
+  "1": [
+   {
+    "cat": "meisu",
+    "text": "プロ野球では王貞治（読売ジャイアンツ）の背番号 1 が永久欠番となっている。『ナンバーワン』として第一・最高を象徴する数字でもある。",
+    "url": "https://ja.wikipedia.org/wiki/王貞治"
+   }
+  ],
+  "2": [
+   {
+    "cat": "folklore",
+    "text": "陰陽思想の『陰と陽』、対（つい）の概念など、二元性を象徴する数とされる。",
+    "url": "https://ja.wikipedia.org/wiki/陰陽"
+   }
+  ],
   "3": [
    {
     "cat": "folklore",
@@ -99,6 +127,16 @@
     "cat": "folklore",
     "text": "四天王・四季・四神（青龍・白虎・朱雀・玄武）・仏教の四苦など、『4』を単位とする名数も多い。",
     "url": "https://ja.wikipedia.org/wiki/四天王"
+   },
+   {
+    "cat": "kikkyo",
+    "text": "中国語圏でも『四』は『死』と発音が近く（普通話 sì/sǐ、広東語 sei/séi）忌避され、階数や部屋番号で 4 を飛ばす建物があるとされる。一方、潮州語圏では逆に吉数とされることもある。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+   },
+   {
+    "cat": "folklore",
+    "text": "中国の名数に『四大美人』『戦国四公子』『元曲四大家』など『四』を冠する括りが多くあるとされる。（中国語版Wikipedia『4』を要約・和訳、CC BY-SA、改変あり）",
+    "url": "https://zh.wikipedia.org/wiki/4"
    }
   ],
   "5": [
@@ -118,6 +156,11 @@
     "cat": "folklore",
     "text": "六歌仙・六曜（先勝・友引・先負・仏滅・大安・赤口）・六道など、『6』を単位とする伝統的な名数がある。",
     "url": "https://ja.wikipedia.org/wiki/六曜"
+   },
+   {
+    "cat": "kikkyo",
+    "text": "中国語で『六』は『溜』（滑らか・順調）に通じ、商売の吉数とされる（『六六大順』）。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "7": [
@@ -140,6 +183,11 @@
     "cat": "fiction",
     "text": "『007』はジェームズ・ボンドのコードネームとして世界的に知られる（ダブルオーセブン）。",
     "url": "https://ja.wikipedia.org/wiki/ジェームズ・ボンド"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 seven はゲルマン祖語 *sebun、さらに印欧祖語 *septḿ̥ に遡るとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/seven"
    }
   ],
   "8": [
@@ -157,6 +205,11 @@
     "cat": "goro",
     "text": "中国のネットスラングでは『88』が『拜拜（バイバイ）』の発音に通じ、別れの挨拶として使われるとされる。",
     "url": "https://en.wikipedia.org/wiki/Chinese_Internet_slang"
+   },
+   {
+    "cat": "kikkyo",
+    "text": "中国語で『八』は『發』（発財＝富む）に通じる吉数とされる。北京五輪の開会式は 2008 年 8 月 8 日午後 8 時 8 分 8 秒に始まり、電話番号 +86 28 8888 8888 は約 233 万元で落札されたとされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "9": [
@@ -164,6 +217,16 @@
     "cat": "kikkyo",
     "text": "日本では『苦』に通じるとして忌み数とされる一方、中国では最大の陽数かつ『久』に通じる吉数とされ、故宮の九龍壁など皇帝の数として用いられた。",
     "url": "https://ja.wikipedia.org/wiki/忌み数"
+   },
+   {
+    "cat": "kikkyo",
+    "text": "中国語で『九』は『久』（永く続く）に通じ、長寿・永続の吉数とされる。皇帝の数ともされ、皇帝の衣には九匹の龍が描かれたとされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+   },
+   {
+    "cat": "folklore",
+    "text": "ピタゴラス学派で 9 は『エンネアド』と呼ばれ、一桁の数の限界であることから『地平線』に譬えられたとされる。9 の倍数の数字根が常に 9 に戻る性質から、姿を変えても滅びない『物質』の象徴ともされた。（W. W. Westcott『Numbers: Their Occult Power and Mystic Virtues』1911（パブリックドメイン）を要約・和訳。底本: sacred-texts.com）",
+    "url": "https://sacred-texts.com/eso/nop/nop16.htm"
    }
   ],
   "10": [
@@ -178,11 +241,23 @@
     "url": "https://ja.wikipedia.org/wiki/背番号_(サッカー)"
    }
   ],
+  "11": [
+   {
+    "cat": "gogen",
+    "text": "英語 eleven はゲルマン祖語 *ainalif（『（10 を数えて）1 余る』）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/eleven"
+   }
+  ],
   "12": [
    {
     "cat": "folklore",
     "text": "十二支・黄道十二宮（十二星座）・オリュンポス十二神・イスラエル十二部族など、『12』は暦・神話の基本単位として世界的に用いられる。",
     "url": "https://ja.wikipedia.org/wiki/十二支"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 twelve はゲルマン祖語 *twalif（『2 余る』）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/twelve"
    }
   ],
   "13": [
@@ -190,6 +265,11 @@
     "cat": "kikkyo",
     "text": "西洋では代表的な忌み数とされ、『13日の金曜日』や、13 階を設けないビルの例が知られる（トリスカイデカフォビア）。最後の晩餐の 13 人に由来する説などがある。",
     "url": "https://ja.wikipedia.org/wiki/13_(忌み数)"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 thirteen は中英語 thrittene の音位転換形 thirttene に由来し、three + -teen に相当する（古英語 þrēotīene）。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/thirteen"
    }
   ],
   "14": [
@@ -296,6 +376,11 @@
     "cat": "folklore",
     "text": "聖書では『40』が試練の期間を表す定型として現れる（ノアの洪水の 40 日、荒野の 40 年、イエスの断食 40 日など）とされる。",
     "url": "https://ja.wikipedia.org/wiki/40"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 forty は古英語 fēowertiġ（four ＋『10 の組』を表す -tiġ）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/forty"
    }
   ],
   "42": [
@@ -444,6 +529,13 @@
     "url": "https://ja.wikipedia.org/wiki/賀寿"
    }
   ],
+  "81": [
+   {
+    "cat": "kikkyo",
+    "text": "古代人は 9 の倍数、とりわけ 81 を『変化と脆さを予兆する』凶兆として恐れたとされる。（W. W. Westcott『Numbers: Their Occult Power and Mystic Virtues』1911（パブリックドメイン）を要約・和訳。底本: sacred-texts.com）",
+    "url": "https://sacred-texts.com/eso/nop/nop16.htm"
+   }
+  ],
   "86": [
    {
     "cat": "meisu",
@@ -466,6 +558,11 @@
     "cat": "meisu",
     "text": "ピアノの鍵盤数（88 鍵）、そして全天の星座の数（88 星座）としても知られる。",
     "url": "https://ja.wikipedia.org/wiki/星座"
+   },
+   {
+    "cat": "goro",
+    "text": "中国語圏では『88』が『拜拜』（バイバイ）の音写としてチャットの別れの挨拶に使われるとされる。また 88 の字形が『囍』（双喜）に似ることも吉とされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "89": [
@@ -506,6 +603,11 @@
     "cat": "meisu",
     "text": "NHL ではウェイン・グレツキーの背番号 99 が全球団共通の永久欠番となっている。",
     "url": "https://ja.wikipedia.org/wiki/ウェイン・グレツキー"
+   },
+   {
+    "cat": "folklore",
+    "text": "イスラム教では神に 99 の名（アッラーフの美名）があるとされる。（W. W. Westcott『Numbers: Their Occult Power and Mystic Virtues』1911（パブリックドメイン）を要約・和訳。底本: sacred-texts.com）",
+    "url": "https://sacred-texts.com/eso/nop/nop16.htm"
    }
   ],
   "100": [
@@ -513,6 +615,11 @@
     "cat": "folklore",
     "text": "百物語・お百度参り・百人一首など、『100』は『満ちた数』として伝承・名数に多用される。数え 100 歳の祝いは『百寿・紀寿』とされる。",
     "url": "https://ja.wikipedia.org/wiki/百物語"
+   },
+   {
+    "cat": "gogen",
+    "text": "英語 hundred は古英語 hundred（hund『100』＋ -red『数え』）に由来し、ゲルマン祖語 *hundaradą に遡るとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wiktionary.org/wiki/hundred"
    }
   ],
   "101": [
@@ -588,6 +695,11 @@
     "cat": "kikkyo",
     "text": "中国語圏では『一路發（ずっと発財）』に発音が通じるとして吉数とされ、価格や電話番号で好まれる例が知られる。",
     "url": "https://en.wikipedia.org/wiki/Chinese_numerology"
+   },
+   {
+    "cat": "goro",
+    "text": "中国語で『168』は『一路發』（道中ずっと繁盛する）に通じる吉数とされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "171": [
@@ -637,6 +749,13 @@
     "cat": "meisu",
     "text": "東京と神奈川を結ぶ国道 246 号は『ニーヨンロク』の通称で親しまれ、歌の題材にもなっている。",
     "url": "https://ja.wikipedia.org/wiki/国道246号"
+   }
+  ],
+  "250": [
+   {
+    "cat": "goro",
+    "text": "中国語の『二百五』（èr bǎi wǔ）は『間抜け』を意味する俗語とされ、価格や番号で避けられることがあるとされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "300": [
@@ -709,6 +828,13 @@
     "url": "https://ja.wikipedia.org/wiki/リーバイ・ストラウス"
    }
   ],
+  "514": [
+   {
+    "cat": "kikkyo",
+    "text": "中国語で『514』は『我要死』と音が近いことから忌避される数とされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+   }
+  ],
   "515": [
    {
     "cat": "folklore",
@@ -716,11 +842,23 @@
     "url": "https://ja.wikipedia.org/wiki/五・一五事件"
    }
   ],
+  "518": [
+   {
+    "cat": "goro",
+    "text": "中国語で『518』は『我要發』（これから富む）に通じる吉数とされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
+   }
+  ],
   "520": [
    {
     "cat": "goro",
     "text": "中国語圏のネットスラングでは『520』が『我愛你（愛してる）』の発音に通じるとされ、5 月 20 日は『告白の日』として知られる。",
     "url": "https://en.wikipedia.org/wiki/Chinese_Internet_slang"
+   },
+   {
+    "cat": "goro",
+    "text": "中国語で『520』（wǔ èr líng）は『我愛你』と音が近く、5 月 20 日はネット上のバレンタインデーとされる。（英語版Wikipedia『Numbers in Chinese culture』を要約・和訳、CC BY-SA 4.0、改変あり）",
+    "url": "https://en.wikipedia.org/wiki/Numbers_in_Chinese_culture"
    }
   ],
   "555": [
@@ -845,27 +983,6 @@
     "cat": "fiction",
     "text": "松本零士『銀河鉄道999』のタイトルナンバーとして知られる。英国などの緊急通報用電話番号でもある。",
     "url": "https://ja.wikipedia.org/wiki/銀河鉄道999"
-   }
-  ],
-  "0": [
-   {
-    "cat": "folklore",
-    "text": "『無』を表す数としてインドで概念化され、哲学・宗教でも『空（くう）』と結び付けて語られることがある。",
-    "url": "https://ja.wikipedia.org/wiki/0"
-   }
-  ],
-  "1": [
-   {
-    "cat": "meisu",
-    "text": "プロ野球では王貞治（読売ジャイアンツ）の背番号 1 が永久欠番となっている。『ナンバーワン』として第一・最高を象徴する数字でもある。",
-    "url": "https://ja.wikipedia.org/wiki/王貞治"
-   }
-  ],
-  "2": [
-   {
-    "cat": "folklore",
-    "text": "陰陽思想の『陰と陽』、対（つい）の概念など、二元性を象徴する数とされる。",
-    "url": "https://ja.wikipedia.org/wiki/陰陽"
    }
   ]
  }
