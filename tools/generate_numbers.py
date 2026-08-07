@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 
+from progress import ProgressBar
 from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
 from wikipedia_ja import (
     extract_wikipedia_facts,
@@ -2314,21 +2315,23 @@ def main() -> None:
     # Generate pages
     numbers_to_generate = only_numbers if only_numbers is not None else list(
         range(1000))
-    for n in numbers_to_generate:
-        info = build_info(n)
-        write_file(
-            number_file_path(n),
-            render_number_page(
-                info,
-                wikidata,
-                wikipedia_intros,
-                wikipedia_properties,
-                wikipedia_properties_legacy,
-                wikipedia_other_items,
-                wikipedia_other_items_legacy,
-                wikipedia_pins,
-            ),
-        )
+    with ProgressBar(len(numbers_to_generate), "number pages") as progress:
+        for completed, n in enumerate(numbers_to_generate, start=1):
+            info = build_info(n)
+            write_file(
+                number_file_path(n),
+                render_number_page(
+                    info,
+                    wikidata,
+                    wikipedia_intros,
+                    wikipedia_properties,
+                    wikipedia_properties_legacy,
+                    wikipedia_other_items,
+                    wikipedia_other_items_legacy,
+                    wikipedia_pins,
+                ),
+            )
+            progress.update(completed, detail=f"{n:03d}.md")
 
     # Entry points
     write_file(ROOT / "index.md", render_index())

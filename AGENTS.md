@@ -1,7 +1,7 @@
 # AGENTS.md — CheatSheet of Numbers (0-999)
 
 > **このファイルが AI エージェント向け指示の SSOT（Single Source of Truth）です。**
-> GitHub Copilot（coding agent / VS Code / CLI）・Claude（Claude Code / Cowork / Desktop）・その他の AI ツールは、本ファイルの指示に従ってください。
+> Codex（Desktop / IDE / CLI / Cloud）・GitHub Copilot（coding agent / VS Code / CLI）・Claude（Claude Code / Cowork / Desktop）・その他の AI ツールは、本ファイルの指示に従ってください。
 > `.github/copilot-instructions.md` と `CLAUDE.md` は本ファイルへのポインタであり、内容の重複記載はしません。指示の追加・変更は **必ず本ファイルのみ** を編集してください。
 
 ## 前提条件（必読）
@@ -53,6 +53,7 @@
 │   ├── wikipedia_ja_importance_overrides_v1.json # 重要度閾値の上書き設定
 │   ├── wolfram_enrichment_v1.json                # Wolfram Knowledgebase 由来の科学データ（元素/小惑星/NGC）
 │   ├── number_lore_v1.json                       # 数秘・占術・名数など『文化的ないわれ』のキュレーションデータ
+│   ├── oeis_comments_ja_v1.json                  # OEIS %C コメントの和訳（CC BY-SA 4.0、oeisdata ミラー由来）
 │   └── _cache/              # 取得キャッシュ（通常 Git 管理しない）
 ├── _wip/                    # 作業途中メモ（公開してよい内容のみ）
 ├── .private/                # 非公開メモ（コミット対象外の下書き等）
@@ -92,6 +93,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 - Wikipedia は CC BY-SA。本リポジトリ（CC BY-SA 4.0）と整合は取りやすいが、無制限の転載は避け「要約＋リンク」を基本とする。
 - Wikidata の構造化データは CC0。規格・コード等の"事実データ"は Wikidata 由来で自動拡充し、一次情報へリンクする。
 - 数学的性質の記述（素因数分解・約数・トーシェント等）を追加・変更した場合は、可能なら計算機（Python / Wolfram 等)で検算する。
+- 数列への所属（多角数・幸運数・ウラム数・各種特殊素数など）は **`generate_numbers.py` 内で自前計算**し、出典として OEIS の A 番号リンクを添える。外部サイトから所属データを取得・転載しない。
 - 元素・小惑星・NGC 等の科学データの詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来（`tools/wolfram_enrichment_v1.json` に同梱）とし、出典を明記する。
 - 数秘術・エンジェルナンバー・吉凶・語呂合わせ等の「文化的ないわれ」は『数秘・占術・文化のいわれ』セクションに集約する。科学的根拠のない伝承である旨を各ページで明記し、断定を避ける（『〜とされる』）。
   - 機械導出（数秘還元値・エンジェルナンバー・ヘブライ数字）は `generate_numbers.py`、キュレーション項目は `tools/number_lore_v1.json` を編集する（生成物の手編集をしない）。
@@ -101,6 +103,41 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
   - 数式は KaTeX auto-render で表示（`index.html` で読込、`assets/app.js` の `renderMathIn`）。
   - ビューアーの検索インデックス `assets/numbers-index.json` は `tools/build_viewer_index.py` で生成する（`generate_numbers.py` 実行時に自動同期）。手編集しない。
   - 生成物には Liquid 構文と誤認される `{{` / `{%` を含めない（`generate_numbers.py` が出力時に `{ {` / `{ %` へ無害化。将来 Jekyll 化する場合への備えとして維持）。
+
+### 情報源とライセンス（採否の判断基準）
+
+外部情報を取り込む前に、**利用規約が (1) CC BY-SA 4.0 での再配布 と (2) プログラムによる取得 を許すか**を必ず確認し、下表を更新してください。
+
+| 情報源 | 用途 | ライセンス | 可否・運用 |
+| --- | --- | --- | --- |
+| Wikipedia（ja/en） | 概要・性質・文化 | CC BY-SA | **採用**。要約＋短い引用＋出典 URL |
+| Wikidata | 規格・コード等の事実データ | CC0 | **採用**。自動拡充 |
+| Wolfram Knowledgebase | 元素・小惑星・NGC | — | **採用**。`tools/wolfram_enrichment_v1.json` に同梱（オフライン） |
+| OEIS | 数列の A 番号・定義 | CC BY-SA 4.0 | **採用（リンクのみ）**。⚠️ 利用規約 §10 と robots.txt が自動アクセスを禁止。`oeis.org/search` をバッチで叩かないこと。データが要る場合は GitHub ミラー `oeis/oeisdata` を clone する |
+| ja.Wiktionary / Wikibooks | 漢数字の字源など | CC BY-SA 4.0 | 未採用（採用可）。Wikipedia と同じ基盤で追加できる |
+| 青空文庫（PD 本文）/ NDL（保護期間満了資料） | 文化的いわれの一次資料 | PD ほか | 未採用（採用可）。PD 部分は CC BY-SA を後付けせず、由来をファイル単位で明記する |
+| OEIS の %C コメント（`oeis/oeisdata` clone 経由） | 数学的性質の補足（**和訳**） | CC BY-SA 4.0 | **採用**。和訳・要約を `tools/oeis_comments_ja_v1.json` に収録し、数列フラグの解説に帰属付きで追記。EULA §3 の帰属（OEIS の名称＋ A 番号 URL）と改変（翻訳）表示を必ず付ける |
+| en/zh Wikipedia・en.wiktionary・en.wikiquote | 数字の文化・迷信・語源・引用（**和訳**） | CC BY-SA 4.0 | **採用**。和訳エントリを `tools/number_lore_v1.json` に収録（中国の数字文化＝kikkyo/goro、数詞の語源＝gogen カテゴリ）。text 末尾に出典と「和訳・改変あり」を明記 |
+| Project Gutenberg / sacred-texts / Wikisource の PD 古典 | 数のいわれの一次資料（**和訳**） | PD（要ファイル単位確認） | **採用**。Westcott『Numbers: Their Occult Power and Mystic Virtues』(1911) 由来のエントリを `number_lore_v1.json` に収録済み。追加候補: Conant『The Number Concept』(1896)。PG 由来は本文から「Project Gutenberg」の商標表記を除去。sacred-texts は ⚠ 付きファイルと解説文（J.B. Hare 著作権）を除外 |
+| ProofWiki | 定義・定理・個別数の例（**和訳**） | CC BY-SA 3.0（翻案は 4.0 で公開可） | 未採用（採用可）。個別数のページあり（例: Perfect Number/Examples/496）。数学的定義の出典として有力 |
+| Groupprops (subwiki) | 位数 n の群の個数・分類 | CC BY-SA 3.0 | 未採用（採用可）。「位数 n の群は◯種類」という 0-999 に直結する事実の出典に好適 |
+| Metamath（set.mm） | 形式証明の参照 | CC0（peano.mm のみ GPL で不可） | 未採用（採用可）。帰属不要だが個別の数の性質はほぼ扱わない |
+| MacTutor History of Mathematics | 数学史の記述（**和訳**） | CC BY-SA 4.0（本文のみ。/Extras/ と画像は対象外） | 未採用（採用可）。完全数の歴史など補助的に |
+| Encyclopedia of Mathematics | — | wiki 追記分のみ CC BY-SA 3.0。**Kluwer/Springer 由来の原記事は権利留保** | **リンクのみ**。記事単位の履歴精査なしに翻案しない |
+| nLab | — | 正式ライセンスなし | **リンクのみ**（再配布・翻案の明示許諾がない） |
+| arXiv | 定理の一次出典 | 論文ごと（CC BY / CC BY-SA / CC0 のみ利用可） | 条件付き。abs ページのライセンスバッジで判定。デフォルトの non-exclusive license は不可 |
+| Wolfram MathWorld | — | 全権利留保（FAQ で複製・ミラー禁止を明記） | **不可**。和訳（翻案）も不可。事実の自前記述＋外部リンクのみ |
+| Number Gossip | — | ライセンス表示を確認できず | **不可扱い**（全権利留保とみなす） |
+| number-pedia.com | — | 全権利留保 | **不可**。[利用規約](https://number-pedia.com/terms-of-service/)第五条がスクレイピングと無断複製を禁止。数列名の目録として人手で参照するのは可 |
+| Numbers Aplenty | — | ライセンス表示なし | **不可**（全権利留保扱い）。検算用の人手参照のみ |
+| Prime Curios! | — | GPLv3 + 投稿者権利留保 | **不可**（CC BY-SA 4.0 と非互換） |
+| コトバンク等の辞典サイト | — | 引用条件のみ | **不可**（商用利用禁止条項があり CC BY-SA と非互換） |
+
+#### 和訳（翻案）収録時の出典表記テンプレート
+
+- **OEIS %C 由来**: 「本項は The Online Encyclopedia of Integer Sequences (OEIS) の A00xxxx (https://oeis.org/A00xxxx) のコメントを日本語に翻訳・編集したものです（CC BY-SA 4.0、翻訳・要約による改変あり）。」
+- **Wikimedia 系由来**: 「本項は 〈プロジェクト名〉『〈ページ名〉』（パーマリンク URL、YYYY-MM-DD 取得）を日本語に翻訳・編集したものです（CC BY-SA 4.0、改変あり）。」
+- **PD 古典由来**: 「本項の一部は 〈著者〉 "〈書名〉" (〈年〉, パブリックドメイン) を底本として翻訳・再構成したものです。底本: 〈URL〉」（PG 由来は本文・書名に「Project Gutenberg」を含めず、出典欄のリンク言及に留める）
 
 ## 生成ワークフロー
 

@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import unquote
 
+from progress import ProgressBar
+
 
 _LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
@@ -73,38 +75,41 @@ def check_internal_links(repo_root: Path) -> tuple[int, int, list[MissingLink]]:
     links_checked = 0
     missing: list[MissingLink] = []
 
-    for md_file in md_files:
-        text = md_file.read_text(encoding="utf-8")
-        current_dir = md_file.parent
+    with ProgressBar(len(md_files), "link check") as progress:
+        for file_number, md_file in enumerate(md_files, start=1):
+            text = md_file.read_text(encoding="utf-8")
+            current_dir = md_file.parent
 
-        for match in _LINK_RE.finditer(text):
-            raw = match.group(1)
-            if _is_external_link(raw):
-                continue
+            for match in _LINK_RE.finditer(text):
+                raw = match.group(1)
+                if _is_external_link(raw):
+                    continue
 
-            target = _split_target(raw)
-            if not target:
-                continue
+                target = _split_target(raw)
+                if not target:
+                    continue
 
-            # Only validate path-like links. If the link is just an anchor, it is already skipped.
-            # If it's a bare word like "LICENSE" without extension, still check existence.
-            target_path = Path(target)
-            if target_path.is_absolute():
-                # Treat absolute paths as external/invalid in this repo.
-                continue
+                # Only validate path-like links. If the link is just an anchor, it is already skipped.
+                # If it's a bare word like "LICENSE" without extension, still check existence.
+                target_path = Path(target)
+                if target_path.is_absolute():
+                    # Treat absolute paths as external/invalid in this repo.
+                    continue
 
-            resolved = (current_dir / target_path).resolve()
-            links_checked += 1
+                resolved = (current_dir / target_path).resolve()
+                links_checked += 1
 
-            try:
-                resolved.relative_to(repo_root.resolve())
-            except ValueError:
-                # points outside the repo; treat as missing.
-                missing.append(MissingLink(md_file, raw, resolved))
-                continue
+                try:
+                    resolved.relative_to(repo_root.resolve())
+                except ValueError:
+                    # points outside the repo; treat as missing.
+                    missing.append(MissingLink(md_file, raw, resolved))
+                    continue
 
-            if not resolved.exists():
-                missing.append(MissingLink(md_file, raw, resolved))
+                if not resolved.exists():
+                    missing.append(MissingLink(md_file, raw, resolved))
+
+            progress.update(file_number, detail=md_file.name)
 
     return (len(md_files), links_checked, missing)
 

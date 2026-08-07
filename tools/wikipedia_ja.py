@@ -12,6 +12,8 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
+from progress import ProgressBar
+
 
 WIKIPEDIA_JA_API_ENDPOINT = "https://ja.wikipedia.org/w/api.php"
 
@@ -1102,24 +1104,27 @@ def load_or_build_wikipedia_property_sentence_sets_for_numbers(
         term_freq = _build_term_frequency_from_items(cached_all)
         fetched_candidates: dict[int, list[str]] = {}
 
-        for n in sorted(to_fetch):
-            title = str(n)
-            try:
-                candidates = extract_property_candidate_sentences_from_title(
-                    title)
-            except Exception:
-                candidates = []
-            if candidates:
-                candidates = _filter_candidates_relevant_to_number(
-                    candidates, n, kind="property")
-            fetched_candidates[n] = candidates
-            for s in candidates:
-                term = _extract_scoring_term(s)
-                if term:
-                    t = _clean_text(term)
-                    if t:
-                        term_freq[t] = term_freq.get(t, 0) + 1
-            time.sleep(0.2)
+        sorted_to_fetch = sorted(to_fetch)
+        with ProgressBar(len(sorted_to_fetch), "Wikipedia properties") as progress:
+            for completed, n in enumerate(sorted_to_fetch, start=1):
+                title = str(n)
+                try:
+                    candidates = extract_property_candidate_sentences_from_title(
+                        title)
+                except Exception:
+                    candidates = []
+                if candidates:
+                    candidates = _filter_candidates_relevant_to_number(
+                        candidates, n, kind="property")
+                fetched_candidates[n] = candidates
+                for s in candidates:
+                    term = _extract_scoring_term(s)
+                    if term:
+                        t = _clean_text(term)
+                        if t:
+                            term_freq[t] = term_freq.get(t, 0) + 1
+                time.sleep(0.2)
+                progress.update(completed, detail=title)
 
         for n, candidates in fetched_candidates.items():
             pinned = pins_config.get(n, {}).get("property")
@@ -1234,25 +1239,28 @@ def load_or_build_wikipedia_other_item_sets_for_numbers(
         term_freq = _build_term_frequency_from_items(cached_all)
         fetched_candidates: dict[int, list[str]] = {}
 
-        for n in sorted(to_fetch):
-            title = str(n)
-            try:
-                candidates = extract_other_candidate_items_from_title(title)
-            except Exception:
-                candidates = []
-            if candidates:
-                pinned_for_n = pins_config.get(n, {}).get("other")
-                candidates = _filter_candidates_relevant_to_number(
-                    candidates, n, kind="other", pinned_substrings=pinned_for_n)
+        sorted_to_fetch = sorted(to_fetch)
+        with ProgressBar(len(sorted_to_fetch), "Wikipedia other items") as progress:
+            for completed, n in enumerate(sorted_to_fetch, start=1):
+                title = str(n)
+                try:
+                    candidates = extract_other_candidate_items_from_title(title)
+                except Exception:
+                    candidates = []
+                if candidates:
+                    pinned_for_n = pins_config.get(n, {}).get("other")
+                    candidates = _filter_candidates_relevant_to_number(
+                        candidates, n, kind="other", pinned_substrings=pinned_for_n)
 
-            fetched_candidates[n] = candidates
-            for s in candidates:
-                term = _extract_scoring_term(s)
-                if term:
-                    t = _clean_text(term)
-                    if t:
-                        term_freq[t] = term_freq.get(t, 0) + 1
-            time.sleep(0.2)
+                fetched_candidates[n] = candidates
+                for s in candidates:
+                    term = _extract_scoring_term(s)
+                    if term:
+                        t = _clean_text(term)
+                        if t:
+                            term_freq[t] = term_freq.get(t, 0) + 1
+                time.sleep(0.2)
+                progress.update(completed, detail=title)
 
         for n, candidates in fetched_candidates.items():
             pinned = pins_config.get(n, {}).get("other")

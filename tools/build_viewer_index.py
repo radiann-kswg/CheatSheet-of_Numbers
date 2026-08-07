@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 
 import generate_numbers as gen
+from progress import ProgressBar
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = ROOT / "assets" / "numbers-index.json"
@@ -155,13 +156,18 @@ def _build_record(n: int, lore: dict) -> dict:
 
 def build_viewer_index() -> dict:
     lore = gen._load_number_lore()
+    records = []
+    with ProgressBar(1000, "viewer index") as progress:
+        for n in range(1000):
+            records.append(_build_record(n, lore))
+            progress.update(n + 1, detail=f"{n:03d}")
     return {
         "generatedAt": datetime.now().isoformat(timespec="seconds"),
         "filters": {
             "lore": LORE_FILTER_DEFS,
             "properties": PROPERTY_FILTER_DEFS,
         },
-        "numbers": [_build_record(n, lore) for n in range(1000)],
+        "numbers": records,
     }
 
 
