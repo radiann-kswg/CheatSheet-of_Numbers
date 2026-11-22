@@ -45,6 +45,7 @@ PROPERTY_FILTER_DEFS = [
     {"key": "composite", "label": "合成数"},
     {"key": "even", "label": "偶数"},
     {"key": "odd", "label": "奇数"},
+    *({"key": key, "label": label} for key, label in gen.SCIENCE_FILTER_LABELS.items()),
     {"key": "square", "label": "平方数"},
     {"key": "cube", "label": "立方数"},
     {"key": "triangular", "label": "三角数"},
@@ -125,6 +126,11 @@ PROPERTY_FILTER_DEFS = [
     {"key": "mersenne_prime", "label": "メルセンヌ素数"},
     {"key": "wagstaff_prime", "label": "ワグスタッフ素数"},
     {"key": "nsw_prime", "label": "NSW素数"},
+    {"key": "brazilian", "label": "ブラジル数"},
+    {"key": "odd_fibonacci_pseudoprime", "label": "フィボナッチ擬素数（奇数）"},
+    {"key": "nontotient", "label": "ノントーシェント数"},
+    {"key": "twin_prime_product", "label": "双子素数の積"},
+    {"key": "requires_four_squares", "label": "3平方数の和で表せない数"},
 ]
 
 # math_flag_details のフラグ名 → propertyFilters キー
@@ -209,6 +215,11 @@ FLAG_NAME_TO_KEY = {
     "メルセンヌ素数": "mersenne_prime",
     "ワグスタッフ素数": "wagstaff_prime",
     "NSW素数": "nsw_prime",
+    "ブラジル数": "brazilian",
+    "フィボナッチ擬素数（奇数）": "odd_fibonacci_pseudoprime",
+    "ノントーシェント数": "nontotient",
+    "双子素数の積": "twin_prime_product",
+    "3平方数の和で表せない数": "requires_four_squares",
 }
 
 _PROP_LABELS = {d["key"]: d["label"] for d in PROPERTY_FILTER_DEFS}
@@ -241,12 +252,11 @@ def _build_record(n: int, lore: dict) -> dict:
         if key and key not in property_filters:
             property_filters.append(key)
 
+    property_filters.extend(gen.science_filter_keys(n))
+
     # --- snippets ---
-    snippets: list[str] = []
-    for e in entries:
-        if isinstance(e, dict) and e.get("text"):
-            snippets.append(e["text"])
-            break
+    lore_texts = [e["text"] for e in entries if isinstance(e, dict) and e.get("text")]
+    snippets = lore_texts[:1]
 
     # --- searchText ---
     tokens: list[str] = [
@@ -260,7 +270,12 @@ def _build_record(n: int, lore: dict) -> dict:
     tokens.extend(_LORE_LABELS[k] for k in lore_filters if k in _LORE_LABELS)
     tokens.extend(_PROP_LABELS[k]
                   for k in property_filters if k in _PROP_LABELS)
-    tokens.extend(snippets)
+    _, reduction = gen.numerology_reduction(n)
+    tokens.append(gen.NUMEROLOGY_MEANINGS.get(reduction, ""))
+    tokens.extend(lore_texts)
+    tokens.extend(note["text"] for note in gen.science_notes(n))
+    for note in gen._load_number_math_notes().get(str(n), []):
+        tokens.extend((note["title"], note["text"]))
     search_text = " ".join(tokens).lower()
 
     return {

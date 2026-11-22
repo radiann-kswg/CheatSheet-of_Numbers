@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "version": 1,
+    "purpose": "数字別の数学の補足。計算例は独立に検算し、定理・定義の参照先を各項目に付す。"
+  },
+  "entries": {
+    "0": [
+      {
+        "title": "0次元球面",
+        "text": "数直線で原点から距離1の点は $-1,1$ の2点で、これらが球面 $S^0$ をなす。実数の乗法をこの2点に制限すると、位数2の群になる。",
+        "sources": {
+          "Baez『The Octonions』の球面とリー群": "https://math.ucr.edu/home/baez/octonions/node7.html"
+        }
+      }
+    ],
+    "1": [
+      {
+        "title": "単位円の掛け算",
+        "text": "複素平面の単位円 $S^1$ では、$e^{i\\alpha}e^{i\\beta}=e^{i(\\alpha+\\beta)}$ が成り立つ。円周上の点の掛け算は回転角の足し算に対応する。",
+        "sources": {
+          "Baez『The Octonions』の球面とリー群": "https://math.ucr.edu/home/baez/octonions/node7.html"
+        }
+      }
+    ],
+    "3": [
+      {
+        "title": "3次元球面と回転",
+        "text": "実4次元の四元数のうちノルムが1のものが $S^3$ をなす。単位四元数 $q$ が純虚四元数 $v$ を $qvq^{-1}$ に写す作用は3次元の回転で、$q$ と $-q$ は同じ回転を表す。",
+        "sources": {
+          "カリフォルニア大学バークレー校の回転の解説": "https://rotations.berkeley.edu/other-representations-of-a-rotation/"
+        }
+      }
+    ],
+    "4": [
+      {
+        "title": "ハミルトンの四元数",
+        "text": "ハミルトンが1843年に発見した四元数は、$a+bi+cj+dk$ と実数4個で表せる。ノルムが1の四元数を使うと、空間の任意の回転を表現できる。",
+        "sources": {
+          "カリフォルニア大学バークレー校の回転の解説": "https://rotations.berkeley.edu/other-representations-of-a-rotation/",
+          "ハミルトン自身の報告": "https://www.maths.tcd.ie/pub/HistMath/People/Hamilton/Quatern2/Quatern2.html"
+        }
+      }
+    ],
+    "6": [
+      {
+        "title": "4次元空間の回転",
+        "text": "四つの座標軸から2本を選ぶと、独立な微小回転に対応する座標平面が $\\binom{4}{2}=6$ 個ある。一般に回転群 $\\mathrm{SO}(n)$ の自由度は、反対称行列の対角線より上にある成分の数 $n(n-1)/2$ に等しい。",
+        "sources": {
+          "特殊直交群の次元（アルバータ大学）": "https://sites.ualberta.ca/~vbouchar/MAPH464/section-Lie-groups.html"
+        }
+      }
+    ],
+    "7": [
+      {
+        "title": "ヒルベルトの第7問題",
+        "text": "ゲルフォントとシュナイダーは1934年に、$a$ が $0,1$ 以外の代数的数、$b$ が有理数でない代数的数なら、$a^b$ のどの値も超越数であることを証明した。ヒルベルトの第7問題はこれで解決し、$2^{\\sqrt{2}}$ はその具体例である。",
+        "sources": {
+          "Waldschmidt の超越数論講義 §2.3.3": "https://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/AWSLecture2.pdf"
+        }
+      },
+      {
+        "title": "7次元球面と八元数",
+        "text": "単位八元数の積は $S^7$ に単位元を持つ連続な掛け算を与える。この積は結合法則を満たさない。アダムスの定理によると、正の次元の球面で単位元をホモトピーの意味で持つ掛け算が可能なのは $S^1,S^3,S^7$ である。球面でリー群になるものは $S^0,S^1,S^3$ である。",
+        "sources": {
+          "Adams の球面に関する定理": "https://webhomes.maths.ed.ac.uk/~v1ranick/papers/adams1.pdf",
+          "Baez『The Octonions』の球面とリー群": "https://math.ucr.edu/home/baez/octonions/node7.html"
+        }
+      }
+    ],
+    "8": [
+      {
+        "title": "八元数とフルヴィッツの定理",
+        "text": "単位元を備え、正定値のノルムが $\\lVert xy\\rVert=\\lVert x\\rVert\\lVert y\\rVert$ を満たす有限次元の実ノルム付き可除代数の次元は $1,2,4,8$ に限られる。8次元の例が八元数で、積の括弧の付け方によって結果が変わることがある。",
+        "sources": {
+          "Baez『The Octonions』": "https://math.ucr.edu/home/baez/octonions/node2.html"
+        }
+      }
+    ],
+    "10": [
+      {
+        "title": "ガリレイ群の10個の自由度",
+        "text": "3次元空間で慣性系を移すとき、空間回転に3個、原点の空間移動に3個、二つの系の相対速度に3個、時刻の原点の移動に1個の連続パラメーターを使う。ガリレイ群の次元は合計 $3+3+3+1=10$ である。",
+        "sources": {
+          "David Tong『Classical Dynamics』": "https://www.damtp.cam.ac.uk/user/tong/dynamics/dynhtml/S1.html"
+        }
+      }
+    ],
+    "20": [
+      {
+        "title": "20に近い定数",
+        "text": "$e^\\pi-\\pi=19.999099979\\ldots$ は20に近い非整数で、20より約 $0.000900021$ 小さい。ヤコビのテータ関数の変換式から得られる近似 $e^\\pi\\approx 8\\pi-2$ に $7\\pi\\approx22$ を組み合わせると、$e^\\pi-\\pi\\approx20$ になる。",
+        "sources": {
+          "NIST DLMF のテータ関数の変換式": "https://dlmf.nist.gov/20.7.E32",
+          "ゲルフォント定数と20の近似": "https://en.wikipedia.org/wiki/Gelfond%27s_constant#The_number_e%CF%80_%E2%88%92_%CF%80"
+        }
+      }
+    ],
+    "109": [
+      {
+        "title": "正四面体の中心角",
+        "text": "正四面体の中心から二つの頂点に向かう単位ベクトルの内積は $-1/3$ で、角度は $\\arccos(-1/3)\\approx109.4712^\\circ$。正四面体形のメタンの H–C–H 結合角に現れる。4次元の四つの単位座標ベクトルを $(1,1,1,1)$ に垂直な超平面に正射影しても、射影されたベクトルの間に同じ角ができる。",
+        "sources": {
+          "NIST のメタン分子のデータ": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828&charge=0"
+        }
+      }
+    ],
+    "162": [
+      {
+        "title": "ゲルフォント定数の収束分数",
+        "text": "$e^\\pi=23.14069263\\ldots$ の連分数は $[23;7,9,\\ldots]$ で始まる。$[23;7]=23+1/7=162/7$ はその収束分数で、真の値を約 $0.002165$ 上回る。",
+        "sources": {
+          "連分数と中間近似分数（スタンフォード大学）": "https://crypto.stanford.edu/pbc/notes/contfrac/converge.html"
+        }
+      }
+    ],
+    "221": [
+      {
+        "title": "素数判定を通過する底",
+        "text": "$221=13\\times17$ に対して整数の底 $2\\le a\\le219$ を調べると、フェルマー条件 $a^{220}\\equiv1\\pmod{221}$ を満たすのは14個。ミラー–ラビン判定まで通る底（強い嘘つき）は $21,47,174,200$ の4個である。",
+        "sources": {
+          "『Handbook of Applied Cryptography』第4章": "https://cacr.uwaterloo.ca/hac/about/chap4.pdf"
+        }
+      },
+      {
+        "title": "斜辺221の整数直角三角形",
+        "text": "$x^2+y^2=221^2$ を満たす正整数の脚 $x\\le y$ は $(21,220),(85,204),(104,195),(140,171)$ の4組。このうち両脚が互いに素な原始ピタゴラス数を与えるのは $(21,220)$ と $(140,171)$ である。",
+        "sources": {
+          "ピタゴラス数の分類（Keith Conrad）": "https://kconrad.math.uconn.edu/blurbs/ugradnumthy/pythagtriple.pdf"
+        }
+      },
+      {
+        "title": "二つの平方数の和",
+        "text": "$221=5^2+14^2$ と書ける。$14^2<221<15^2$ なので、平方数の和として表すのに必要な項数は最小で2である。",
+        "sources": {
+          "二平方和の条件（Keith Conrad）": "https://kconrad.math.uconn.edu/blurbs/ugradnumthy/Zinotes.pdf"
+        }
+      },
+      {
+        "title": "16進表記の221B",
+        "text": "ホームズの住所でおなじみの表記「221B」を16進数として読むと、$2\\cdot16^3+2\\cdot16^2+16+11=8731$。$\\sqrt{8731}<94$ であり、93以下のどの素数でも割れないので8731は素数である。",
+        "sources": {
+          "221B Baker Street": "https://en.wikipedia.org/wiki/221B_Baker_Street"
+        }
+      }
+    ],
+    "247": [
+      {
+        "title": "二つの素数判定と底12",
+        "text": "$247=13\\times19$ に対して $2\\le a\\le245$ の整数を調べると、フェルマー条件 $a^{246}\\equiv1\\pmod{247}$ を満たす底は34個、ミラー–ラビン判定も通る底は16個である。どちらも最小の底は12で、$12^{123}\\equiv-1\\pmod{247}$ となる。",
+        "sources": {
+          "『Handbook of Applied Cryptography』第4章": "https://cacr.uwaterloo.ca/hac/about/chap4.pdf"
+        }
+      },
+      {
+        "title": "四つの平方数が必要な数",
+        "text": "$247=1^2+1^2+7^2+14^2$。平方数を8で割った余りは $0,1,4$ のどれかで、これらを三つ足しても $247\\equiv7\\pmod8$ と同じ余りにならない。必要な平方数の最小個数は4である。",
+        "sources": {
+          "ルジャンドルの三平方定理": "https://en.wikipedia.org/wiki/Legendre%27s_three-square_theorem"
+        }
+      }
+    ],
+    "266": [
+      {
+        "title": "ヒルベルト数の先頭3桁",
+        "text": "$2^{\\sqrt{2}}=2.665144142\\ldots$ の小数点を除いて先頭3桁を読むと266になる。266との対応は十進表記での桁の一致である。連分数は $[2;1,1,1,72,\\ldots]$ で、大きな部分商72の直前で打ち切った $[2;1,1,1]=8/3$ は、分母3で誤差約 $0.001523$ の近似を与える。",
+        "sources": {
+          "Waldschmidt の超越数論講義 §2.3.3": "https://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/AWSLecture2.pdf",
+          "連分数と中間近似分数（スタンフォード大学）": "https://crypto.stanford.edu/pbc/notes/contfrac/converge.html"
+        }
+      },
+      {
+        "title": "ナイトの跳躍角",
+        "text": "チェスのナイトが横に2、縦に1進む向きと横軸との角は $\\theta=\\arctan(1/2)=26.56505\\ldots^\\circ$。小数第1位に丸めた $26.6^\\circ$ の数字は 2・6・6 と並ぶ。266との対応は、度を単位としてこの桁で丸めたときに生じる。倍角は $\\tan(2\\theta)=4/3$ なので、直角三角形 $3:4:5$ の辺4に向かい合う角に等しい。",
+        "sources": {
+          "FIDE チェス規則第3.6条": "https://handbook.fide.com/chapter/e012023"
+        }
+      }
+    ],
+    "323": [
+      {
+        "title": "フィボナッチ数と素数判定",
+        "text": "$323=17\\times19$ は $F_{324}\\equiv0\\pmod{323}$ を満たす最小の奇フィボナッチ擬素数。一方、$2\\le a\\le321$ にミラー–ラビン判定を通る底はなく、底2でも $2^{161}\\equiv257\\pmod{323}$ となる。Baillie–PSW 判定は、底2の強擬素数判定に、数に応じてパラメーターを選ぶリュカ数列の判定を組み合わせる。",
+        "sources": {
+          "Baillie・Fiori・Wagstaff の論文": "https://www.cs.uleth.ca/~fiori/Docs/bfw-accepted.pdf",
+          "奇フィボナッチ擬素数 A081264": "https://oeis.org/A081264"
+        }
+      },
+      {
+        "title": "三つの平方数が必要な数",
+        "text": "$323=3^2+5^2+17^2$。二平方和では、4で割って3余る素因数の指数は偶数になる。$323=17\\times19$ ではそのような素因数19が1回だけ現れるため、平方数は最小で三つ必要である。",
+        "sources": {
+          "二平方和の条件（Keith Conrad）": "https://kconrad.math.uconn.edu/blurbs/ugradnumthy/Zinotes.pdf"
+        }
+      }
+    ],
+    "400": [
+      {
+        "title": "グレゴリオ暦の400年周期",
+        "text": "400年間に閏年は97回ある。$400 \\times 365 + 97 = 146097 = 7 \\times 20871$ 日でちょうど20,871週になるため、400年後には同じ日付が同じ曜日に来る。日本の秋分の日は天文学上の秋分を迎える日で、シルバーウィークの連休が生じる年は、この曜日の周期だけでは決まらない。",
+        "sources": {
+          "国立天文台・うるう年の規則": "https://www.nao.ac.jp/faq/a0306.html",
+          "国立天文台・秋分の日の決まり方": "https://www.nao.ac.jp/faq/a0301.html"
+        }
+      }
+    ],
+    "509": [
+      {
+        "title": "ゲルフォント定数の中間近似分数",
+        "text": "$e^\\pi=[23;7,9,\\ldots]$ の部分商9を途中の3に置き換えると、$[23;7,3]=(3\\cdot162+23)/(3\\cdot7+1)=509/22$ となる。これは中間近似分数で、$e^\\pi$ を約 $0.004329$ 下回る。収束分数 $162/7$ の絶対誤差は約 $0.002165$ と小さい。",
+        "sources": {
+          "連分数と中間近似分数（スタンフォード大学）": "https://crypto.stanford.edu/pbc/notes/contfrac/converge.html"
+        }
+      }
+    ]
+  }
+}

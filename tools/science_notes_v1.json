@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "version": 1,
+    "checked": "2026-11-22",
+    "notes": "各項の日本語は事実に基づく独自記述。核種の半減期は Wolfram Knowledgebase と評価値を照合。NGC とメシエ番号の対応は Mattia Verga / OpenNGC（CC BY-SA 4.0）の NGC 1〜1188 を抽出し、重複番号 NGC 651 を照合したもの。",
+    "openngc_license": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "sources": {
+    "nubase": ["NUBASE2020","https://doi.org/10.1088/1674-1137/abddae"],
+    "neptunium": ["米国エネルギー省資料（ネプツニウム系列）","https://www.osti.gov/servlets/purl/841368"],
+    "ciaaw": ["IUPAC・CIAAW","https://ciaaw.org/radioactive-elements.htm"],
+    "gsi": ["GSI・発見報告","https://doi.org/10.1007/BF01420157"],
+    "laser": ["ラトビア大学固体物理学研究所","https://www.cfi.lu.lv/en/services/all-services/full-equipment-list/ndyag-lasers/"],
+    "acog": ["米国産科婦人科学会","https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/05/methods-for-estimating-the-due-date"],
+    "openngc": ["Mattia Verga / OpenNGC（CC BY-SA 4.0、番号を抜粋）","https://github.com/mattiaverga/OpenNGC"],
+    "m32": ["NASA・アンドロメダ銀河の伴銀河","https://science.nasa.gov/asset/hubble/survey-of-andromedas-satellite-galaxies/"],
+    "c62": ["NASA・Caldwell 62","https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-caldwell-catalog/caldwell-62/"],
+    "m76": ["NASA・Messier 76","https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-76/"],
+    "brucia": ["ハイデルベルク大学天文学センター","https://t3ext.zah.uni-heidelberg.de/institutes/astronomisches-rechen-institut/about-the-ari/minor-planets"]
+  },
+  "entries": {
+    "205": [
+      {"category": "messier", "text": "NGC 205 のメシエ番号は M110。", "sources": ["openngc"]}
+    ],
+    "221": [
+      {"category": "messier", "text": "NGC 221 はメシエ32（M32）で、アンドロメダ銀河の伴銀河。", "sources": ["openngc", "m32"]},
+      {"category": "isotope", "text": "フランシウム221（Fr-221）の半減期は約4.8分。ネプツニウム系列（4n+1系列）に属する。", "sources": ["nubase", "neptunium"]}
+    ],
+    "224": [
+      {"category": "messier", "text": "NGC 224 のメシエ番号は M31。", "sources": ["openngc"]}
+    ],
+    "247": [
+      {"category": "ngc", "text": "NGC 247 は星がまばらな領域の見た目から「針の穴銀河」（Needle’s Eye Galaxy）とも呼ばれる。", "sources": ["c62"]},
+      {"category": "isotope", "text": "キュリウム247（Cm-247）の半減期は約1560万年で、キュリウムの既知の同位体で最も長い。", "sources": ["ciaaw"]},
+      {"category": "isotope", "text": "バークリウム247（Bk-247）の半減期は約1380年。バークリウムで半減期が測定されている同位体のうち最も長い。", "sources": ["ciaaw"]}
+    ],
+    "266": [
+      {"category": "isotope", "text": "マイトネリウム266（Mt-266）は、1982年にドイツのGSIで初めて観測された原子番号109の元素の同位体。", "sources": ["gsi"]},
+      {"category": "wavelength", "text": "Nd:YAGレーザーの基本波（1064 nm）の第4高調波は波長266 nmの深紫外光。", "sources": ["laser"]},
+      {"category": "pregnancy_duration", "text": "出産予定日は受精日から約266日（38週）が目安。28日周期を仮定し、最終月経の初日を起点にすると約280日（40週）となる。", "sources": ["acog"]}
+    ],
+    "323": [
+      {"category": "minor_planet", "text": "マックス・ヴォルフによる1891年のブルチア発見は、写真観測による最初の小惑星発見だった。", "sources": ["brucia"]}
+    ],
+    "355": [
+      {"category": "wavelength", "text": "Nd:YAGレーザーの基本波（1064 nm）の第3高調波は紫外光で、波長は $1064/3 \\approx 354.7$ nm。公称値は355 nm。", "sources": ["laser"]}
+    ],
+    "532": [
+      {"category": "wavelength", "text": "Nd:YAGレーザーの基本波（1064 nm）の第2高調波は波長532 nmの緑色光。", "sources": ["laser"]}
+    ],
+    "581": [
+      {"category": "messier", "text": "NGC 581 のメシエ番号は M103。", "sources": ["openngc"]}
+    ],
+    "598": [
+      {"category": "messier", "text": "NGC 598 のメシエ番号は M33。", "sources": ["openngc"]}
+    ],
+    "628": [
+      {"category": "messier", "text": "NGC 628 のメシエ番号は M74。", "sources": ["openngc"]}
+    ],
+    "650": [
+      {"category": "messier", "text": "NGC 650 は小あれい状星雲 M76 に付された二つの番号（NGC 650・651）の一つ。", "sources": ["openngc", "m76"]}
+    ],
+    "651": [
+      {"category": "messier", "text": "NGC 651 は小あれい状星雲 M76 に付された二つの番号（NGC 650・651）の一つ。", "sources": ["openngc", "m76"]}
+    ],
+    "1039": [
+      {"category": "messier", "text": "NGC 1039 のメシエ番号は M34。", "sources": ["openngc"]}
+    ],
+    "1064": [
+      {"category": "wavelength", "text": "Nd:YAGレーザーの代表的な基本波は波長1064 nmの近赤外光。", "sources": ["laser"]}
+    ],
+    "1068": [
+      {"category": "messier", "text": "NGC 1068 のメシエ番号は M77。", "sources": ["openngc"]}
+    ]
+  }
+}

@@ -4,6 +4,7 @@ import argparse
 from collections.abc import Sequence
 import math
 from fractions import Fraction
+from functools import cache
 from dataclasses import dataclass
 from itertools import groupby
 import html
@@ -241,7 +242,7 @@ def _split_math_prefix(text: str) -> tuple[str, str] | None:
     Prefix stops at:
     - Japanese characters
     - Japanese punctuation (。 、)
-    - Parentheses ( ( / （ ) to keep the math part clean
+    - Parentheses ( ( / （ ), except a numeric base suffix such as _(20)
     """
 
     s = text.strip()
@@ -264,6 +265,11 @@ def _split_math_prefix(text: str) -> tuple[str, str] | None:
         # Stop at delimiters (keep '.'/',' because decimals are common).
         if ch in "。、(（":
             end = i
+            # Wikipedia の「100_(20)」は基数付きの数。添字までを式に含める。
+            if ch == "(" and i > 0 and s[i - 1] == "_":
+                radix = re.match(r"\([0-9]+\)", s[i:])
+                if radix:
+                    end += radix.end()
             break
         if _is_japanese_char(ch):
             end = i
@@ -314,7 +320,7 @@ def _split_math_prefix(text: str) -> tuple[str, str] | None:
     # Reject fragments that would produce broken KaTeX.
     if prefix.count("{") != prefix.count("}") or prefix.count("(") != prefix.count(")"):
         return None
-    if prefix.endswith("=") or prefix.endswith("＝"):
+    if prefix.endswith(("=", "＝", "_")):
         return None
     if len(prefix) < 6:
         return None
@@ -347,6 +353,7 @@ def _to_katex_math(expr: str) -> str:
     s = s.replace("π", r"\pi")
     s = s.replace("…", r"\dots")
     s = s.replace("−", "-")  # U+2212
+    s = re.sub(r"(?<=\d)#", r"\\#", s)  # 素数階乗（例: 11#）
 
     # Root notations seen in Japanese Wikipedia excerpts.
     # Example: ^3√31 -> \sqrt[3]{31}
@@ -358,6 +365,7 @@ def _to_katex_math(expr: str) -> str:
 
     # Use braces for exponents, including negative ones.
     s = re.sub(r"\^(-?\d+)", r"^{\1}", s)
+    s = re.sub(r"_\(([0-9]+)\)", r"_{\1}", s)
 
     # Keep ASCII spaces (KaTeX ignores extra spaces reasonably).
     return s.strip()
@@ -1268,10 +1276,60 @@ def _seq_leyland() -> set[int]:
     return out
 
 
+@cache
 def _seq_totient_values() -> set[int]:
     """トーシェント数（A002202）: ある $m$ について $\\varphi(m)$ となりうる値。"""
-    return {_seq_totient(m) for m in range(1, _SEQ_LIMIT * 6)
-            if _seq_totient(m) < _SEQ_LIMIT}
+    # m が異なる素因数を k 個持つとき、φ(m) は小さい順の k 素数の
+    # (p-1) の積以上。m/φ(m) は同じ k 素数の p/(p-1) の積以下。
+    numerator = denominator = 1
+    for p in range(2, MAX_NUMBER + 2):
+        if not is_prime(p):
+            continue
+        if denominator * (p - 1) > MAX_NUMBER:
+            break
+        numerator *= p
+        denominator *= p - 1
+    max_input = MAX_NUMBER * numerator // denominator
+    values = map(_seq_totient, range(1, max_input + 1))
+    return {value for value in values if value <= MAX_NUMBER}
+
+
+def _seq_brazilian() -> set[int]:
+    values: set[int] = set()
+    for base in range(2, MAX_NUMBER - 1):
+        # repunit はこの基数の 11, 111, 1111, …。数字を掛けるとゾロ目になる。
+        repunit = base + 1
+        while repunit <= MAX_NUMBER:
+            max_digit = min(base - 1, MAX_NUMBER // repunit)
+            for digit in range(1, max_digit + 1):
+                n = digit * repunit
+                if base <= n - 2:
+                    values.add(n)
+            repunit = repunit * base + 1
+    return values
+
+
+def _seq_odd_fibonacci_pseudoprimes() -> set[int]:
+    fibonacci = [0, 1]
+    for _ in range(MAX_NUMBER):
+        fibonacci.append(fibonacci[-1] + fibonacci[-2])
+    values: set[int] = set()
+    for n in range(9, _SEQ_LIMIT, 2):
+        if n % 5 == 0 or is_prime(n):
+            continue
+        index = n - 1 if n % 5 in (1, 4) else n + 1
+        if fibonacci[index] % n == 0:
+            values.add(n)
+    return values
+
+
+def _seq_require_four_squares() -> set[int]:
+    values: set[int] = set()
+    power_of_four = 1
+    while 7 * power_of_four <= MAX_NUMBER:
+        values.update(range(7 * power_of_four, _SEQ_LIMIT, 8 * power_of_four))
+        power_of_four *= 4
+    return values
 
 
 def _seq_running_record(key) -> set[int]:
@@ -1555,6 +1613,17 @@ _SEQUENCE_SPECS: list[tuple[str, "typing.Callable[[], set[int]]", str]] = [
      "$(2^p + 1)/3$（$p$ は素数）の形の素数。（OEIS [A000979](https://oeis.org/A000979)）"),
     ("NSW素数", _seq_nsw_prime,
      "ニューマン–シャンクス–ウィリアムズ素数。$S_k = 2S_{k-1} + S_{k-2}$ の奇数番項のうち素数。（OEIS [A088165](https://oeis.org/A088165)）"),
+    ("ブラジル数", _seq_brazilian,
+     "$2 \\le b \\le n-2$ を満たす基数 $b$ のどれかで、$n$ が2桁以上のゾロ目になる。（OEIS [A125134](https://oeis.org/A125134)）"),
+    ("フィボナッチ擬素数（奇数）", _seq_odd_fibonacci_pseudoprimes,
+     "5 の倍数を除く奇合成数 $n$ のうち、5 で割った余りが 1 または 4 なら $F_{n-1}$、2 または 3 なら $F_{n+1}$ が $n$ で割り切れる数。$F_k$ は第 $k$ フィボナッチ数。（OEIS [A081264](https://oeis.org/A081264)）"),
+    ("ノントーシェント数", lambda: set(range(2, _SEQ_LIMIT, 2)) - _seq_totient_values(),
+     "どの正整数 $m$ に対しても $\\varphi(m)=n$ が成り立たない正の偶数 $n$。（OEIS [A005277](https://oeis.org/A005277)）"),
+    ("双子素数の積", lambda: {p * (p + 2) for p in range(2, math.isqrt(MAX_NUMBER) + 1)
+                            if is_prime(p) and is_prime(p + 2) and p * (p + 2) <= MAX_NUMBER},
+     "差が 2 の二つの素数 $p$ と $p+2$ の積で表される数。（OEIS [A037074](https://oeis.org/A037074)）"),
+    ("3平方数の和で表せない数", _seq_require_four_squares,
+     "平方数（0 を含む）を三つ足しても表せず、四つ必要な正整数。ルジャンドルの三平方定理により $4^a(8b+7)$（$a,b$ は非負整数）の形と一致する。（OEIS [A004215](https://oeis.org/A004215)）"),
 ]
 
 
@@ -1692,6 +1761,29 @@ def _load_wolfram_enrichment() -> dict:
         except Exception:
             _WOLFRAM_ENRICHMENT_CACHE = {}
     return _WOLFRAM_ENRICHMENT_CACHE
+
+
+SCIENCE_FILTER_LABELS = {
+    "isotope": "核種（質量数）",
+    "wavelength": "レーザー波長",
+    "messier": "メシエ天体",
+    "pregnancy_duration": "妊娠期間",
+}
+
+
+@cache
+def _load_science_notes() -> dict:
+    path = Path(__file__).with_name("science_notes_v1.json")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def science_notes(n: int) -> list[dict]:
+    return _load_science_notes()["entries"].get(str(n), [])
+
+
+def science_filter_keys(n: int) -> list[str]:
+    categories = {note["category"] for note in science_notes(n)}
+    return [key for key in SCIENCE_FILTER_LABELS if key in categories]
 
 
 # ---------------------------------------------------------------------------
@@ -1968,7 +2060,7 @@ def render_lore_section_lines(n: int) -> list[str]:
     if gem and isinstance(gem, dict) and gem.get("text"):
         lines.append("\n### ゲマトリア（著名な数価）\n")
         url = gem.get("url", GEMATRIA_URL)
-        lines.append(f"- {gem['text']}（参照: {url}）")
+        lines.append(f"- {gem['text']}（[出典]({url})）")
 
     # キュレーション項目（カテゴリごとに上限付きで描画）
     entries = (lore.get("entries") or {}).get(str(n)) or []
@@ -1983,7 +2075,7 @@ def render_lore_section_lines(n: int) -> list[str]:
         items = by_cat.get(cat) or []
         for item in items[:LORE_MAX_PER_CATEGORY]:
             url = item.get("url")
-            ref = f"（参照: {url}）" if url else ""
+            ref = f"（[出典]({url})）" if url else ""
             curated_lines.append(
                 f"- **{LORE_CATEGORY_JA.get(cat, cat)}**: {item['text']}{ref}")
     if curated_lines:
@@ -2111,6 +2203,12 @@ def _format_wikidata_refs(refs: Sequence[object], limit: int = 10) -> list[str]:
     return lines
 
 
+@cache
+def _load_number_math_notes() -> dict[str, list[dict]]:
+    path = ROOT / "tools" / "number_math_notes_v1.json"
+    return json.loads(path.read_text(encoding="utf-8"))["entries"]
+
+
 def render_number_page(
     info: NumberInfo,
     wikidata: WikidataEnrichment | None,
@@ -2186,7 +2284,15 @@ def render_number_page(
         for _fname, _fdetail in flag_details:
             math_lines.append(f"  - **{_fname}**: {_fdetail}")
 
+    math_notes = _load_number_math_notes().get(str(n), [])
+    if math_notes:
+        math_lines.extend(["", "### この数にまつわる数学", ""])
+        for note in math_notes:
+            sources = "、".join(f"[{label}]({url})" for label, url in note["sources"].items())
+            math_lines.append(f"- **{note['title']}**　{note['text']}（{sources}）")
+
     science_lines: list[str] = []
+    astronomy_rows: dict[str, int] = {}
     _enrich = _load_wolfram_enrichment()
     ngc = _enrich.get("ngc") or {}
     # The original Wolfram snapshot covers NGC 1–999 and has no range field.
@@ -2229,12 +2335,14 @@ def render_number_page(
                 "minor_planet_discovery_years") or {}).get(str(n))
             _mp_year_text = f"{_mp_year}年に発見された、" if isinstance(
                 _mp_year, int) else ""
+            astronomy_rows["minor_planet"] = len(science_lines)
             science_lines.append(
                 f"- **小惑星**: 小惑星番号 {n} の小惑星は、{_mp_year_text}「{_mp_name}」"
                 f"（一次情報: [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={n})"
                 "。名称・発見年データ: Wolfram Knowledgebase）"
             )
         if ngc_type:
+            astronomy_rows["ngc"] = len(science_lines)
             _const = (_enrich.get("ngc_constellations") or {}).get(str(n))
             _const_ja = CONSTELLATION_JA.get(_const or "", _const)
             _const_text = f"{_const_ja}にある" if _const_ja else ""
@@ -2248,6 +2356,22 @@ def render_number_page(
                     f"- **天文（NGC）**: NGC {n} は{_const_text}{NGC_TYPE_JA.get(ngc_type, ngc_type)}に分類される天体です"
                     f"（[NGC天体一覧]({NGC_LIST_URL})参照。分類・星座データ: Wolfram Knowledgebase）"
                 )
+
+    science_sources = _load_science_notes()["sources"]
+    for note in science_notes(n):
+        category = note["category"]
+        links = [f"[{science_sources[key][0]}]({science_sources[key][1]})" for key in note["sources"]]
+        detail = f"{note['text']}（{'、'.join(links)}）"
+        topic = "ngc" if category == "messier" else category
+        if topic in astronomy_rows:
+            science_lines[astronomy_rows[topic]] += " " + detail
+        else:
+            if topic in ("ngc", "minor_planet"):
+                astronomy_rows[topic] = len(science_lines)
+                label = "天文（NGC）" if topic == "ngc" else "小惑星"
+            else:
+                label = SCIENCE_FILTER_LABELS[category]
+            science_lines.append(f"- **{label}**: {detail}")
 
     if not science_lines:
         science_lines.append("- （要約可能な一次情報が見つかったら追記）")
@@ -2508,6 +2632,9 @@ def render_number_page(
             science_flag_names.append("小惑星")
         if ngc_type and ngc_type != "?":
             science_flag_names.append(f"NGC天体（{NGC_TYPE_JA.get(ngc_type, ngc_type)}）")
+        elif "ngc" in astronomy_rows and not ngc_type:
+            science_flag_names.append("NGC天体")
+    science_flag_names.extend(SCIENCE_FILTER_LABELS[key] for key in science_filter_keys(n))
 
     code_flag_names: list[str] = []
     if 100 <= n <= 599 and HTTP_STATUS_PAGES.get(n) is not None:
@@ -2675,8 +2802,10 @@ def render_readme() -> str:
             "- 一部の規格・コード情報は Wikidata（CC0）から自動取得して補強します",
             "- Wikipedia（日本語）の冒頭（概要）に加え、『性質』『その他』から短い引用を抽出して要点の入口を補強します（長文転載はしません）",
             "- 元素・小惑星・NGC 天体の詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来のデータ（`tools/wolfram_enrichment_v1.json`）で補強します",
+            "- 核種・レーザーの波長・メシエ番号などの補足は `tools/science_notes_v1.json` に出典とともに収録しています。メシエ番号は [Mattia Verga / OpenNGC](https://github.com/mattiaverga/OpenNGC) のデータから抜粋しています（CC BY-SA 4.0）。",
             "- 数秘術・エンジェルナンバー・吉凶・語呂合わせなどの『文化的ないわれ』も収録します（機械導出＋`tools/number_lore_v1.json` のキュレーション。科学的根拠のない伝承である旨を明記）",
-            "- 多角数・幸運数・ウラム数・各種特殊素数など **約 60 種の数列への所属** を自前計算で判定し、出典として OEIS の A 番号リンクを添えます（0〜999 の全域を OEIS の公表値と照合済み）",
+            "- 多角数・幸運数・ブラジル数など **約 60 種の数列への所属** を自前計算で判定し、各数列の定義を確認できる OEIS の A 番号を示します。",
+            "- 定数の有理近似、回転の自由度、暦の周期など、個別の数に結び付く計算と出典を `tools/number_math_notes_v1.json` に収録しています。数学・科学・文化の補足はビューアーから本文中の語句で検索できます。",
             "- 数列の補足コメントは OEIS（CC BY-SA 4.0）の和訳を `tools/oeis_comments_ja_v1.json` に収録しています",
             "- 中国語圏の数字文化・英語数詞の語源・パブリックドメイン古典などは、再利用可能なライセンスのものだけを和訳して収録します",
             "",

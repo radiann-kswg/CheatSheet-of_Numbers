@@ -17,6 +17,16 @@
    "goro": "語呂合わせ・ポケベル・ネットスラング",
    "fiction": "創作作品",
    "gogen": "語源・数詞"
+  },
+  "cheiro_source": {
+   "author": "Cheiro（1866–1936）",
+   "title": "Cheiro's Book of Numbers",
+   "edition": "Garden City Publishing Co., 1927（米国版）。イリノイ大学所蔵本のHathiTrust書誌・権利コードpdを確認。",
+   "catalogue": "https://catalog.hathitrust.org/Record/102425789",
+   "rights": "https://catalog.hathitrust.org/api/volumes/full/htid/uiug.30112041800472.json",
+   "reading_copy": "Herbert Jenkins, London, 第7刷（刊年不詳）、第13章 pp. 80–85。各番号の記述を確認し、象徴・参照先だけを独自に和訳・要約。スキャン画像とOCRは収録しない。",
+   "reading_url": "https://archive.org/details/in.ernet.dli.2015.70770",
+   "checked": "2026-11-22"
   }
  },
  "notable_gematria": {
@@ -91,6 +101,11 @@
     "cat": "meisu",
     "text": "プロ野球では王貞治（読売ジャイアンツ）の背番号 1 が永久欠番となっている。『ナンバーワン』として第一・最高を象徴する数字でもある。",
     "url": "https://ja.wikipedia.org/wiki/王貞治"
+   },
+   {
+    "cat": "folklore",
+    "text": "玄空飛星風水では、次の運に当たる星には「生気」があるとされる。九運（2024〜2043年）では次の一運に向かう一白がこれに当たる。（中国語版Wikipedia『九宮飛星圖』を和訳・編集、2026-11-22取得、CC BY-SA 4.0、改変あり）",
+    "url": "https://zh.wikipedia.org/w/index.php?oldid=94009983"
    }
   ],
   "2": [
@@ -227,6 +242,11 @@
     "cat": "folklore",
     "text": "ピタゴラス学派で 9 は『エンネアド』と呼ばれ、一桁の数の限界であることから『地平線』に譬えられたとされる。9 の倍数の数字根が常に 9 に戻る性質から、姿を変えても滅びない『物質』の象徴ともされた。（W. W. Westcott『Numbers: Their Occult Power and Mystic Virtues』1911（パブリックドメイン）を要約・和訳。底本: sacred-texts.com）",
     "url": "https://sacred-texts.com/eso/nop/nop16.htm"
+   },
+   {
+    "cat": "folklore",
+    "text": "玄空飛星風水では、20年ずつの九つの運で180年を一巡するとされる。2024〜2043年は「九運」に当たり、この期間をつかさどる九紫の星に「旺気」があるとされる。（中国語版Wikipedia『九宮飛星圖』を和訳・編集、2026-11-22取得、CC BY-SA 4.0、改変あり）",
+    "url": "https://zh.wikipedia.org/w/index.php?oldid=94009983"
    }
   ],
   "10": [
@@ -239,6 +259,11 @@
     "cat": "meisu",
     "text": "サッカーでは背番号 10 がエースナンバーとされる（ペレ、マラドーナ、メッシら）。",
     "url": "https://ja.wikipedia.org/wiki/背番号_(サッカー)"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数10について、運命の輪を浮き沈みの象徴とし、計画を実行する自信と結び付けた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "11": [
@@ -246,6 +271,11 @@
     "cat": "gogen",
     "text": "英語 eleven はゲルマン祖語 *ainalif（『（10 を数えて）1 余る』）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
     "url": "https://en.wiktionary.org/wiki/eleven"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数11について、口を封じられた獅子を象徴に挙げ、表に出ていない危険への警告とした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "12": [
@@ -258,6 +288,11 @@
     "cat": "gogen",
     "text": "英語 twelve はゲルマン祖語 *twalif（『2 余る』）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
     "url": "https://en.wiktionary.org/wiki/twelve"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数12について、他人の計画に巻き込まれ、犠牲を引き受ける不安を表すとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "13": [
@@ -270,6 +305,11 @@
     "cat": "gogen",
     "text": "英語 thirteen は中英語 thrittene の音位転換形 thirttene に由来し、three + -teen に相当する（古英語 þrēotīene）。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
     "url": "https://en.wiktionary.org/wiki/thirteen"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数13について、大鎌を持つ骸骨を描き、計画や居場所が大きく変わる象徴とした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "14": [
@@ -277,6 +317,18 @@
     "cat": "meisu",
     "text": "プロ野球では沢村栄治（読売ジャイアンツ）の背番号 14 が日本初の永久欠番となった。サッカーではヨハン・クライフの番号としても知られる。",
     "url": "https://ja.wikipedia.org/wiki/永久欠番"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数14について、人や物の移動と結び付け、商取引に伴う機会と危うさを読み取った。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "15": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数15について、話術や音楽の才など、人を引きつける力を象徴するとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 80–81 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "16": [
@@ -284,6 +336,11 @@
     "cat": "meisu",
     "text": "プロ野球では川上哲治（読売ジャイアンツ）の背番号 16 が永久欠番となっている。",
     "url": "https://ja.wikipedia.org/wiki/永久欠番"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数16について、塔に落雷して冠をかぶった人物が落ちる図を、計画が崩れる警告と読んだ。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 81 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "17": [
@@ -291,6 +348,11 @@
     "cat": "kikkyo",
     "text": "イタリアでは 17 が忌み数とされる。ローマ数字 XVII のアナグラム VIXI（『我は生きた』＝死んだ）に通じるためとされる。",
     "url": "https://ja.wikipedia.org/wiki/忌み数"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数17について、金星の八芒星を試練を乗り越える精神の象徴とし、死後にも名が残ることと結び付けた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 81 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "18": [
@@ -303,6 +365,25 @@
     "cat": "folklore",
     "text": "歌舞伎十八番は市川宗家のお家芸 18 演目のことで、『十八番（おはこ）』の語源とされる。",
     "url": "https://ja.wikipedia.org/wiki/歌舞伎十八番"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数18について、月の下に犬と狼がいる図を挙げ、物質を追う心と精神との争いを読み取った。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 81–82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "19": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数19について、太陽を象徴として挙げ、計画の達成や名誉に結び付けた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "20": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数20について、ラッパを吹く天使の図に、新しい目的や務めに目覚める意味を与えた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "21": [
@@ -310,6 +391,18 @@
     "cat": "meisu",
     "text": "トランプのブラックジャックでは手札合計 21 が最強とされ、ゲーム名の由来となっている。",
     "url": "https://ja.wikipedia.org/wiki/ブラックジャック"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数21について、賢者の冠を、長い試練を経て得られる栄誉の象徴とした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "22": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数22について、迫る虎に気づかない旅人を、他人に惑わされて判断を誤ることの象徴とした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "23": [
@@ -322,6 +415,11 @@
     "cat": "goro",
     "text": "語呂合わせで『ニッサン』と読めることから、日産自動車にちなむ数字として用いられることがある。",
     "url": "https://ja.wikipedia.org/wiki/語呂合わせ"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数23について、獅子の王星という呼び名を与え、力のある人の庇護を得る象徴とした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 82 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "24": [
@@ -329,6 +427,11 @@
     "cat": "fiction",
     "text": "米国のテレビドラマ『24 -TWENTY FOUR-』は 1 話＝1 時間のリアルタイム進行で知られる。",
     "url": "https://ja.wikipedia.org/wiki/24_-TWENTY_FOUR-"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数24について、愛情や立場のある人の援助によって計画が進むことと結び付けた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "25": [
@@ -336,6 +439,32 @@
     "cat": "folklore",
     "text": "結婚 25 周年は銀婚式として祝われる。",
     "url": "https://ja.wikipedia.org/wiki/結婚記念日"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数25について、人や物を観察し、試行錯誤を重ねるうちに身につく力を表すとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "26": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数26について、共同事業や他人の助言を介して損失を被ることへの警告と読んだ。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "27": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数27について、王笏を象徴に挙げ、自分の着想が実を結んで指導力に変わるとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "28": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数28について、素質に恵まれても、人を信じすぎて失ったものを築き直すという読みを与えた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "29": [
@@ -343,6 +472,32 @@
     "cat": "goro",
     "text": "語呂合わせで『肉』と読めることから、毎月 29 日を『肉の日』とする販促が広く行われている。",
     "url": "https://ja.wikipedia.org/wiki/語呂合わせ"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数29について、信用した相手の裏切りなど、対人関係の不確かさを表すとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "30": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数30について、内省する力と結び付け、吉凶は本人が何を望むかに左右されるとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 83–84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "31": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数31について、30の内省をさらに進めた数とみなし、世間から距離を置く人物像を描いた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "32": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数32について、人が集まって進める計画では、自分の判断を保つことが成否を分けるとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "33": [
@@ -355,6 +510,25 @@
     "cat": "kikkyo",
     "text": "日本の厄年では、数え 33 歳が女性の大厄とされる（『散々』に通じるという語呂の説が知られる）。",
     "url": "https://ja.wikipedia.org/wiki/厄年"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数33の項から24の項を参照させ、人の援助という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "34": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数34の項から25の項を参照させ、経験から得る力という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "35": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数35の項から26の項を参照させ、共同事業での損失への警戒という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "36": [
@@ -362,6 +536,25 @@
     "cat": "folklore",
     "text": "三十六歌仙や葛飾北斎『富嶽三十六景』、兵法三十六計など、『36』を単位とする名数がある。",
     "url": "https://ja.wikipedia.org/wiki/三十六歌仙"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数36の項から27の項を参照させ、創造力に支えられた権威という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "37": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数37について、友情や恋愛での結び付き、協力関係に恵まれることを表すとした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "38": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数38の項から29の項を参照させ、対人関係の不確かさという読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "39": [
@@ -369,6 +562,11 @@
     "cat": "goro",
     "text": "語呂合わせで『サンキュー』『ミク』と読める。3 月 9 日は『ミクの日』とされ、バーチャル・シンガー初音ミクにちなむ数字として広く使われる。",
     "url": "https://ja.wikipedia.org/wiki/初音ミク"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数39の項から30の項を参照させ、内省という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "40": [
@@ -381,6 +579,18 @@
     "cat": "gogen",
     "text": "英語 forty は古英語 fēowertiġ（four ＋『10 の組』を表す -tiġ）に由来するとされる。（英語版Wiktionaryの語源欄を要約・和訳、CC BY-SA 4.0、改変あり）",
     "url": "https://en.wiktionary.org/wiki/forty"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数40の項から31の項を参照させ、世間から距離を置く人物像という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "41": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数41の項から32の項を参照させ、協力の場で自分の判断を保つことという読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "42": [
@@ -398,6 +608,11 @@
     "cat": "fiction",
     "text": "ダグラス・アダムズ『銀河ヒッチハイク・ガイド』では、『生命、宇宙、そして万物についての究極の疑問の答え』が 42 とされ、IT・SF 文化の定番ネタとなっている。",
     "url": "https://ja.wikipedia.org/wiki/生命、宇宙、そして万物についての究極の疑問の答え"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数42の項から24の項を参照させ、周囲からの援助という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "43": [
@@ -405,6 +620,25 @@
     "cat": "kikkyo",
     "text": "『死産』に通じるとして、産科などで 43 号室が避けられる例があるとされる。",
     "url": "https://ja.wikipedia.org/wiki/忌み数"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数43について、変革や対立によって、それまでの計画が妨げられることと結び付けた。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 84 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "44": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数44の項から26の項を参照させ、他人の助言や共同事業への警戒という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "45": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数45の項から27の項を参照させ、自分の着想を生かす力という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "46": [
@@ -412,6 +646,11 @@
     "cat": "meisu",
     "text": "乃木坂46・櫻坂46・日向坂46 など、『坂道シリーズ』のアイドルグループ名に用いられている。",
     "url": "https://ja.wikipedia.org/wiki/坂道シリーズ"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数46の項から37の項を参照させ、友情と協力関係という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "47": [
@@ -419,6 +658,11 @@
     "cat": "folklore",
     "text": "赤穂事件の四十七士（忠臣蔵）にちなむ数として知られる。日本の都道府県の数（47）でもある。",
     "url": "https://ja.wikipedia.org/wiki/赤穂事件"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数47の項から29の項を参照させ、信頼が揺らぐことへの警戒という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "48": [
@@ -426,6 +670,11 @@
     "cat": "meisu",
     "text": "AKB48 をはじめとする『48 グループ』のグループ名に用いられている。相撲の決まり手の伝統的な総称『四十八手』としても知られる。",
     "url": "https://ja.wikipedia.org/wiki/AKB48"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数48の項から30の項を参照させ、物質的な利益より内省を重んじることという読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "49": [
@@ -438,6 +687,11 @@
     "cat": "goro",
     "text": "ポケベル語では『至急』の意味で使われたとされる。",
     "url": "https://ja.wikipedia.org/wiki/ポケットベル"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数49の項から31の項を参照させ、孤独と自立という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "50": [
@@ -445,6 +699,11 @@
     "cat": "folklore",
     "text": "結婚 50 周年は金婚式として祝われる。",
     "url": "https://ja.wikipedia.org/wiki/結婚記念日"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数50の項から32の項を参照させ、他人の意見に流されず判断することという読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "51": [
@@ -452,6 +711,18 @@
     "cat": "meisu",
     "text": "イチロー（オリックス・マリナーズ）の背番号 51 として日本で広く知られる。米ネバダ州の機密軍事施設『エリア51』の名でも知られる。",
     "url": "https://ja.wikipedia.org/wiki/イチロー"
+   },
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数51について、戦士を象徴に挙げ、指導者として頭角を現すことと、敵を招く危険の両面を読んだ。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
+   }
+  ],
+  "52": [
+   {
+    "cat": "folklore",
+    "text": "ケイローは複合数52の項から43の項を参照させ、変革や対立による計画の中断という読みを共通にした。（Cheiro『Cheiro’s Book of Numbers』第13章。原著は1927年米国版でパブリックドメイン。英国版第7刷 p. 85 を和訳・要約）",
+    "url": "https://archive.org/details/in.ernet.dli.2015.70770"
    }
   ],
   "53": [
@@ -534,6 +805,11 @@
     "cat": "kikkyo",
     "text": "古代人は 9 の倍数、とりわけ 81 を『変化と脆さを予兆する』凶兆として恐れたとされる。（W. W. Westcott『Numbers: Their Occult Power and Mystic Virtues』1911（パブリックドメイン）を要約・和訳。底本: sacred-texts.com）",
     "url": "https://sacred-texts.com/eso/nop/nop16.htm"
+   },
+   {
+    "cat": "kikkyo",
+    "text": "熊崎健翁の『最新姓名学』（1939年）は、姓名の画数を占う際の区分を「八十一数」としている。81はこの流派で用いる区分の上限にあたる。",
+    "url": "https://dl.ndl.go.jp/pid/1107089/121"
    }
   ],
   "86": [
@@ -892,6 +1168,11 @@
     "cat": "kikkyo",
     "text": "『ヨハネの黙示録』の『獣の数字』として西洋で代表的な忌み数とされる（ヘキサコシオイヘキセコンタヘキサフォビア）。一方、中国のネットスラングでは『溜溜溜（すごい）』に通じる褒め言葉として使われるとされる。",
     "url": "https://ja.wikipedia.org/wiki/獣の数字"
+   },
+   {
+    "cat": "folklore",
+    "text": "『ヨハネの黙示録』13章18節の「獣の数字」には写本によって異なる読みがある。一般に知られる666に対し、パピルス115（P.Oxy. 4499）には [616](616.md) と記されている。",
+    "url": "https://www.tyndalebulletin.org/article/29233-p115-and-the-number-of-the-beast"
    }
   ],
   "753": [

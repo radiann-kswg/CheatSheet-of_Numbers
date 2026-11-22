@@ -11,6 +11,7 @@ PROPERTY_FILTER_DEFS / FLAG_NAME_TO_KEY / LORE_FILTER_DEFS を更新し忘れる
 """
 from __future__ import annotations
 
+import json
 import sys
 
 import build_viewer_index as bvi
@@ -28,8 +29,37 @@ def collect_page_flags() -> set[str]:
     return names
 
 
+def check_science_filters() -> list[str]:
+    """科学の補足データ、生成済みページの概要、配布用索引を照合する。"""
+    index = json.loads(bvi.OUTPUT_PATH.read_text(encoding="utf-8"))
+    chips = {d["key"]: d["label"] for d in index["filters"]["properties"]}
+    labels = gen.SCIENCE_FILTER_LABELS
+    problems = [
+        f"[科学チップ定義] '{key}' の表示名は '{label}' が必要"
+        for key, label in labels.items() if chips.get(key) != label
+    ]
+    records = {record["n"]: set(record["propertyFilters"]) for record in index["numbers"]}
+    prefix = "- **フラグ（科学・技術）**: "
+    for n in range(MAX_NUMBER + 1):
+        expected = set(gen.science_filter_keys(n))
+        if n not in records:
+            problems.append(f"[検索索引] {n} のレコードがありません")
+            continue
+        indexed = records[n] & labels.keys()
+        page = gen.number_file_path(n).read_text(encoding="utf-8")
+        overview = next((line[len(prefix):] for line in page.splitlines() if line.startswith(prefix)), "")
+        flags = set(overview.split(" / "))
+        shown = {key for key, label in labels.items() if label in flags}
+        if expected != indexed or expected != shown:
+            problems.append(
+                f"[科学フラグ] {n}: データ={sorted(expected)}, "
+                f"ページ={sorted(shown)}, 索引={sorted(indexed)}"
+            )
+    return problems
+
+
 def main() -> int:
-    problems: list[str] = []
+    problems = check_science_filters()
 
     # --- 数学フラグ ---
     page_flags = collect_page_flags()

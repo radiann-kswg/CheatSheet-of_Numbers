@@ -56,6 +56,8 @@
 │   ├── wikipedia_ja_pins_v1.json                 # 引用ピン留め設定
 │   ├── wikipedia_ja_importance_overrides_v1.json # 重要度閾値の上書き設定
 │   ├── wolfram_enrichment_v1.json                # Wolfram Knowledgebase 由来の科学データ（元素/小惑星/NGC）
+│   ├── science_notes_v1.json                     # 核種・波長・メシエ番号などの説明と出典
+│   ├── number_math_notes_v1.json                 # 定数の近似・幾何・暦など、個別の数についての数学ノート
 │   ├── number_lore_v1.json                       # 数秘・占術・名数など『文化的ないわれ』のキュレーションデータ
 │   ├── oeis_comments_ja_v1.json                  # OEIS %C コメントの和訳（CC BY-SA 4.0、oeisdata ミラー由来）
 │   └── _cache/              # 取得キャッシュ（通常 Git 管理しない）
@@ -98,6 +100,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 - 数学的性質の記述（素因数分解・約数・トーシェント等）を追加・変更した場合は、可能なら計算機（Python / Wolfram 等)で検算する。
 - 数列への所属（多角数・幸運数・ウラム数・各種特殊素数など）は **`generate_numbers.py` 内で自前計算**し、出典として OEIS の A 番号リンクを添える。外部サイトから所属データを取得・転載しない。
 - 元素・小惑星・NGC 等の科学データの詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来（`tools/wolfram_enrichment_v1.json` に同梱）とし、出典を明記する。
+- 個別の数学ノートは `tools/number_math_notes_v1.json` に、科学の補足は `tools/science_notes_v1.json` に説明と出典をまとめる。本文とビューアー検索は同じデータを使う。
 - 数秘術・エンジェルナンバー・吉凶・語呂合わせ等の「文化的ないわれ」は『数秘・占術・文化のいわれ』セクションに集約する。科学的根拠のない伝承である旨を各ページで明記し、断定を避ける（『〜とされる』）。
   - 機械導出（数秘還元値・エンジェルナンバー・ヘブライ数字）は `generate_numbers.py`、キュレーション項目は `tools/number_lore_v1.json` を編集する（生成物の手編集をしない）。
   - **収録しないもの**: 性的・差別的・反社会的な含意を持つネットスラング、現役占術家の独自体系（数意学・数魂など。著作権・独自性への配慮）。
@@ -116,6 +119,8 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 | Wikipedia（ja/en） | 概要・性質・文化 | CC BY-SA | **採用**。要約＋短い引用＋出典 URL |
 | Wikidata | 規格・コード等の事実データ | CC0 | **採用**。自動拡充 |
 | Wolfram Knowledgebase | 元素・小惑星・NGC | — | **採用**。`tools/wolfram_enrichment_v1.json` に同梱（オフライン） |
+| [Mattia Verga / OpenNGC](https://github.com/mattiaverga/OpenNGC) | NGC とメシエ番号の対応 | CC BY-SA 4.0 | **採用**。公開 CSV から収録範囲を抽出し、帰属・ライセンス・抜粋した旨を掲載する |
+| 原論文、大学・学会・公的機関の資料、国立国会図書館の書影 | 数学・科学・暦の事実、歴史的な記載の確認 | 資料ごと | **参照リンク**。検算した数値や確認した事実を自分の言葉で記述する |
 | OEIS | 数列の A 番号・定義 | CC BY-SA 4.0 | **採用（リンクのみ）**。⚠️ 利用規約 §10 と robots.txt が自動アクセスを禁止。`oeis.org/search` をバッチで叩かないこと。データが要る場合は GitHub ミラー `oeis/oeisdata` を clone する |
 | ja.Wiktionary / Wikibooks | 漢数字の字源など | CC BY-SA 4.0 | 未採用（採用可）。Wikipedia と同じ基盤で追加できる |
 | 青空文庫（PD 本文）/ NDL（保護期間満了資料） | 文化的いわれの一次資料 | PD ほか | 未採用（採用可）。PD 部分は CC BY-SA を後付けせず、由来をファイル単位で明記する |
@@ -123,6 +128,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 | en/zh Wikipedia・en.wiktionary・en.wikiquote | 数字の文化・迷信・語源・引用（**和訳**） | CC BY-SA 4.0 | **採用**。和訳エントリを `tools/number_lore_v1.json` に収録（中国の数字文化＝kikkyo/goro、数詞の語源＝gogen カテゴリ）。text 末尾に出典と「和訳・改変あり」を明記 |
 | Project Gutenberg / sacred-texts / Wikisource の PD 古典 | 数のいわれの一次資料（**和訳**） | PD（要ファイル単位確認） | **採用**。Westcott『Numbers: Their Occult Power and Mystic Virtues』(1911) 由来のエントリを `number_lore_v1.json` に収録済み。追加候補: Conant『The Number Concept』(1896)。PG 由来は本文から「Project Gutenberg」の商標表記を除去。sacred-texts は ⚠ 付きファイルと解説文（J.B. Hare 著作権）を除外 |
 | ProofWiki | 定義・定理・個別数の例（**和訳**） | CC BY-SA 3.0（翻案は 4.0 で公開可） | 未採用（採用可）。個別数のページあり（例: Perfect Number/Examples/496）。数学的定義の出典として有力 |
+| Cheiro『Cheiro’s Book of Numbers』 | 複合数10〜52の歴史的な解釈 | PD 原著 | **採用**。[1927年米国版の書誌・権利情報](https://catalog.hathitrust.org/api/volumes/full/htid/uiug.30112041800472.json)と[英国版第7刷](https://archive.org/details/in.ernet.dli.2015.70770)の第13章を照合。底本・頁・和訳の旨を記載し、番号の象徴と相互参照を短く要約する |
 | Groupprops (subwiki) | 位数 n の群の個数・分類 | CC BY-SA 3.0 | 未採用（採用可）。「位数 n の群は◯種類」という各数字に対応する事実の出典に好適 |
 | Metamath（set.mm） | 形式証明の参照 | CC0（peano.mm のみ GPL で不可） | 未採用（採用可）。帰属不要だが個別の数の性質はほぼ扱わない |
 | MacTutor History of Mathematics | 数学史の記述（**和訳**） | CC BY-SA 4.0（本文のみ。/Extras/ と画像は対象外） | 未採用（採用可）。完全数の歴史など補助的に |
@@ -188,6 +194,7 @@ Wikidata Query Service / Action API から以下を自動追記（ネットワ�
 | 追加するもの | 更新するファイル |
 | --- | --- |
 | 数列・数学フラグ | `tools/generate_numbers.py` の `_SEQUENCE_SPECS`（判定と定義文）＋ `tools/build_viewer_index.py` の `PROPERTY_FILTER_DEFS` と `FLAG_NAME_TO_KEY` |
+| 科学の補足に使う検索フラグ | `tools/generate_numbers.py` の `SCIENCE_FILTER_LABELS` と `tools/science_notes_v1.json` の `category`。ビューアーは同じ定義を読む |
 | いわれカテゴリ | `tools/generate_numbers.py` の `LORE_CATEGORY_ORDER` / `LORE_CATEGORY_JA` ＋ `tools/build_viewer_index.py` の `LORE_FILTER_DEFS` |
 | OEIS コメント和訳 | `tools/oeis_comments_ja_v1.json`（キーは `_SEQUENCE_SPECS` の数列名と一致させる） |
 
