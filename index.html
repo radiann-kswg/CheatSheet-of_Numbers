@@ -26,11 +26,11 @@
 	<main class="layout">
 		<aside class="sidebar" aria-label="数字一覧と検索条件">
 			<div class="sidebar-head">
-				<label for="jump">番号を直接指定（0〜999）</label>
-				<div class="jump-row">
-					<input id="jump" type="number" min="0" max="999" inputmode="numeric" placeholder="例: 57">
-					<button id="jump-go" type="button">開く</button>
-				</div>
+				<label for="jump">番号を直接指定<span id="jump-range"></span></label>
+				<form id="jump-form" class="jump-row">
+					<input id="jump" type="number" min="0" step="1" required inputmode="numeric" placeholder="例: 57">
+					<button id="jump-go" type="submit">開く</button>
+				</form>
 				<label for="search">検索</label>
 				<input id="search" type="search" placeholder="例: 57, 吉凶, フィボナッチ, angel">
 			</div>
@@ -49,7 +49,7 @@
 
 			<div class="sidebar-foot">
 				<button id="clear-filters" type="button">フィルタをクリア</button>
-				<p id="result-count">0件</p>
+				<p id="result-count" role="status">0件</p>
 			</div>
 
 			<nav class="doc-scroll" aria-label="数字の索引">

@@ -5,12 +5,14 @@ from collections.abc import Sequence
 import math
 from fractions import Fraction
 from dataclasses import dataclass
+from itertools import groupby
 import html
 import json
 import os
 from pathlib import Path
 import re
 
+from number_range import MAX_NUMBER, number_folder
 from progress import ProgressBar, ProgressSpinner
 from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
 from wikipedia_ja import (
@@ -18,6 +20,7 @@ from wikipedia_ja import (
     load_or_build_wikipedia_intros_for_numbers,
     load_or_build_wikipedia_other_item_sets_for_numbers,
     load_or_build_wikipedia_property_sentence_sets_for_numbers,
+    to_japanese_kanji,
 )
 
 
@@ -26,7 +29,7 @@ NUMBERS_DIR = ROOT / "numbers"
 
 
 _RE_WIKIPEDIA_OTHER_RELATED_STUB = re.compile(
-    r"^その他\s*(?:\d+|[零〇一二三四五六七八九十百]+)\s*に関連すること。?$"
+    r"^その他\s*(?:\d+|[零〇一二三四五六七八九十百千]+)\s*に関連すること。?$"
 )
 
 
@@ -35,42 +38,8 @@ _RE_WIKIPEDIA_OTHER_LOW_VALUE = re.compile(
 )
 
 
-_KANJI_DIGITS: dict[int, str] = {
-    0: "零",
-    1: "一",
-    2: "二",
-    3: "三",
-    4: "四",
-    5: "五",
-    6: "六",
-    7: "七",
-    8: "八",
-    9: "九",
-}
-
-
-def _to_kanji_upto_999(n: int) -> str:
-    if not (0 <= n <= 999):
-        raise ValueError("Supported range is 0..999")
-    if n == 0:
-        return _KANJI_DIGITS[0]
-
-    h = n // 100
-    t = (n // 10) % 10
-    u = n % 10
-
-    parts: list[str] = []
-    if h:
-        parts.append(("百" if h == 1 else _KANJI_DIGITS[h] + "百"))
-    if t:
-        parts.append(("十" if t == 1 else _KANJI_DIGITS[t] + "十"))
-    if u:
-        parts.append(_KANJI_DIGITS[u])
-    return "".join(parts)
-
-
 def _number_relevance_tokens(n: int) -> set[str]:
-    kanji = _to_kanji_upto_999(n)
+    kanji = to_japanese_kanji(n)
     tokens: set[str] = {str(n), f"{n:03d}", kanji, f"第{n}", f"第{kanji}"}
     if n < 100:
         tokens.add(f"{n:02d}")
@@ -641,19 +610,6 @@ LOGIC_74XX_HINTS: dict[int, str] = {
 }
 
 
-KANJI_DIGITS = {
-    0: "零",
-    1: "一",
-    2: "二",
-    3: "三",
-    4: "四",
-    5: "五",
-    6: "六",
-    7: "七",
-    8: "八",
-    9: "九",
-}
-
 DAIJI_DIGITS = {
     0: "零",
     1: "壹",
@@ -884,41 +840,25 @@ def to_roman(n: int) -> str | None:
     return "".join(out)
 
 
-def to_kanji_upto_999(n: int, digits: dict[int, str], ten: str, hundred: str) -> str:
-    if n == 0:
-        return digits[0]
-    if not (0 <= n <= 999):
-        raise ValueError("Supported range is 0..999")
-
-    h = n // 100
-    t = (n // 10) % 10
-    u = n % 10
-
-    parts: list[str] = []
-    if h:
-        if h == 1:
-            parts.append(hundred)
-        else:
-            parts.append(digits[h] + hundred)
-    if t:
-        if t == 1:
-            parts.append(ten)
-        else:
-            parts.append(digits[t] + ten)
-    if u:
-        parts.append(digits[u])
-    return "".join(parts)
-
-
-def japanese_reading_upto_999(n: int) -> str:
+def japanese_reading(n: int) -> str:
     if n == 0:
         return JP_DIGIT_READING[0]
 
-    h = n // 100
+    thousands, rest = divmod(n, 1000)
+    h = rest // 100
     t = (n // 10) % 10
     u = n % 10
 
     out: list[str] = []
+    if thousands:
+        if thousands == 1:
+            out.append("せん")
+        elif thousands == 3:
+            out.append("さんぜん")
+        elif thousands == 8:
+            out.append("はっせん")
+        else:
+            out.append(JP_DIGIT_READING[thousands] + "せん")
 
     if h:
         if h == 1:
@@ -944,9 +884,9 @@ def japanese_reading_upto_999(n: int) -> str:
     return "".join(out)
 
 
-def english_words_upto_999(n: int) -> str:
-    if not (0 <= n <= 999):
-        raise ValueError("Supported range is 0..999")
+def english_words(n: int) -> str:
+    if not (0 <= n <= MAX_NUMBER):
+        raise ValueError(f"Supported range is 0..{MAX_NUMBER}")
     if n < 20:
         return EN_UNDER_20[n]
     if n < 100:
@@ -956,11 +896,15 @@ def english_words_upto_999(n: int) -> str:
             return EN_TENS[tens]
         return f"{EN_TENS[tens]}-{EN_UNDER_20[unit]}"
 
-    hundreds = n // 100
-    rest = n % 100
+    if n >= 1000:
+        thousands, rest = divmod(n, 1000)
+        prefix = f"{EN_UNDER_20[thousands]} thousand"
+    else:
+        hundreds, rest = divmod(n, 100)
+        prefix = f"{EN_UNDER_20[hundreds]} hundred"
     if rest == 0:
-        return f"{EN_UNDER_20[hundreds]} hundred"
-    return f"{EN_UNDER_20[hundreds]} hundred {english_words_upto_999(rest)}"
+        return prefix
+    return f"{prefix} {english_words(rest)}"
 
 
 # --- 追加の数学的性質（機械導出・Wolfram で集合を検算済み） ---
@@ -1098,7 +1042,7 @@ def extra_math_properties(n: int) -> list[str]:
 # 各数列の定義（公知の数学的事実）から自前で計算し、OEIS 等の一次情報へ導線を張る。
 # 0..999 の全域について OEIS の公表値と突き合わせて検算済み。
 
-_SEQ_LIMIT = 1000
+_SEQ_LIMIT = MAX_NUMBER + 1
 
 
 def _seq_from_gen(gen) -> dict[int, int]:
@@ -1965,7 +1909,7 @@ def _numerology_lines(n: int) -> list[str]:
             f"「{n}」は {digit_parts} が {len(digits)} 桁重なるゾロ目で、"
             "特に強い意味を持つとされる"
         )
-    elif len(digits) == 3 and digits[0] == digits[2]:
+    elif digits == digits[::-1]:
         angel_body = (
             f"「{n}」は桁の {digit_parts} を組み合わせて読むとされ、"
             "左右対称のミラーナンバーとして言及されることがある"
@@ -2092,10 +2036,10 @@ def build_info(n: int) -> NumberInfo:
     if roman is not None:
         reps["ローマ数字"] = roman
 
-    jp_kanji = to_kanji_upto_999(n, KANJI_DIGITS, ten="十", hundred="百")
-    jp_daiji = to_kanji_upto_999(n, DAIJI_DIGITS, ten="拾", hundred="佰")
-    jp_reading = japanese_reading_upto_999(n)
-    en_words = english_words_upto_999(n)
+    jp_kanji = to_japanese_kanji(n)
+    jp_daiji = to_japanese_kanji(n, digits=DAIJI_DIGITS, ten="拾", hundred="佰", thousand="阡")
+    jp_reading = japanese_reading(n)
+    en_words = english_words(n)
 
     atomic_element = ELEMENTS_JA[n] if 1 <= n < len(ELEMENTS_JA) else None
 
@@ -2145,19 +2089,16 @@ def parse_only_numbers(spec: str) -> list[int]:
             end = int(b.strip())
             if start > end:
                 start, end = end, start
-            for n in range(start, end + 1):
-                if 0 <= n <= 999:
-                    out.add(n)
+            out.update(range(max(start, 0), min(end, MAX_NUMBER) + 1))
         else:
             n = int(part)
-            if 0 <= n <= 999:
+            if 0 <= n <= MAX_NUMBER:
                 out.add(n)
     return sorted(out)
 
 
 def number_file_path(n: int) -> Path:
-    folder = f"{n // 100}xx"
-    return NUMBERS_DIR / folder / f"{n:03d}.md"
+    return NUMBERS_DIR / number_folder(n) / f"{n:03d}.md"
 
 
 def _format_wikidata_refs(refs: Sequence[object], limit: int = 10) -> list[str]:
@@ -2199,7 +2140,7 @@ def render_number_page(
             out.append(s)
         return out
     prev_path = number_file_path(n - 1) if n > 0 else None
-    next_path = number_file_path(n + 1) if n < 999 else None
+    next_path = number_file_path(n + 1) if n < MAX_NUMBER else None
 
     here = number_file_path(n)
 
@@ -2247,6 +2188,12 @@ def render_number_page(
 
     science_lines: list[str] = []
     _enrich = _load_wolfram_enrichment()
+    ngc = _enrich.get("ngc") or {}
+    # The original Wolfram snapshot covers NGC 1–999 and has no range field.
+    ngc_first, ngc_last = ngc.get("range", (1, 999))
+    ngc_type = None
+    if ngc_first <= n <= ngc_last:
+        ngc_type = ngc.get("exceptions", {}).get(str(n), ngc.get("default"))
     if info.atomic_element is not None:
         # Wikipedia の各元素ページは安定しているので、最小限の一次資料リンクとして付ける
         _el = (_enrich.get("elements") or {}).get(str(n)) or {}
@@ -2287,21 +2234,18 @@ def render_number_page(
                 f"（一次情報: [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={n})"
                 "。名称・発見年データ: Wolfram Knowledgebase）"
             )
-        _ngc = _enrich.get("ngc") or {}
-        if _ngc:
-            _ngc_type = (_ngc.get("exceptions") or {}).get(
-                str(n), _ngc.get("default", "Galaxy"))
+        if ngc_type:
             _const = (_enrich.get("ngc_constellations") or {}).get(str(n))
             _const_ja = CONSTELLATION_JA.get(_const or "", _const)
             _const_text = f"{_const_ja}にある" if _const_ja else ""
-            if _ngc_type == "?":
+            if ngc_type == "?":
                 science_lines.append(
                     f"- **天文（NGC）**: NGC {n} は同定が難しい・欠番とされることがある番号です"
                     f"（[NGC天体一覧]({NGC_LIST_URL})参照）"
                 )
             else:
                 science_lines.append(
-                    f"- **天文（NGC）**: NGC {n} は{_const_text}{NGC_TYPE_JA.get(_ngc_type, _ngc_type)}に分類される天体です"
+                    f"- **天文（NGC）**: NGC {n} は{_const_text}{NGC_TYPE_JA.get(ngc_type, ngc_type)}に分類される天体です"
                     f"（[NGC天体一覧]({NGC_LIST_URL})参照。分類・星座データ: Wolfram Knowledgebase）"
                 )
 
@@ -2562,13 +2506,8 @@ def render_number_page(
     if n >= 1:
         if (_enrich.get("minor_planets") or {}).get(str(n)):
             science_flag_names.append("小惑星")
-        _ngc_all = _enrich.get("ngc") or {}
-        if _ngc_all:
-            _t = (_ngc_all.get("exceptions") or {}).get(
-                str(n), _ngc_all.get("default", "Galaxy"))
-            if _t != "?":
-                science_flag_names.append(
-                    f"NGC天体（{NGC_TYPE_JA.get(_t, _t)}）")
+        if ngc_type and ngc_type != "?":
+            science_flag_names.append(f"NGC天体（{NGC_TYPE_JA.get(ngc_type, ngc_type)}）")
 
     code_flag_names: list[str] = []
     if 100 <= n <= 599 and HTTP_STATUS_PAGES.get(n) is not None:
@@ -2600,9 +2539,19 @@ def render_number_page(
         "（『数学的性質』のフラグの解説 / 『科学・技術』 / 『規格・コード』 / 『数秘・占術・文化のいわれ』）を参照してください（解説は各セクション 1 箇所に集約し、重複させません）。"
     )
 
+    wikipedia_en_ref = f"- Wikipedia（英語）: https://en.wikipedia.org/wiki/{n}"
+    thousand_article = "https://en.wikipedia.org/wiki/1000_%28number%29"
+    if n == 1000:
+        wikipedia_en_ref = f"- Wikipedia（英語）: [1000（数）]({thousand_article})"
+    elif 1001 <= n <= 1199:
+        first, last = (1001, 1099) if n < 1100 else (1100, 1199)
+        wikipedia_en_ref = (
+            f"- Wikipedia（英語）: [{first}〜{last} の数の一覧]"
+            f"({thousand_article}#{first}_to_{last})"
+        )
     refs = [
         f"- Wikipedia（日本語）: https://ja.wikipedia.org/wiki/{n}",
-        f"- Wikipedia（英語）: https://en.wikipedia.org/wiki/{n}",
+        wikipedia_en_ref,
         f"- OEIS 検索: https://oeis.org/search?q={n}&language=english",
         "- 数列の一覧（OEIS, CC BY-SA 4.0）: 各フラグに付した A 番号から個別の数列ページへ辿れます。",
     ]
@@ -2620,7 +2569,7 @@ def render_number_page(
         nav_line = ""
 
     def _link_cell(num: int) -> str:
-        if not (0 <= num <= 999):
+        if not (0 <= num <= MAX_NUMBER):
             return "—"
         return f"[{num:03d}]({rel_link(here, number_file_path(num))})"
 
@@ -2683,27 +2632,30 @@ def render_index() -> str:
     lines.append("# Index\n")
     lines.append("## 概要\n")
     lines.append(
-        "0〜999 の数字について、数学的な性質（素因数分解・約数・表記など）と、科学/文化に関する一次情報（主に Wikipedia）への導線をまとめたチートシート集です。\n"
+        f"0〜{MAX_NUMBER} の数字について、数学的な性質（素因数分解・約数・表記など）と、科学/文化に関する一次情報（主に Wikipedia）への導線をまとめたチートシート集です。\n"
     )
     lines.append("- 本文は `numbers/` 配下（基本は 1 数字 = 1 ファイル）")
     lines.append(
-        "- 命名: `numbers/<hundreds>xx/<3桁>.md`（例: `numbers/0xx/031.md`）\n")
+        f"- 0〜999 は百の位別のフォルダに3桁で、1000〜{MAX_NUMBER} は `numbers/1xxx/` に4桁で収録します（例: `numbers/0xx/031.md`、`numbers/1xxx/1000.md`）。\n")
 
     lines.append("## 運用ヒント\n")
-    lines.append("- まず `0xx/1xx/...` の範囲から探す")
+    lines.append("- 数字を含む範囲の表から探す")
     lines.append("- 各ページ末尾の Wikipedia リンクから一次情報へ\n")
 
-    for h in range(10):
-        start = h * 100
-        end = start + 99
-        lines.append(f"## {h}xx（{start:03d}〜{end:03d}）\n")
+    for folder, group in groupby(range(MAX_NUMBER + 1), key=number_folder):
+        numbers = list(group)
+        start, end = numbers[0], numbers[-1]
+        lines.append(f"## {folder}（{start:03d}〜{end:03d}）\n")
         lines.append("| " + " | ".join([f"{i}" for i in range(10)]) + " |")
         lines.append("| " + " | ".join(["---" for _ in range(10)]) + " |")
-        for r in range(10):
+        for row_start in range(start, end + 1, 10):
             row: list[str] = []
-            for c in range(10):
-                n = start + r * 10 + c
-                row.append(f"[{n:03d}](numbers/{h}xx/{n:03d}.md)")
+            for n in range(row_start, row_start + 10):
+                if n > end:
+                    row.append("")
+                else:
+                    path = number_file_path(n).relative_to(ROOT).as_posix()
+                    row.append(f"[{n:03d}]({path})")
             lines.append("| " + " | ".join(row) + " |")
         lines.append("")
 
@@ -2713,13 +2665,13 @@ def render_index() -> str:
 def render_readme() -> str:
     return "\n".join(
         [
-            "# CheatSheet of Numbers (0-999)",
+            f"# CheatSheet of Numbers (0-{MAX_NUMBER})",
             "",
-            "0〜999 の数字について、数学的な性質と、科学/文化に関する一次情報への導線をまとめたチートシート集です。",
+            f"0〜{MAX_NUMBER} の数字について、数学的な性質と、科学/文化に関する一次情報への導線をまとめたチートシート集です。",
             "",
             "- 入口: [index.md](index.md)",
             "- ブラウザ閲覧（GitHub Pages）: https://radiann-kswg.github.io/CheatSheet-of_Numbers/",
-            "- 個別ページ: `numbers/` 配下（基本は 1 数字 = 1 ファイル）",
+            f"- 個別ページ: 0〜999 は `numbers/0xx/`〜`numbers/9xx/`、1000〜{MAX_NUMBER} は [numbers/1xxx/](numbers/1xxx/) に収録しています。",
             "- 一部の規格・コード情報は Wikidata（CC0）から自動取得して補強します",
             "- Wikipedia（日本語）の冒頭（概要）に加え、『性質』『その他』から短い引用を抽出して要点の入口を補強します（長文転載はしません）",
             "- 元素・小惑星・NGC 天体の詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来のデータ（`tools/wolfram_enrichment_v1.json`）で補強します",
@@ -2817,7 +2769,7 @@ def write_file(path: Path, content: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Generate number cheat sheets (0..999).")
+        description=f"Generate number cheat sheets (0..{MAX_NUMBER}).")
     parser.add_argument(
         "--offline",
         action="store_true",
@@ -2864,6 +2816,7 @@ def main() -> None:
     only_numbers: list[int] | None = None
     if args.only:
         only_numbers = parse_only_numbers(args.only)
+    numbers_to_generate = only_numbers if only_numbers is not None else list(range(MAX_NUMBER + 1))
 
     wikidata: WikidataEnrichment | None = None
     if not args.no_wikidata:
@@ -2873,7 +2826,7 @@ def main() -> None:
                 print("[phase] Wikidata cache", flush=True)
                 if cache_path.exists():
                     wikidata = load_or_build_enrichment(
-                        cache_path=cache_path, refresh=False)
+                        cache_path=cache_path, refresh=False, offline=True)
             else:
                 with ProgressSpinner("Wikidata enrichment"):
                     wikidata = load_or_build_enrichment(
@@ -2890,7 +2843,7 @@ def main() -> None:
                 wikipedia_intros = load_or_build_wikipedia_intros_for_numbers(
                     cache_path=cache_path,
                     refresh=args.refresh_wikipedia,
-                    numbers=only_numbers,
+                    numbers=numbers_to_generate,
                     offline=True,
                 )
             else:
@@ -2898,7 +2851,7 @@ def main() -> None:
                     wikipedia_intros = load_or_build_wikipedia_intros_for_numbers(
                         cache_path=cache_path,
                         refresh=args.refresh_wikipedia,
-                        numbers=only_numbers,
+                        numbers=numbers_to_generate,
                         offline=False,
                     )
         except Exception as e:  # noqa: BLE001
@@ -2915,13 +2868,11 @@ def main() -> None:
         try:
             print("[phase] Wikipedia properties", flush=True)
             cache_path = ROOT / "tools" / "_cache" / "wikipedia_ja_properties_v1.json"
-            numbers = only_numbers if only_numbers is not None else list(
-                range(1000))
             wikipedia_properties, wikipedia_properties_legacy = (
                 load_or_build_wikipedia_property_sentence_sets_for_numbers(
                     cache_path=cache_path,
                     refresh=args.refresh_wikipedia_sections,
-                    numbers=numbers,
+                    numbers=numbers_to_generate,
                     offline=args.offline,
                 )
             )
@@ -2931,27 +2882,18 @@ def main() -> None:
         try:
             print("[phase] Wikipedia other items", flush=True)
             cache_path = ROOT / "tools" / "_cache" / "wikipedia_ja_others_v1.json"
-            numbers = only_numbers if only_numbers is not None else list(
-                range(1000))
             wikipedia_other_items, wikipedia_other_items_legacy = (
                 load_or_build_wikipedia_other_item_sets_for_numbers(
                     cache_path=cache_path,
                     refresh=args.refresh_wikipedia_sections,
-                    numbers=numbers,
+                    numbers=numbers_to_generate,
                     offline=args.offline,
                 )
             )
         except Exception as e:  # noqa: BLE001
             print(f"[warn] Wikipedia other section fetch skipped: {e}")
 
-    # Ensure base directories
-    NUMBERS_DIR.mkdir(parents=True, exist_ok=True)
-    for h in range(10):
-        (NUMBERS_DIR / f"{h}xx").mkdir(parents=True, exist_ok=True)
-
     # Generate pages
-    numbers_to_generate = only_numbers if only_numbers is not None else list(
-        range(1000))
     with ProgressBar(len(numbers_to_generate), "number pages") as progress:
         for completed, n in enumerate(numbers_to_generate, start=1):
             info = build_info(n)

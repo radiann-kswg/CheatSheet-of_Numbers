@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import gzip
 
+from number_range import MAX_NUMBER
+
 
 WDQS_ENDPOINT = "https://query.wikidata.org/sparql"
 WIKIDATA_API_ENDPOINT = "https://www.wikidata.org/w/api.php"
@@ -141,7 +143,9 @@ def fetch_number_items_from_jawiki_titles(numbers: list[int]) -> dict[int, Wikid
             timeout_sec=30.0,
         )
 
-        entities = data.get("entities", {})
+        entities = data.get("entities")
+        if not isinstance(entities, dict):
+            raise RuntimeError(f"Wikidata returned no entities object: {data.get('error', {})}")
         for ent in entities.values():
             qid = ent.get("id")
             if not qid or not qid.startswith("Q"):
@@ -258,8 +262,11 @@ SELECT ?code ?country ?countryLabel WHERE {
 def load_or_build_enrichment(
     cache_path: Path,
     refresh: bool,
+    *,
+    offline: bool = False,
 ) -> WikidataEnrichment:
-    if cache_path.exists() and not refresh:
+    cached = None
+    if cache_path.exists() and (offline or not refresh):
         raw = json.loads(cache_path.read_text(encoding="utf-8"))
         number_items = {
             int(k): WikidataNumberItem(qid=v["qid"], description_ja=v.get("description_ja"))
@@ -273,18 +280,36 @@ def load_or_build_enrichment(
             int(k): [WikidataRef(label=x["label"], qid=x["qid"]) for x in v]
             for k, v in raw.get("tel_country_code", {}).items()
         }
-        return WikidataEnrichment(number_items=number_items, iso3166_numeric=iso, tel_country_code=tel)
+        cached = WikidataEnrichment(number_items=number_items, iso3166_numeric=iso, tel_country_code=tel)
+        # Earlier v1 caches queried through 999. Missing titles within that range are expected.
+        cached_max = raw.get("meta", {}).get("max_number", 999)
+        if offline or cached_max >= MAX_NUMBER:
+            return cached
+    elif offline:
+        return WikidataEnrichment(number_items={}, iso3166_numeric={}, tel_country_code={})
 
-    numbers = list(range(1000))
-    number_items = fetch_number_items_from_jawiki_titles(numbers)
-    iso = fetch_iso3166_numeric_0_999()
-    tel = fetch_tel_country_code_0_999_digits_only()
+    try:
+        if cached is not None:
+            missing = list(range(cached_max + 1, MAX_NUMBER + 1))
+            number_items.update(fetch_number_items_from_jawiki_titles(missing))
+        else:
+            number_items = fetch_number_items_from_jawiki_titles(list(range(MAX_NUMBER + 1)))
+            iso = fetch_iso3166_numeric_0_999()
+            tel = fetch_tel_country_code_0_999_digits_only()
+    except RuntimeError as exc:
+        if not cache_path.exists():
+            raise
+        print(f"[warn] Wikidata refresh failed, using cached data: {exc}")
+        return cached or load_or_build_enrichment(cache_path, refresh=False, offline=True)
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(
         json.dumps(
             {
-                "meta": {"generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+                "meta": {
+                    "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "max_number": MAX_NUMBER,
+                },
                 "number_items": {
                     str(k): {"qid": v.qid, "description_ja": v.description_ja}
                     for k, v in sorted(number_items.items())

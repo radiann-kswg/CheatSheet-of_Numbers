@@ -15,12 +15,13 @@ import sys
 
 import build_viewer_index as bvi
 import generate_numbers as gen
+from number_range import MAX_NUMBER
 
 
 def collect_page_flags() -> set[str]:
-    """0..999 の全ページに実際に現れる数学フラグ名を集める。"""
+    """収録範囲の全ページに実際に現れる数学フラグ名を集める。"""
     names: set[str] = set()
-    for n in range(1000):
+    for n in range(MAX_NUMBER + 1):
         info = gen.build_info(n)
         for name, _detail in gen.math_flag_details(n, info):
             names.add(name)

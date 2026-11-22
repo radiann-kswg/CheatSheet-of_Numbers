@@ -1,10 +1,10 @@
-# CheatSheet of Numbers (0-999)
+# CheatSheet of Numbers (0-1188)
 
-0〜999 の数字について、数学的な性質と、科学/文化に関する一次情報への導線をまとめたチートシート集です。
+0〜1188 の数字について、数学的な性質と、科学/文化に関する一次情報への導線をまとめたチートシート集です。
 
 - 入口: [index.md](index.md)
 - ブラウザ閲覧（GitHub Pages）: https://radiann-kswg.github.io/CheatSheet-of_Numbers/
-- 個別ページ: `numbers/` 配下（基本は 1 数字 = 1 ファイル）
+- 個別ページ: 0〜999 は `numbers/0xx/`〜`numbers/9xx/`、1000〜1188 は [numbers/1xxx/](numbers/1xxx/) に収録しています。
 - 一部の規格・コード情報は Wikidata（CC0）から自動取得して補強します
 - Wikipedia（日本語）の冒頭（概要）に加え、『性質』『その他』から短い引用を抽出して要点の入口を補強します（長文転載はしません）
 - 元素・小惑星・NGC 天体の詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来のデータ（`tools/wolfram_enrichment_v1.json`）で補強します

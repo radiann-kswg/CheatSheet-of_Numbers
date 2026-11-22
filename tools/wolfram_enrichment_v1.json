@@ -1007,6 +1007,7 @@
   "999": "999 Zachia"
  },
  "ngc": {
+  "range": [1, 999],
   "default": "Galaxy",
   "exceptions": {
    "8": "Star",

@@ -12,6 +12,7 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
+from number_range import MAX_NUMBER
 from progress import ProgressBar
 
 
@@ -26,7 +27,7 @@ _RE_GENERIC_POPE = re.compile(r"第\s*\d+\s*代\s*ローマ教皇")
 _RE_GENERIC_QURAN_SURA = re.compile(
     r"(?:クルアーン|コーラン).{0,40}スーラ|スーラ.{0,40}(?:クルアーン|コーラン)")
 _RE_GENERIC_OTHER_RELATED_STUB = re.compile(
-    r"^その他\s*(?:\d+|[零〇一二三四五六七八九十百]+)\s*に関連すること。?$"
+    r"^その他\s*(?:\d+|[零〇一二三四五六七八九十百千]+)\s*に関連すること。?$"
 )
 
 
@@ -73,31 +74,34 @@ _KANJI_DIGITS: dict[int, str] = {
 }
 
 
-def _to_kanji_upto_999(n: int) -> str:
-    if not (0 <= n <= 999):
-        raise ValueError("Supported range is 0..999")
+def to_japanese_kanji(
+    n: int,
+    *,
+    digits: dict[int, str] = _KANJI_DIGITS,
+    ten: str = "十",
+    hundred: str = "百",
+    thousand: str = "千",
+) -> str:
+    if not (0 <= n <= 9999):
+        raise ValueError("Supported range is 0..9999")
     if n == 0:
-        return _KANJI_DIGITS[0]
-
-    h = n // 100
-    t = (n // 10) % 10
-    u = n % 10
+        return digits[0]
 
     parts: list[str] = []
-    if h:
-        parts.append(("百" if h == 1 else _KANJI_DIGITS[h] + "百"))
-    if t:
-        parts.append(("十" if t == 1 else _KANJI_DIGITS[t] + "十"))
-    if u:
-        parts.append(_KANJI_DIGITS[u])
+    for place, unit in ((1000, thousand), (100, hundred), (10, ten)):
+        digit, n = divmod(n, place)
+        if digit:
+            parts.append(unit if digit == 1 else digits[digit] + unit)
+    if n:
+        parts.append(digits[n])
     return "".join(parts)
 
 
 def _number_relevance_tokens(n: int) -> set[str]:
     # Tokens to ensure the excerpt is about the target number.
     # We intentionally keep this conservative to avoid pulling in unrelated fragments.
-    tokens: set[str] = {str(n), f"{n:03d}", _to_kanji_upto_999(
-        n), f"第{n}", f"第{_to_kanji_upto_999(n)}"}
+    kanji = to_japanese_kanji(n)
+    tokens: set[str] = {str(n), f"{n:03d}", kanji, f"第{n}", f"第{kanji}"}
     if n < 100:
         tokens.add(f"{n:02d}")
     return {t for t in tokens if isinstance(t, str) and t}
@@ -135,7 +139,7 @@ def _filter_candidates_relevant_to_number(
         # Fallback phrases that still clearly refer to the number within the article context.
         # Guardrail: don't accept fallback lines that contain other multi-digit numbers
         # (e.g., 603-page excerpt that only talks about 600) unless the target token matches.
-        has_other_large_number = bool(re.search(r"\d{3,}", s_match)) or bool(re.search(r"[一二三四五六七八九]百", s_match))
+        has_other_large_number = bool(re.search(r"\d{3,}|[一二三四五六七八九]百|千", s_match))
         if ("この数" in s_match or "この数字" in s_match) and not has_other_large_number:
             out.append(s2)
             continue
@@ -1713,7 +1717,7 @@ def load_or_build_wikipedia_intros_for_numbers(
     offline: bool = False,
 ) -> dict[int, str]:
     if numbers is None:
-        numbers = list(range(1000))
+        numbers = list(range(MAX_NUMBER + 1))
 
     cached_all: dict[int, str] = {}
     if cache_path.exists():

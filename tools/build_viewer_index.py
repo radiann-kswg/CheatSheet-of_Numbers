@@ -19,6 +19,7 @@ from datetime import datetime
 from pathlib import Path
 
 import generate_numbers as gen
+from number_range import MAX_NUMBER
 from progress import ProgressBar
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -218,7 +219,7 @@ def _build_record(n: int, lore: dict) -> dict:
     info = gen.build_info(n)
 
     # --- loreFilters ---
-    lore_filters: list[str] = ["numerology"]  # 数秘・エンジェル・ヘブライ数字は全数に付与
+    lore_filters: list[str] = ["numerology"]  # 数秘術・エンジェルナンバーは全ページに収録
     if (lore.get("notable_gematria") or {}).get(str(n)):
         lore_filters.append("gematria")
     entries = (lore.get("entries") or {}).get(str(n)) or []
@@ -266,7 +267,7 @@ def _build_record(n: int, lore: dict) -> dict:
         "n": n,
         "id": f"{n:03d}",
         "title": f"{n}（{n:03d}）",
-        "path": f"numbers/{n // 100}xx/{n:03d}.md",
+        "path": gen.number_file_path(n).relative_to(ROOT).as_posix(),
         "loreFilters": lore_filters,
         "propertyFilters": property_filters,
         "snippets": snippets,
@@ -277,8 +278,8 @@ def _build_record(n: int, lore: dict) -> dict:
 def build_viewer_index() -> dict:
     lore = gen._load_number_lore()
     records = []
-    with ProgressBar(1000, "viewer index") as progress:
-        for n in range(1000):
+    with ProgressBar(MAX_NUMBER + 1, "viewer index") as progress:
+        for n in range(MAX_NUMBER + 1):
             records.append(_build_record(n, lore))
             progress.update(n + 1, detail=f"{n:03d}")
     return {

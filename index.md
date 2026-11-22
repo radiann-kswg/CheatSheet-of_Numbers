@@ -2,14 +2,14 @@
 
 ## 概要
 
-0〜999 の数字について、数学的な性質（素因数分解・約数・表記など）と、科学/文化に関する一次情報（主に Wikipedia）への導線をまとめたチートシート集です。
+0〜1188 の数字について、数学的な性質（素因数分解・約数・表記など）と、科学/文化に関する一次情報（主に Wikipedia）への導線をまとめたチートシート集です。
 
 - 本文は `numbers/` 配下（基本は 1 数字 = 1 ファイル）
-- 命名: `numbers/<hundreds>xx/<3桁>.md`（例: `numbers/0xx/031.md`）
+- 0〜999 は百の位別のフォルダに3桁で、1000〜1188 は `numbers/1xxx/` に4桁で収録します（例: `numbers/0xx/031.md`、`numbers/1xxx/1000.md`）。
 
 ## 運用ヒント
 
-- まず `0xx/1xx/...` の範囲から探す
+- 数字を含む範囲の表から探す
 - 各ページ末尾の Wikipedia リンクから一次情報へ
 
 ## 0xx（000〜099）
@@ -161,3 +161,27 @@
 | [970](numbers/9xx/970.md) | [971](numbers/9xx/971.md) | [972](numbers/9xx/972.md) | [973](numbers/9xx/973.md) | [974](numbers/9xx/974.md) | [975](numbers/9xx/975.md) | [976](numbers/9xx/976.md) | [977](numbers/9xx/977.md) | [978](numbers/9xx/978.md) | [979](numbers/9xx/979.md) |
 | [980](numbers/9xx/980.md) | [981](numbers/9xx/981.md) | [982](numbers/9xx/982.md) | [983](numbers/9xx/983.md) | [984](numbers/9xx/984.md) | [985](numbers/9xx/985.md) | [986](numbers/9xx/986.md) | [987](numbers/9xx/987.md) | [988](numbers/9xx/988.md) | [989](numbers/9xx/989.md) |
 | [990](numbers/9xx/990.md) | [991](numbers/9xx/991.md) | [992](numbers/9xx/992.md) | [993](numbers/9xx/993.md) | [994](numbers/9xx/994.md) | [995](numbers/9xx/995.md) | [996](numbers/9xx/996.md) | [997](numbers/9xx/997.md) | [998](numbers/9xx/998.md) | [999](numbers/9xx/999.md) |
+
+## 1xxx（1000〜1188）
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [1000](numbers/1xxx/1000.md) | [1001](numbers/1xxx/1001.md) | [1002](numbers/1xxx/1002.md) | [1003](numbers/1xxx/1003.md) | [1004](numbers/1xxx/1004.md) | [1005](numbers/1xxx/1005.md) | [1006](numbers/1xxx/1006.md) | [1007](numbers/1xxx/1007.md) | [1008](numbers/1xxx/1008.md) | [1009](numbers/1xxx/1009.md) |
+| [1010](numbers/1xxx/1010.md) | [1011](numbers/1xxx/1011.md) | [1012](numbers/1xxx/1012.md) | [1013](numbers/1xxx/1013.md) | [1014](numbers/1xxx/1014.md) | [1015](numbers/1xxx/1015.md) | [1016](numbers/1xxx/1016.md) | [1017](numbers/1xxx/1017.md) | [1018](numbers/1xxx/1018.md) | [1019](numbers/1xxx/1019.md) |
+| [1020](numbers/1xxx/1020.md) | [1021](numbers/1xxx/1021.md) | [1022](numbers/1xxx/1022.md) | [1023](numbers/1xxx/1023.md) | [1024](numbers/1xxx/1024.md) | [1025](numbers/1xxx/1025.md) | [1026](numbers/1xxx/1026.md) | [1027](numbers/1xxx/1027.md) | [1028](numbers/1xxx/1028.md) | [1029](numbers/1xxx/1029.md) |
+| [1030](numbers/1xxx/1030.md) | [1031](numbers/1xxx/1031.md) | [1032](numbers/1xxx/1032.md) | [1033](numbers/1xxx/1033.md) | [1034](numbers/1xxx/1034.md) | [1035](numbers/1xxx/1035.md) | [1036](numbers/1xxx/1036.md) | [1037](numbers/1xxx/1037.md) | [1038](numbers/1xxx/1038.md) | [1039](numbers/1xxx/1039.md) |
+| [1040](numbers/1xxx/1040.md) | [1041](numbers/1xxx/1041.md) | [1042](numbers/1xxx/1042.md) | [1043](numbers/1xxx/1043.md) | [1044](numbers/1xxx/1044.md) | [1045](numbers/1xxx/1045.md) | [1046](numbers/1xxx/1046.md) | [1047](numbers/1xxx/1047.md) | [1048](numbers/1xxx/1048.md) | [1049](numbers/1xxx/1049.md) |
+| [1050](numbers/1xxx/1050.md) | [1051](numbers/1xxx/1051.md) | [1052](numbers/1xxx/1052.md) | [1053](numbers/1xxx/1053.md) | [1054](numbers/1xxx/1054.md) | [1055](numbers/1xxx/1055.md) | [1056](numbers/1xxx/1056.md) | [1057](numbers/1xxx/1057.md) | [1058](numbers/1xxx/1058.md) | [1059](numbers/1xxx/1059.md) |
+| [1060](numbers/1xxx/1060.md) | [1061](numbers/1xxx/1061.md) | [1062](numbers/1xxx/1062.md) | [1063](numbers/1xxx/1063.md) | [1064](numbers/1xxx/1064.md) | [1065](numbers/1xxx/1065.md) | [1066](numbers/1xxx/1066.md) | [1067](numbers/1xxx/1067.md) | [1068](numbers/1xxx/1068.md) | [1069](numbers/1xxx/1069.md) |
+| [1070](numbers/1xxx/1070.md) | [1071](numbers/1xxx/1071.md) | [1072](numbers/1xxx/1072.md) | [1073](numbers/1xxx/1073.md) | [1074](numbers/1xxx/1074.md) | [1075](numbers/1xxx/1075.md) | [1076](numbers/1xxx/1076.md) | [1077](numbers/1xxx/1077.md) | [1078](numbers/1xxx/1078.md) | [1079](numbers/1xxx/1079.md) |
+| [1080](numbers/1xxx/1080.md) | [1081](numbers/1xxx/1081.md) | [1082](numbers/1xxx/1082.md) | [1083](numbers/1xxx/1083.md) | [1084](numbers/1xxx/1084.md) | [1085](numbers/1xxx/1085.md) | [1086](numbers/1xxx/1086.md) | [1087](numbers/1xxx/1087.md) | [1088](numbers/1xxx/1088.md) | [1089](numbers/1xxx/1089.md) |
+| [1090](numbers/1xxx/1090.md) | [1091](numbers/1xxx/1091.md) | [1092](numbers/1xxx/1092.md) | [1093](numbers/1xxx/1093.md) | [1094](numbers/1xxx/1094.md) | [1095](numbers/1xxx/1095.md) | [1096](numbers/1xxx/1096.md) | [1097](numbers/1xxx/1097.md) | [1098](numbers/1xxx/1098.md) | [1099](numbers/1xxx/1099.md) |
+| [1100](numbers/1xxx/1100.md) | [1101](numbers/1xxx/1101.md) | [1102](numbers/1xxx/1102.md) | [1103](numbers/1xxx/1103.md) | [1104](numbers/1xxx/1104.md) | [1105](numbers/1xxx/1105.md) | [1106](numbers/1xxx/1106.md) | [1107](numbers/1xxx/1107.md) | [1108](numbers/1xxx/1108.md) | [1109](numbers/1xxx/1109.md) |
+| [1110](numbers/1xxx/1110.md) | [1111](numbers/1xxx/1111.md) | [1112](numbers/1xxx/1112.md) | [1113](numbers/1xxx/1113.md) | [1114](numbers/1xxx/1114.md) | [1115](numbers/1xxx/1115.md) | [1116](numbers/1xxx/1116.md) | [1117](numbers/1xxx/1117.md) | [1118](numbers/1xxx/1118.md) | [1119](numbers/1xxx/1119.md) |
+| [1120](numbers/1xxx/1120.md) | [1121](numbers/1xxx/1121.md) | [1122](numbers/1xxx/1122.md) | [1123](numbers/1xxx/1123.md) | [1124](numbers/1xxx/1124.md) | [1125](numbers/1xxx/1125.md) | [1126](numbers/1xxx/1126.md) | [1127](numbers/1xxx/1127.md) | [1128](numbers/1xxx/1128.md) | [1129](numbers/1xxx/1129.md) |
+| [1130](numbers/1xxx/1130.md) | [1131](numbers/1xxx/1131.md) | [1132](numbers/1xxx/1132.md) | [1133](numbers/1xxx/1133.md) | [1134](numbers/1xxx/1134.md) | [1135](numbers/1xxx/1135.md) | [1136](numbers/1xxx/1136.md) | [1137](numbers/1xxx/1137.md) | [1138](numbers/1xxx/1138.md) | [1139](numbers/1xxx/1139.md) |
+| [1140](numbers/1xxx/1140.md) | [1141](numbers/1xxx/1141.md) | [1142](numbers/1xxx/1142.md) | [1143](numbers/1xxx/1143.md) | [1144](numbers/1xxx/1144.md) | [1145](numbers/1xxx/1145.md) | [1146](numbers/1xxx/1146.md) | [1147](numbers/1xxx/1147.md) | [1148](numbers/1xxx/1148.md) | [1149](numbers/1xxx/1149.md) |
+| [1150](numbers/1xxx/1150.md) | [1151](numbers/1xxx/1151.md) | [1152](numbers/1xxx/1152.md) | [1153](numbers/1xxx/1153.md) | [1154](numbers/1xxx/1154.md) | [1155](numbers/1xxx/1155.md) | [1156](numbers/1xxx/1156.md) | [1157](numbers/1xxx/1157.md) | [1158](numbers/1xxx/1158.md) | [1159](numbers/1xxx/1159.md) |
+| [1160](numbers/1xxx/1160.md) | [1161](numbers/1xxx/1161.md) | [1162](numbers/1xxx/1162.md) | [1163](numbers/1xxx/1163.md) | [1164](numbers/1xxx/1164.md) | [1165](numbers/1xxx/1165.md) | [1166](numbers/1xxx/1166.md) | [1167](numbers/1xxx/1167.md) | [1168](numbers/1xxx/1168.md) | [1169](numbers/1xxx/1169.md) |
+| [1170](numbers/1xxx/1170.md) | [1171](numbers/1xxx/1171.md) | [1172](numbers/1xxx/1172.md) | [1173](numbers/1xxx/1173.md) | [1174](numbers/1xxx/1174.md) | [1175](numbers/1xxx/1175.md) | [1176](numbers/1xxx/1176.md) | [1177](numbers/1xxx/1177.md) | [1178](numbers/1xxx/1178.md) | [1179](numbers/1xxx/1179.md) |
+| [1180](numbers/1xxx/1180.md) | [1181](numbers/1xxx/1181.md) | [1182](numbers/1xxx/1182.md) | [1183](numbers/1xxx/1183.md) | [1184](numbers/1xxx/1184.md) | [1185](numbers/1xxx/1185.md) | [1186](numbers/1xxx/1186.md) | [1187](numbers/1xxx/1187.md) | [1188](numbers/1xxx/1188.md) |  |

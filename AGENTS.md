@@ -1,4 +1,4 @@
-# AGENTS.md — CheatSheet of Numbers (0-999)
+# AGENTS.md — CheatSheet of Numbers (0-1188)
 
 > **このファイルが AI エージェント向け指示の SSOT（Single Source of Truth）です。**
 > Codex（Desktop / IDE / CLI / Cloud）・GitHub Copilot（coding agent / VS Code / CLI）・Claude（Claude Code / Cowork / Desktop）・その他の AI ツールは、本ファイルの指示に従ってください。
@@ -16,7 +16,7 @@
 
 ## リポジトリ概要
 
-0〜999 の数字について、次をまとめたチートシート集です。
+0〜1188 の数字について、次をまとめたチートシート集です。
 
 - 数学的な性質（素因数分解・約数・トーシェント関数・表記など）
 - 科学・文化に関する一次情報への導線（主に Wikipedia 等へのリンク）
@@ -35,17 +35,19 @@
 ├── CLAUDE.md                # Claude 用ポインタ（編集しない）
 ├── .github/
 │   └── copilot-instructions.md  # Copilot 用ポインタ（編集しない）
-├── index.md                 # 入口（0〜999 目次）
+├── index.md                 # 入口（0〜1188 目次）
 ├── index.html               # Numbers Lore Viewer（GitHub Pages の閲覧 UI）
 ├── assets/                  # ビューアーの JS/CSS と検索インデックス（numbers-index.json は生成物）
 ├── README.md                # リポジトリ概要
 ├── numbers/                 # 各数字の個別ページ（基本は 1 数字 = 1 ファイル）
 │   ├── 0xx/                 # 000〜099
 │   ├── 1xx/                 # 100〜199
-│   └── ...                  # 〜 9xx/（900〜999）
+│   ├── ...                  # 2xx/〜9xx/（200〜999）
+│   └── 1xxx/                # 1000〜1188
 ├── _template/               # 執筆テンプレート（number.md）
 ├── tools/                   # 生成・補助スクリプト
 │   ├── generate_numbers.py  # メイン生成スクリプト
+│   ├── number_range.py      # 収録上限と各数字のフォルダ名
 │   ├── build_viewer_index.py    # ビューアー検索インデックス生成（フィルタ定義もここ）
 │   ├── check_internal_links.py  # 内部リンク検査
 │   ├── check_viewer_filters.py  # ページのフラグとビューアーのフィルタの同期検査
@@ -66,9 +68,8 @@
 
 ### 1ファイル=1数字
 
-- 基本: `numbers/<hundreds>xx/<3桁>.md`
-  - 例: `31` → `numbers/0xx/031.md`、`496` → `numbers/4xx/496.md`
-- ファイル名は **必ず 3 桁のゼロ埋め**にしてください（リンク安定のため）。
+- 0〜999 は百ごとのフォルダに置き、ファイル名を3桁にゼロ埋めする（例: `numbers/0xx/031.md`、`numbers/4xx/496.md`）。
+- 1000〜1188 は `numbers/1xxx/` にまとめ、4桁のファイル名を使う（例: `numbers/1xxx/1188.md`）。
 
 ### 生成物の扱い
 
@@ -122,7 +123,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 | en/zh Wikipedia・en.wiktionary・en.wikiquote | 数字の文化・迷信・語源・引用（**和訳**） | CC BY-SA 4.0 | **採用**。和訳エントリを `tools/number_lore_v1.json` に収録（中国の数字文化＝kikkyo/goro、数詞の語源＝gogen カテゴリ）。text 末尾に出典と「和訳・改変あり」を明記 |
 | Project Gutenberg / sacred-texts / Wikisource の PD 古典 | 数のいわれの一次資料（**和訳**） | PD（要ファイル単位確認） | **採用**。Westcott『Numbers: Their Occult Power and Mystic Virtues』(1911) 由来のエントリを `number_lore_v1.json` に収録済み。追加候補: Conant『The Number Concept』(1896)。PG 由来は本文から「Project Gutenberg」の商標表記を除去。sacred-texts は ⚠ 付きファイルと解説文（J.B. Hare 著作権）を除外 |
 | ProofWiki | 定義・定理・個別数の例（**和訳**） | CC BY-SA 3.0（翻案は 4.0 で公開可） | 未採用（採用可）。個別数のページあり（例: Perfect Number/Examples/496）。数学的定義の出典として有力 |
-| Groupprops (subwiki) | 位数 n の群の個数・分類 | CC BY-SA 3.0 | 未採用（採用可）。「位数 n の群は◯種類」という 0-999 に直結する事実の出典に好適 |
+| Groupprops (subwiki) | 位数 n の群の個数・分類 | CC BY-SA 3.0 | 未採用（採用可）。「位数 n の群は◯種類」という各数字に対応する事実の出典に好適 |
 | Metamath（set.mm） | 形式証明の参照 | CC0（peano.mm のみ GPL で不可） | 未採用（採用可）。帰属不要だが個別の数の性質はほぼ扱わない |
 | MacTutor History of Mathematics | 数学史の記述（**和訳**） | CC BY-SA 4.0（本文のみ。/Extras/ と画像は対象外） | 未採用（採用可）。完全数の歴史など補助的に |
 | Encyclopedia of Mathematics | — | wiki 追記分のみ CC BY-SA 3.0。**Kluwer/Springer 由来の原記事は権利留保** | **リンクのみ**。記事単位の履歴精査なしに翻案しない |

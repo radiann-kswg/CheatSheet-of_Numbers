@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-08-07T17:25:07",
+ "generatedAt": "2026-11-22T12:41:42",
  "filters": {
   "lore": [
    {
@@ -20136,6 +20136,3495 @@
     "松本零士『銀河鉄道999』のタイトルナンバーとして知られる。英国などの緊急通報用電話番号でもある。"
    ],
    "searchText": "999 999 九百九十九 玖佰玖拾玖 きゅうひゃくきゅうじゅうきゅう nine hundred ninety-nine 数秘・エンジェル 創作作品 合成数 奇数 不足数 回文数 ハーシャッド数 カプレカ数 松本零士『銀河鉄道999』のタイトルナンバーとして知られる。英国などの緊急通報用電話番号でもある。"
+  },
+  {
+   "n": 1000,
+   "id": "1000",
+   "title": "1000（1000）",
+   "path": "numbers/1xxx/1000.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "cube",
+    "abundant",
+    "harshad",
+    "happy",
+    "powerful",
+    "hamming",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1000 1000 千 阡 せん one thousand 数秘・エンジェル 合成数 偶数 立方数 過剰数 ハーシャッド数 ハッピー数 多冪数 ハミング数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1001,
+   "id": "1001",
+   "title": "1001（1001）",
+   "path": "numbers/1xxx/1001.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "palindrome",
+    "sphenic",
+    "polygonal",
+    "pentatope"
+   ],
+   "snippets": [],
+   "searchText": "1001 1001 千一 阡壹 せんいち one thousand one 数秘・エンジェル 合成数 奇数 不足数 回文数 楔数 多角数 五胞体数"
+  },
+  {
+   "n": 1002,
+   "id": "1002",
+   "title": "1002（1002）",
+   "path": "numbers/1xxx/1002.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "harshad",
+    "polygonal",
+    "centered_polygonal",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1002 1002 千二 阡貳 せんに one thousand two 数秘・エンジェル 合成数 偶数 過剰数 楔数 ハーシャッド数 多角数 中心つき多角数 疑似完全数"
+  },
+  {
+   "n": 1003,
+   "id": "1003",
+   "title": "1003（1003）",
+   "path": "numbers/1xxx/1003.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1003 1003 千三 阡參 せんさん one thousand three 数秘・エンジェル 合成数 奇数 不足数 半素数 ハッピー数"
+  },
+  {
+   "n": 1004,
+   "id": "1004",
+   "title": "1004（1004）",
+   "path": "numbers/1xxx/1004.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1004 1004 千四 阡肆 せんよん one thousand four 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1005,
+   "id": "1005",
+   "title": "1005（1005）",
+   "path": "numbers/1xxx/1005.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1005 1005 千五 阡伍 せんご one thousand five 数秘・エンジェル 合成数 奇数 不足数 楔数"
+  },
+  {
+   "n": 1006,
+   "id": "1006",
+   "title": "1006（1006）",
+   "path": "numbers/1xxx/1006.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1006 1006 千六 阡陸 せんろく one thousand six 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1007,
+   "id": "1007",
+   "title": "1007（1007）",
+   "path": "numbers/1xxx/1007.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1007 1007 千七 阡柒 せんなな one thousand seven 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1008,
+   "id": "1008",
+   "title": "1008（1008）",
+   "path": "numbers/1xxx/1008.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1008 1008 千八 阡捌 せんはち one thousand eight 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1009,
+   "id": "1009",
+   "title": "1009（1009）",
+   "path": "numbers/1xxx/1009.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "happy",
+    "lucky",
+    "pythagorean_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1009 1009 千九 阡玖 せんきゅう one thousand nine 数秘・エンジェル 素数 奇数 不足数 エマープ ハッピー数 幸運数 ピタゴラス素数 陳素数"
+  },
+  {
+   "n": 1010,
+   "id": "1010",
+   "title": "1010（1010）",
+   "path": "numbers/1xxx/1010.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "harshad"
+   ],
+   "snippets": [],
+   "searchText": "1010 1010 千十 阡拾 せんじゅう one thousand ten 数秘・エンジェル 合成数 偶数 不足数 楔数 ハーシャッド数"
+  },
+  {
+   "n": 1011,
+   "id": "1011",
+   "title": "1011（1011）",
+   "path": "numbers/1xxx/1011.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "harshad",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1011 1011 千十一 阡拾壹 せんじゅういち one thousand eleven 数秘・エンジェル 合成数 奇数 不足数 半素数 ハーシャッド数 幸運数"
+  },
+  {
+   "n": 1012,
+   "id": "1012",
+   "title": "1012（1012）",
+   "path": "numbers/1xxx/1012.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "harshad",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1012 1012 千十二 阡拾貳 せんじゅうに one thousand twelve 数秘・エンジェル 合成数 偶数 不足数 ハーシャッド数 トーシェント数"
+  },
+  {
+   "n": 1013,
+   "id": "1013",
+   "title": "1013（1013）",
+   "path": "numbers/1xxx/1013.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "sophie_germain",
+    "centered_polygonal",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1013 1013 千十三 阡拾參 せんじゅうさん one thousand thirteen 数秘・エンジェル 素数 奇数 不足数 ソフィー・ジェルマン素数 中心つき多角数 ピタゴラス素数"
+  },
+  {
+   "n": 1014,
+   "id": "1014",
+   "title": "1014（1014）",
+   "path": "numbers/1xxx/1014.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1014 1014 千十四 阡拾肆 せんじゅうよん one thousand fourteen 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数"
+  },
+  {
+   "n": 1015,
+   "id": "1015",
+   "title": "1015（1015）",
+   "path": "numbers/1xxx/1015.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "harshad",
+    "polygonal",
+    "centered_polygonal",
+    "square_pyramidal"
+   ],
+   "snippets": [],
+   "searchText": "1015 1015 千十五 阡拾伍 せんじゅうご one thousand fifteen 数秘・エンジェル 合成数 奇数 不足数 楔数 ハーシャッド数 多角数 中心つき多角数 四角錐数"
+  },
+  {
+   "n": 1016,
+   "id": "1016",
+   "title": "1016（1016）",
+   "path": "numbers/1xxx/1016.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "harshad",
+    "stella_octangula",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1016 1016 千十六 阡拾陸 せんじゅうろく one thousand sixteen 数秘・エンジェル 合成数 偶数 不足数 ハーシャッド数 星型八面体数 トーシェント数"
+  },
+  {
+   "n": 1017,
+   "id": "1017",
+   "title": "1017（1017）",
+   "path": "numbers/1xxx/1017.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad"
+   ],
+   "snippets": [],
+   "searchText": "1017 1017 千十七 阡拾柒 せんじゅうなな one thousand seventeen 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数"
+  },
+  {
+   "n": 1018,
+   "id": "1018",
+   "title": "1018（1018）",
+   "path": "numbers/1xxx/1018.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime",
+    "ulam",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1018 1018 千十八 阡拾捌 せんじゅうはち one thousand eighteen 数秘・エンジェル 合成数 偶数 不足数 半素数 ウラム数 トーシェント数"
+  },
+  {
+   "n": 1019,
+   "id": "1019",
+   "title": "1019（1019）",
+   "path": "numbers/1xxx/1019.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "twin_prime",
+    "sophie_germain",
+    "safe_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1019 1019 千十九 阡拾玖 せんじゅうきゅう one thousand nineteen 数秘・エンジェル 素数 奇数 不足数 双子素数 ソフィー・ジェルマン素数 安全素数 陳素数"
+  },
+  {
+   "n": 1020,
+   "id": "1020",
+   "title": "1020（1020）",
+   "path": "numbers/1xxx/1020.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "ulam",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1020 1020 千二十 阡貳拾 せんにじゅう one thousand twenty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ウラム数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1021,
+   "id": "1021",
+   "title": "1021（1021）",
+   "path": "numbers/1xxx/1021.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "lucky",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1021 1021 千二十一 阡貳拾壹 せんにじゅういち one thousand twenty-one 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 幸運数 ピタゴラス素数"
+  },
+  {
+   "n": 1022,
+   "id": "1022",
+   "title": "1022（1022）",
+   "path": "numbers/1xxx/1022.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1022 1022 千二十二 阡貳拾貳 せんにじゅうに one thousand twenty-two 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1023,
+   "id": "1023",
+   "title": "1023（1023）",
+   "path": "numbers/1xxx/1023.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "mersenne",
+    "deficient",
+    "sphenic",
+    "lucky",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1023 1023 千二十三 阡貳拾參 せんにじゅうさん one thousand twenty-three 数秘・エンジェル 合成数 奇数 メルセンヌ数 不足数 楔数 幸運数 ウラム数"
+  },
+  {
+   "n": 1024,
+   "id": "1024",
+   "title": "1024（1024）",
+   "path": "numbers/1xxx/1024.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "square",
+    "deficient",
+    "powerful",
+    "hamming",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1024 1024 千二十四 阡貳拾肆 せんにじゅうよん one thousand twenty-four 数秘・エンジェル 合成数 偶数 平方数 不足数 多冪数 ハミング数 トーシェント数"
+  },
+  {
+   "n": 1025,
+   "id": "1025",
+   "title": "1025（1025）",
+   "path": "numbers/1xxx/1025.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "ulam",
+    "proth"
+   ],
+   "snippets": [],
+   "searchText": "1025 1025 千二十五 阡貳拾伍 せんにじゅうご one thousand twenty-five 数秘・エンジェル 合成数 奇数 不足数 ウラム数 プロス数"
+  },
+  {
+   "n": 1026,
+   "id": "1026",
+   "title": "1026（1026）",
+   "path": "numbers/1xxx/1026.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1026 1026 千二十六 阡貳拾陸 せんにじゅうろく one thousand twenty-six 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数"
+  },
+  {
+   "n": 1027,
+   "id": "1027",
+   "title": "1027（1027）",
+   "path": "numbers/1xxx/1027.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "polygonal",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1027 1027 千二十七 阡貳拾柒 せんにじゅうなな one thousand twenty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 多角数 中心つき多角数"
+  },
+  {
+   "n": 1028,
+   "id": "1028",
+   "title": "1028（1028）",
+   "path": "numbers/1xxx/1028.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1028 1028 千二十八 阡貳拾捌 せんにじゅうはち one thousand twenty-eight 数秘・エンジェル 合成数 偶数 不足数"
+  },
+  {
+   "n": 1029,
+   "id": "1029",
+   "title": "1029（1029）",
+   "path": "numbers/1xxx/1029.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "happy",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1029 1029 千二十九 阡貳拾玖 せんにじゅうきゅう one thousand twenty-nine 数秘・エンジェル 合成数 奇数 不足数 ハッピー数 幸運数"
+  },
+  {
+   "n": 1030,
+   "id": "1030",
+   "title": "1030（1030）",
+   "path": "numbers/1xxx/1030.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "happy",
+    "ulam",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1030 1030 千三十 阡參拾 せんさんじゅう one thousand thirty 数秘・エンジェル 合成数 偶数 不足数 楔数 ハッピー数 ウラム数 トーシェント数"
+  },
+  {
+   "n": 1031,
+   "id": "1031",
+   "title": "1031（1031）",
+   "path": "numbers/1xxx/1031.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "sophie_germain",
+    "super_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1031 1031 千三十一 阡參拾壹 せんさんじゅういち one thousand thirty-one 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 ソフィー・ジェルマン素数 スーパー素数 陳素数"
+  },
+  {
+   "n": 1032,
+   "id": "1032",
+   "title": "1032（1032）",
+   "path": "numbers/1xxx/1032.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "ulam",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1032 1032 千三十二 阡參拾貳 せんさんじゅうに one thousand thirty-two 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ウラム数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1033,
+   "id": "1033",
+   "title": "1033（1033）",
+   "path": "numbers/1xxx/1033.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "happy",
+    "pythagorean_prime",
+    "euler_prime"
+   ],
+   "snippets": [],
+   "searchText": "1033 1033 千三十三 阡參拾參 せんさんじゅうさん one thousand thirty-three 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 ハッピー数 ピタゴラス素数 オイラー素数"
+  },
+  {
+   "n": 1034,
+   "id": "1034",
+   "title": "1034（1034）",
+   "path": "numbers/1xxx/1034.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1034 1034 千三十四 阡參拾肆 せんさんじゅうよん one thousand thirty-four 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1035,
+   "id": "1035",
+   "title": "1035（1035）",
+   "path": "numbers/1xxx/1035.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "triangular",
+    "deficient",
+    "harshad",
+    "polygonal",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1035 1035 千三十五 阡參拾伍 せんさんじゅうご one thousand thirty-five 数秘・エンジェル 合成数 奇数 三角数 不足数 ハーシャッド数 多角数 ウラム数"
+  },
+  {
+   "n": 1036,
+   "id": "1036",
+   "title": "1036（1036）",
+   "path": "numbers/1xxx/1036.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1036 1036 千三十六 阡參拾陸 せんさんじゅうろく one thousand thirty-six 数秘・エンジェル 合成数 偶数 過剰数 疑似完全数"
+  },
+  {
+   "n": 1037,
+   "id": "1037",
+   "title": "1037（1037）",
+   "path": "numbers/1xxx/1037.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1037 1037 千三十七 阡參拾柒 せんさんじゅうなな one thousand thirty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 ウラム数"
+  },
+  {
+   "n": 1038,
+   "id": "1038",
+   "title": "1038（1038）",
+   "path": "numbers/1xxx/1038.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1038 1038 千三十八 阡參拾捌 せんさんじゅうはち one thousand thirty-eight 数秘・エンジェル 合成数 偶数 過剰数 楔数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1039,
+   "id": "1039",
+   "title": "1039（1039）",
+   "path": "numbers/1xxx/1039.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "happy",
+    "lucky",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1039 1039 千三十九 阡參拾玖 せんさんじゅうきゅう one thousand thirty-nine 数秘・エンジェル 素数 奇数 不足数 ハッピー数 幸運数 陳素数"
+  },
+  {
+   "n": 1040,
+   "id": "1040",
+   "title": "1040（1040）",
+   "path": "numbers/1xxx/1040.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1040 1040 千四十 阡肆拾 せんよんじゅう one thousand forty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1041,
+   "id": "1041",
+   "title": "1041（1041）",
+   "path": "numbers/1xxx/1041.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1041 1041 千四十一 阡肆拾壹 せんよんじゅういち one thousand forty-one 数秘・エンジェル 合成数 奇数 不足数 半素数 幸運数"
+  },
+  {
+   "n": 1042,
+   "id": "1042",
+   "title": "1042（1042）",
+   "path": "numbers/1xxx/1042.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1042 1042 千四十二 阡肆拾貳 せんよんじゅうに one thousand forty-two 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1043,
+   "id": "1043",
+   "title": "1043（1043）",
+   "path": "numbers/1xxx/1043.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1043 1043 千四十三 阡肆拾參 せんよんじゅうさん one thousand forty-three 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1044,
+   "id": "1044",
+   "title": "1044（1044）",
+   "path": "numbers/1xxx/1044.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1044 1044 千四十四 阡肆拾肆 せんよんじゅうよん one thousand forty-four 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1045,
+   "id": "1045",
+   "title": "1045（1045）",
+   "path": "numbers/1xxx/1045.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1045 1045 千四十五 阡肆拾伍 せんよんじゅうご one thousand forty-five 数秘・エンジェル 合成数 奇数 不足数 楔数 多角数"
+  },
+  {
+   "n": 1046,
+   "id": "1046",
+   "title": "1046（1046）",
+   "path": "numbers/1xxx/1046.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1046 1046 千四十六 阡肆拾陸 せんよんじゅうろく one thousand forty-six 数秘・エンジェル 合成数 偶数 不足数 半素数 中心つき多角数"
+  },
+  {
+   "n": 1047,
+   "id": "1047",
+   "title": "1047（1047）",
+   "path": "numbers/1xxx/1047.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1047 1047 千四十七 阡肆拾柒 せんよんじゅうなな one thousand forty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1048,
+   "id": "1048",
+   "title": "1048（1048）",
+   "path": "numbers/1xxx/1048.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1048 1048 千四十八 阡肆拾捌 せんよんじゅうはち one thousand forty-eight 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1049,
+   "id": "1049",
+   "title": "1049（1049）",
+   "path": "numbers/1xxx/1049.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "twin_prime",
+    "sophie_germain",
+    "pythagorean_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1049 1049 千四十九 阡肆拾玖 せんよんじゅうきゅう one thousand forty-nine 数秘・エンジェル 素数 奇数 不足数 双子素数 ソフィー・ジェルマン素数 ピタゴラス素数 陳素数"
+  },
+  {
+   "n": 1050,
+   "id": "1050",
+   "title": "1050（1050）",
+   "path": "numbers/1xxx/1050.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1050 1050 千五十 阡伍拾 せんごじゅう one thousand fifty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1051,
+   "id": "1051",
+   "title": "1051（1051）",
+   "path": "numbers/1xxx/1051.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "twin_prime",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1051 1051 千五十一 阡伍拾壹 せんごじゅういち one thousand fifty-one 数秘・エンジェル 素数 奇数 不足数 双子素数 中心つき多角数"
+  },
+  {
+   "n": 1052,
+   "id": "1052",
+   "title": "1052（1052）",
+   "path": "numbers/1xxx/1052.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1052 1052 千五十二 阡伍拾貳 せんごじゅうに one thousand fifty-two 数秘・エンジェル 合成数 偶数 不足数 ウラム数"
+  },
+  {
+   "n": 1053,
+   "id": "1053",
+   "title": "1053（1053）",
+   "path": "numbers/1xxx/1053.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1053 1053 千五十三 阡伍拾參 せんごじゅうさん one thousand fifty-three 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数 幸運数"
+  },
+  {
+   "n": 1054,
+   "id": "1054",
+   "title": "1054（1054）",
+   "path": "numbers/1xxx/1054.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1054 1054 千五十四 阡伍拾肆 せんごじゅうよん one thousand fifty-four 数秘・エンジェル 合成数 偶数 不足数 楔数 中心つき多角数"
+  },
+  {
+   "n": 1055,
+   "id": "1055",
+   "title": "1055（1055）",
+   "path": "numbers/1xxx/1055.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1055 1055 千五十五 阡伍拾伍 せんごじゅうご one thousand fifty-five 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1056,
+   "id": "1056",
+   "title": "1056（1056）",
+   "path": "numbers/1xxx/1056.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "pronic",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1056 1056 千五十六 阡伍拾陸 せんごじゅうろく one thousand fifty-six 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 矩形数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1057,
+   "id": "1057",
+   "title": "1057（1057）",
+   "path": "numbers/1xxx/1057.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "centered_polygonal",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1057 1057 千五十七 阡伍拾柒 せんごじゅうなな one thousand fifty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 中心つき多角数 幸運数"
+  },
+  {
+   "n": 1058,
+   "id": "1058",
+   "title": "1058（1058）",
+   "path": "numbers/1xxx/1058.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1058 1058 千五十八 阡伍拾捌 せんごじゅうはち one thousand fifty-eight 数秘・エンジェル 合成数 偶数 不足数"
+  },
+  {
+   "n": 1059,
+   "id": "1059",
+   "title": "1059（1059）",
+   "path": "numbers/1xxx/1059.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1059 1059 千五十九 阡伍拾玖 せんごじゅうきゅう one thousand fifty-nine 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1060,
+   "id": "1060",
+   "title": "1060（1060）",
+   "path": "numbers/1xxx/1060.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1060 1060 千六十 阡陸拾 せんろくじゅう one thousand sixty 数秘・エンジェル 合成数 偶数 過剰数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1061,
+   "id": "1061",
+   "title": "1061（1061）",
+   "path": "numbers/1xxx/1061.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "pythagorean_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1061 1061 千六十一 阡陸拾壹 せんろくじゅういち one thousand sixty-one 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 ピタゴラス素数 陳素数"
+  },
+  {
+   "n": 1062,
+   "id": "1062",
+   "title": "1062（1062）",
+   "path": "numbers/1xxx/1062.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1062 1062 千六十二 阡陸拾貳 せんろくじゅうに one thousand sixty-two 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1063,
+   "id": "1063",
+   "title": "1063（1063）",
+   "path": "numbers/1xxx/1063.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "twin_prime",
+    "super_prime"
+   ],
+   "snippets": [],
+   "searchText": "1063 1063 千六十三 阡陸拾參 せんろくじゅうさん one thousand sixty-three 数秘・エンジェル 素数 奇数 不足数 双子素数 スーパー素数"
+  },
+  {
+   "n": 1064,
+   "id": "1064",
+   "title": "1064（1064）",
+   "path": "numbers/1xxx/1064.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1064 1064 千六十四 阡陸拾肆 せんろくじゅうよん one thousand sixty-four 数秘・エンジェル 合成数 偶数 過剰数 疑似完全数"
+  },
+  {
+   "n": 1065,
+   "id": "1065",
+   "title": "1065（1065）",
+   "path": "numbers/1xxx/1065.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1065 1065 千六十五 阡陸拾伍 せんろくじゅうご one thousand sixty-five 数秘・エンジェル 合成数 奇数 不足数 楔数 多角数"
+  },
+  {
+   "n": 1066,
+   "id": "1066",
+   "title": "1066（1066）",
+   "path": "numbers/1xxx/1066.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "harshad"
+   ],
+   "snippets": [],
+   "searchText": "1066 1066 千六十六 阡陸拾陸 せんろくじゅうろく one thousand sixty-six 数秘・エンジェル 合成数 偶数 不足数 楔数 ハーシャッド数"
+  },
+  {
+   "n": 1067,
+   "id": "1067",
+   "title": "1067（1067）",
+   "path": "numbers/1xxx/1067.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1067 1067 千六十七 阡陸拾柒 せんろくじゅうなな one thousand sixty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 ハッピー数"
+  },
+  {
+   "n": 1068,
+   "id": "1068",
+   "title": "1068（1068）",
+   "path": "numbers/1xxx/1068.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "polygonal",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1068 1068 千六十八 阡陸拾捌 せんろくじゅうはち one thousand sixty-eight 数秘・エンジェル 合成数 偶数 過剰数 多角数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1069,
+   "id": "1069",
+   "title": "1069（1069）",
+   "path": "numbers/1xxx/1069.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1069 1069 千六十九 阡陸拾玖 せんろくじゅうきゅう one thousand sixty-nine 数秘・エンジェル 素数 奇数 不足数 エマープ ピタゴラス素数"
+  },
+  {
+   "n": 1070,
+   "id": "1070",
+   "title": "1070（1070）",
+   "path": "numbers/1xxx/1070.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1070 1070 千七十 阡柒拾 せんななじゅう one thousand seventy 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1071,
+   "id": "1071",
+   "title": "1071（1071）",
+   "path": "numbers/1xxx/1071.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad",
+    "polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1071 1071 千七十一 阡柒拾壹 せんななじゅういち one thousand seventy-one 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数 多角数"
+  },
+  {
+   "n": 1072,
+   "id": "1072",
+   "title": "1072（1072）",
+   "path": "numbers/1xxx/1072.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "centered_polygonal",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1072 1072 千七十二 阡柒拾貳 せんななじゅうに one thousand seventy-two 数秘・エンジェル 合成数 偶数 不足数 中心つき多角数 トーシェント数"
+  },
+  {
+   "n": 1073,
+   "id": "1073",
+   "title": "1073（1073）",
+   "path": "numbers/1xxx/1073.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1073 1073 千七十三 阡柒拾參 せんななじゅうさん one thousand seventy-three 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1074,
+   "id": "1074",
+   "title": "1074（1074）",
+   "path": "numbers/1xxx/1074.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1074 1074 千七十四 阡柒拾肆 せんななじゅうよん one thousand seventy-four 数秘・エンジェル 合成数 偶数 過剰数 楔数 疑似完全数"
+  },
+  {
+   "n": 1075,
+   "id": "1075",
+   "title": "1075（1075）",
+   "path": "numbers/1xxx/1075.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1075 1075 千七十五 阡柒拾伍 せんななじゅうご one thousand seventy-five 数秘・エンジェル 合成数 奇数 不足数"
+  },
+  {
+   "n": 1076,
+   "id": "1076",
+   "title": "1076（1076）",
+   "path": "numbers/1xxx/1076.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1076 1076 千七十六 阡柒拾陸 せんななじゅうろく one thousand seventy-six 数秘・エンジェル 合成数 偶数 不足数 ハッピー数"
+  },
+  {
+   "n": 1077,
+   "id": "1077",
+   "title": "1077（1077）",
+   "path": "numbers/1xxx/1077.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1077 1077 千七十七 阡柒拾柒 せんななじゅうなな one thousand seventy-seven 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1078,
+   "id": "1078",
+   "title": "1078（1078）",
+   "path": "numbers/1xxx/1078.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1078 1078 千七十八 阡柒拾捌 せんななじゅうはち one thousand seventy-eight 数秘・エンジェル 合成数 偶数 不足数"
+  },
+  {
+   "n": 1079,
+   "id": "1079",
+   "title": "1079（1079）",
+   "path": "numbers/1xxx/1079.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1079 1079 千七十九 阡柒拾玖 せんななじゅうきゅう one thousand seventy-nine 数秘・エンジェル 合成数 奇数 不足数 半素数 ウラム数"
+  },
+  {
+   "n": 1080,
+   "id": "1080",
+   "title": "1080（1080）",
+   "path": "numbers/1xxx/1080.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "polygonal",
+    "hamming",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1080 1080 千八十 阡捌拾 せんはちじゅう one thousand eighty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 多角数 ハミング数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1081,
+   "id": "1081",
+   "title": "1081（1081）",
+   "path": "numbers/1xxx/1081.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "triangular",
+    "deficient",
+    "semiprime",
+    "centered_polygonal",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1081 1081 千八十一 阡捌拾壹 せんはちじゅういち one thousand eighty-one 数秘・エンジェル 合成数 奇数 三角数 不足数 半素数 中心つき多角数 ウラム数"
+  },
+  {
+   "n": 1082,
+   "id": "1082",
+   "title": "1082（1082）",
+   "path": "numbers/1xxx/1082.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1082 1082 千八十二 阡捌拾貳 せんはちじゅうに one thousand eighty-two 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1083,
+   "id": "1083",
+   "title": "1083（1083）",
+   "path": "numbers/1xxx/1083.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1083 1083 千八十三 阡捌拾參 せんはちじゅうさん one thousand eighty-three 数秘・エンジェル 合成数 奇数 不足数"
+  },
+  {
+   "n": 1084,
+   "id": "1084",
+   "title": "1084（1084）",
+   "path": "numbers/1xxx/1084.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1084 1084 千八十四 阡捌拾肆 せんはちじゅうよん one thousand eighty-four 数秘・エンジェル 合成数 偶数 不足数"
+  },
+  {
+   "n": 1085,
+   "id": "1085",
+   "title": "1085（1085）",
+   "path": "numbers/1xxx/1085.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1085 1085 千八十五 阡捌拾伍 せんはちじゅうご one thousand eighty-five 数秘・エンジェル 合成数 奇数 不足数 楔数"
+  },
+  {
+   "n": 1086,
+   "id": "1086",
+   "title": "1086（1086）",
+   "path": "numbers/1xxx/1086.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "smith",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1086 1086 千八十六 阡捌拾陸 せんはちじゅうろく one thousand eighty-six 数秘・エンジェル 合成数 偶数 過剰数 楔数 スミス数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1087,
+   "id": "1087",
+   "title": "1087（1087）",
+   "path": "numbers/1xxx/1087.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "lucky",
+    "kynea",
+    "super_prime"
+   ],
+   "snippets": [],
+   "searchText": "1087 1087 千八十七 阡捌拾柒 せんはちじゅうなな one thousand eighty-seven 数秘・エンジェル 素数 奇数 不足数 幸運数 キネア数 スーパー素数"
+  },
+  {
+   "n": 1088,
+   "id": "1088",
+   "title": "1088（1088）",
+   "path": "numbers/1xxx/1088.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1088 1088 千八十八 阡捌拾捌 せんはちじゅうはち one thousand eighty-eight 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1089,
+   "id": "1089",
+   "title": "1089（1089）",
+   "path": "numbers/1xxx/1089.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "square",
+    "deficient",
+    "polygonal",
+    "centered_polygonal",
+    "powerful",
+    "proth"
+   ],
+   "snippets": [],
+   "searchText": "1089 1089 千八十九 阡捌拾玖 せんはちじゅうきゅう one thousand eighty-nine 数秘・エンジェル 合成数 奇数 平方数 不足数 多角数 中心つき多角数 多冪数 プロス数"
+  },
+  {
+   "n": 1090,
+   "id": "1090",
+   "title": "1090（1090）",
+   "path": "numbers/1xxx/1090.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "harshad",
+    "happy",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1090 1090 千九十 阡玖拾 せんきゅうじゅう one thousand ninety 数秘・エンジェル 合成数 偶数 不足数 楔数 ハーシャッド数 ハッピー数 トーシェント数"
+  },
+  {
+   "n": 1091,
+   "id": "1091",
+   "title": "1091（1091）",
+   "path": "numbers/1xxx/1091.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1091 1091 千九十一 阡玖拾壹 せんきゅうじゅういち one thousand ninety-one 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 陳素数"
+  },
+  {
+   "n": 1092,
+   "id": "1092",
+   "title": "1092（1092）",
+   "path": "numbers/1xxx/1092.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1092 1092 千九十二 阡玖拾貳 せんきゅうじゅうに one thousand ninety-two 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1093,
+   "id": "1093",
+   "title": "1093（1093）",
+   "path": "numbers/1xxx/1093.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "twin_prime",
+    "happy",
+    "centered_polygonal",
+    "lucky",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1093 1093 千九十三 阡玖拾參 せんきゅうじゅうさん one thousand ninety-three 数秘・エンジェル 素数 奇数 不足数 双子素数 ハッピー数 中心つき多角数 幸運数 ピタゴラス素数"
+  },
+  {
+   "n": 1094,
+   "id": "1094",
+   "title": "1094（1094）",
+   "path": "numbers/1xxx/1094.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1094 1094 千九十四 阡玖拾肆 せんきゅうじゅうよん one thousand ninety-four 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1095,
+   "id": "1095",
+   "title": "1095（1095）",
+   "path": "numbers/1xxx/1095.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "harshad",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1095 1095 千九十五 阡玖拾伍 せんきゅうじゅうご one thousand ninety-five 数秘・エンジェル 合成数 奇数 不足数 楔数 ハーシャッド数 幸運数"
+  },
+  {
+   "n": 1096,
+   "id": "1096",
+   "title": "1096（1096）",
+   "path": "numbers/1xxx/1096.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "polygonal",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1096 1096 千九十六 阡玖拾陸 せんきゅうじゅうろく one thousand ninety-six 数秘・エンジェル 合成数 偶数 不足数 多角数 トーシェント数"
+  },
+  {
+   "n": 1097,
+   "id": "1097",
+   "title": "1097（1097）",
+   "path": "numbers/1xxx/1097.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "pythagorean_prime",
+    "euler_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1097 1097 千九十七 阡玖拾柒 せんきゅうじゅうなな one thousand ninety-seven 数秘・エンジェル 素数 奇数 不足数 エマープ ピタゴラス素数 オイラー素数 陳素数"
+  },
+  {
+   "n": 1098,
+   "id": "1098",
+   "title": "1098（1098）",
+   "path": "numbers/1xxx/1098.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1098 1098 千九十八 阡玖拾捌 せんきゅうじゅうはち one thousand ninety-eight 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数"
+  },
+  {
+   "n": 1099,
+   "id": "1099",
+   "title": "1099（1099）",
+   "path": "numbers/1xxx/1099.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1099 1099 千九十九 阡玖拾玖 せんきゅうじゅうきゅう one thousand ninety-nine 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1100,
+   "id": "1100",
+   "title": "1100（1100）",
+   "path": "numbers/1xxx/1100.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1100 1100 千百 阡佰 せんひゃく one thousand one hundred 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数"
+  },
+  {
+   "n": 1101,
+   "id": "1101",
+   "title": "1101（1101）",
+   "path": "numbers/1xxx/1101.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "harshad",
+    "centered_polygonal",
+    "lucky",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1101 1101 千百一 阡佰壹 せんひゃくいち one thousand one hundred one 数秘・エンジェル 合成数 奇数 不足数 半素数 ハーシャッド数 中心つき多角数 幸運数 ウラム数"
+  },
+  {
+   "n": 1102,
+   "id": "1102",
+   "title": "1102（1102）",
+   "path": "numbers/1xxx/1102.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1102 1102 千百二 阡佰貳 せんひゃくに one thousand one hundred two 数秘・エンジェル 合成数 偶数 不足数 楔数 トーシェント数"
+  },
+  {
+   "n": 1103,
+   "id": "1103",
+   "title": "1103（1103）",
+   "path": "numbers/1xxx/1103.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "sophie_germain",
+    "ulam",
+    "balanced_prime"
+   ],
+   "snippets": [],
+   "searchText": "1103 1103 千百三 阡佰參 せんひゃくさん one thousand one hundred three 数秘・エンジェル 素数 奇数 不足数 エマープ ソフィー・ジェルマン素数 ウラム数 平衡素数"
+  },
+  {
+   "n": 1104,
+   "id": "1104",
+   "title": "1104（1104）",
+   "path": "numbers/1xxx/1104.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1104 1104 千百四 阡佰肆 せんひゃくよん one thousand one hundred four 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1105,
+   "id": "1105",
+   "title": "1105（1105）",
+   "path": "numbers/1xxx/1105.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "polygonal",
+    "centered_polygonal",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1105 1105 千百五 阡佰伍 せんひゃくご one thousand one hundred five 数秘・エンジェル 合成数 奇数 不足数 楔数 多角数 中心つき多角数 幸運数"
+  },
+  {
+   "n": 1106,
+   "id": "1106",
+   "title": "1106（1106）",
+   "path": "numbers/1xxx/1106.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1106 1106 千百六 阡佰陸 せんひゃくろく one thousand one hundred six 数秘・エンジェル 合成数 偶数 不足数 楔数 多角数"
+  },
+  {
+   "n": 1107,
+   "id": "1107",
+   "title": "1107（1107）",
+   "path": "numbers/1xxx/1107.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1107 1107 千百七 阡佰柒 せんひゃくなな one thousand one hundred seven 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数 幸運数"
+  },
+  {
+   "n": 1108,
+   "id": "1108",
+   "title": "1108（1108）",
+   "path": "numbers/1xxx/1108.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1108 1108 千百八 阡佰捌 せんひゃくはち one thousand one hundred eight 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1109,
+   "id": "1109",
+   "title": "1109（1109）",
+   "path": "numbers/1xxx/1109.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "pythagorean_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1109 1109 千百九 阡佰玖 せんひゃくきゅう one thousand one hundred nine 数秘・エンジェル 素数 奇数 不足数 エマープ ピタゴラス素数 陳素数"
+  },
+  {
+   "n": 1110,
+   "id": "1110",
+   "title": "1110（1110）",
+   "path": "numbers/1xxx/1110.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1110 1110 千百十 阡佰拾 せんひゃくじゅう one thousand one hundred ten 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数"
+  },
+  {
+   "n": 1111,
+   "id": "1111",
+   "title": "1111（1111）",
+   "path": "numbers/1xxx/1111.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "palindrome",
+    "semiprime",
+    "smith",
+    "zuckerman"
+   ],
+   "snippets": [],
+   "searchText": "1111 1111 千百十一 阡佰拾壹 せんひゃくじゅういち one thousand one hundred eleven 数秘・エンジェル 合成数 奇数 不足数 回文数 半素数 スミス数 ズッカーマン数"
+  },
+  {
+   "n": 1112,
+   "id": "1112",
+   "title": "1112（1112）",
+   "path": "numbers/1xxx/1112.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "happy",
+    "zuckerman",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1112 1112 千百十二 阡佰拾貳 せんひゃくじゅうに one thousand one hundred twelve 数秘・エンジェル 合成数 偶数 不足数 ハッピー数 ズッカーマン数 トーシェント数"
+  },
+  {
+   "n": 1113,
+   "id": "1113",
+   "title": "1113（1113）",
+   "path": "numbers/1xxx/1113.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "zuckerman"
+   ],
+   "snippets": [],
+   "searchText": "1113 1113 千百十三 阡佰拾參 せんひゃくじゅうさん one thousand one hundred thirteen 数秘・エンジェル 合成数 奇数 不足数 楔数 ズッカーマン数"
+  },
+  {
+   "n": 1114,
+   "id": "1114",
+   "title": "1114（1114）",
+   "path": "numbers/1xxx/1114.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1114 1114 千百十四 阡佰拾肆 せんひゃくじゅうよん one thousand one hundred fourteen 数秘・エンジェル 合成数 偶数 不足数 半素数 ハッピー数"
+  },
+  {
+   "n": 1115,
+   "id": "1115",
+   "title": "1115（1115）",
+   "path": "numbers/1xxx/1115.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "happy",
+    "zuckerman"
+   ],
+   "snippets": [],
+   "searchText": "1115 1115 千百十五 阡佰拾伍 せんひゃくじゅうご one thousand one hundred fifteen 数秘・エンジェル 合成数 奇数 不足数 半素数 ハッピー数 ズッカーマン数"
+  },
+  {
+   "n": 1116,
+   "id": "1116",
+   "title": "1116（1116）",
+   "path": "numbers/1xxx/1116.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "zuckerman",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1116 1116 千百十六 阡佰拾陸 せんひゃくじゅうろく one thousand one hundred sixteen 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ズッカーマン数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1117,
+   "id": "1117",
+   "title": "1117（1117）",
+   "path": "numbers/1xxx/1117.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "lucky",
+    "pythagorean_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1117 1117 千百十七 阡佰拾柒 せんひゃくじゅうなな one thousand one hundred seventeen 数秘・エンジェル 素数 奇数 不足数 幸運数 ピタゴラス素数 陳素数"
+  },
+  {
+   "n": 1118,
+   "id": "1118",
+   "title": "1118（1118）",
+   "path": "numbers/1xxx/1118.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1118 1118 千百十八 阡佰拾捌 せんひゃくじゅうはち one thousand one hundred eighteen 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1119,
+   "id": "1119",
+   "title": "1119（1119）",
+   "path": "numbers/1xxx/1119.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1119 1119 千百十九 阡佰拾玖 せんひゃくじゅうきゅう one thousand one hundred nineteen 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1120,
+   "id": "1120",
+   "title": "1120（1120）",
+   "path": "numbers/1xxx/1120.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1120 1120 千百二十 阡佰貳拾 せんひゃくにじゅう one thousand one hundred twenty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1121,
+   "id": "1121",
+   "title": "1121（1121）",
+   "path": "numbers/1xxx/1121.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1121 1121 千百二十一 阡佰貳拾壹 せんひゃくにじゅういち one thousand one hundred twenty-one 数秘・エンジェル 合成数 奇数 不足数 半素数 ハッピー数"
+  },
+  {
+   "n": 1122,
+   "id": "1122",
+   "title": "1122（1122）",
+   "path": "numbers/1xxx/1122.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "pronic",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1122 1122 千百二十二 阡佰貳拾貳 せんひゃくにじゅうに one thousand one hundred twenty-two 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 矩形数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1123,
+   "id": "1123",
+   "title": "1123（1123）",
+   "path": "numbers/1xxx/1123.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "centered_polygonal",
+    "lucky",
+    "balanced_prime"
+   ],
+   "snippets": [],
+   "searchText": "1123 1123 千百二十三 阡佰貳拾參 せんひゃくにじゅうさん one thousand one hundred twenty-three 数秘・エンジェル 素数 奇数 不足数 中心つき多角数 幸運数 平衡素数"
+  },
+  {
+   "n": 1124,
+   "id": "1124",
+   "title": "1124（1124）",
+   "path": "numbers/1xxx/1124.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "leyland",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1124 1124 千百二十四 阡佰貳拾肆 せんひゃくにじゅうよん one thousand one hundred twenty-four 数秘・エンジェル 合成数 偶数 不足数 レイランド数 トーシェント数"
+  },
+  {
+   "n": 1125,
+   "id": "1125",
+   "title": "1125（1125）",
+   "path": "numbers/1xxx/1125.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad",
+    "happy",
+    "ulam",
+    "powerful",
+    "achilles",
+    "hamming"
+   ],
+   "snippets": [],
+   "searchText": "1125 1125 千百二十五 阡佰貳拾伍 せんひゃくにじゅうご one thousand one hundred twenty-five 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数 ハッピー数 ウラム数 多冪数 アキレス数 ハミング数"
+  },
+  {
+   "n": 1126,
+   "id": "1126",
+   "title": "1126（1126）",
+   "path": "numbers/1xxx/1126.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1126 1126 千百二十六 阡佰貳拾陸 せんひゃくにじゅうろく one thousand one hundred twenty-six 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1127,
+   "id": "1127",
+   "title": "1127（1127）",
+   "path": "numbers/1xxx/1127.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1127 1127 千百二十七 阡佰貳拾柒 せんひゃくにじゅうなな one thousand one hundred twenty-seven 数秘・エンジェル 合成数 奇数 不足数"
+  },
+  {
+   "n": 1128,
+   "id": "1128",
+   "title": "1128（1128）",
+   "path": "numbers/1xxx/1128.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "triangular",
+    "abundant",
+    "harshad",
+    "happy",
+    "polygonal",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1128 1128 千百二十八 阡佰貳拾捌 せんひゃくにじゅうはち one thousand one hundred twenty-eight 数秘・エンジェル 合成数 偶数 三角数 過剰数 ハーシャッド数 ハッピー数 多角数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1129,
+   "id": "1129",
+   "title": "1129（1129）",
+   "path": "numbers/1xxx/1129.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1129 1129 千百二十九 阡佰貳拾玖 せんひゃくにじゅうきゅう one thousand one hundred twenty-nine 数秘・エンジェル 素数 奇数 不足数 ピタゴラス素数"
+  },
+  {
+   "n": 1130,
+   "id": "1130",
+   "title": "1130（1130）",
+   "path": "numbers/1xxx/1130.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "harshad",
+    "perrin"
+   ],
+   "snippets": [],
+   "searchText": "1130 1130 千百三十 阡佰參拾 せんひゃくさんじゅう one thousand one hundred thirty 数秘・エンジェル 合成数 偶数 不足数 楔数 ハーシャッド数 ペラン数"
+  },
+  {
+   "n": 1131,
+   "id": "1131",
+   "title": "1131（1131）",
+   "path": "numbers/1xxx/1131.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "zuckerman"
+   ],
+   "snippets": [],
+   "searchText": "1131 1131 千百三十一 阡佰參拾壹 せんひゃくさんじゅういち one thousand one hundred thirty-one 数秘・エンジェル 合成数 奇数 不足数 楔数 ズッカーマン数"
+  },
+  {
+   "n": 1132,
+   "id": "1132",
+   "title": "1132（1132）",
+   "path": "numbers/1xxx/1132.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1132 1132 千百三十二 阡佰參拾貳 せんひゃくさんじゅうに one thousand one hundred thirty-two 数秘・エンジェル 合成数 偶数 不足数"
+  },
+  {
+   "n": 1133,
+   "id": "1133",
+   "title": "1133（1133）",
+   "path": "numbers/1xxx/1133.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1133 1133 千百三十三 阡佰參拾參 せんひゃくさんじゅうさん one thousand one hundred thirty-three 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1134,
+   "id": "1134",
+   "title": "1134（1134）",
+   "path": "numbers/1xxx/1134.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "polygonal",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1134 1134 千百三十四 阡佰參拾肆 せんひゃくさんじゅうよん one thousand one hundred thirty-four 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 多角数 疑似完全数"
+  },
+  {
+   "n": 1135,
+   "id": "1135",
+   "title": "1135（1135）",
+   "path": "numbers/1xxx/1135.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1135 1135 千百三十五 阡佰參拾伍 せんひゃくさんじゅうご one thousand one hundred thirty-five 数秘・エンジェル 合成数 奇数 不足数 半素数 中心つき多角数"
+  },
+  {
+   "n": 1136,
+   "id": "1136",
+   "title": "1136（1136）",
+   "path": "numbers/1xxx/1136.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1136 1136 千百三十六 阡佰參拾陸 せんひゃくさんじゅうろく one thousand one hundred thirty-six 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1137,
+   "id": "1137",
+   "title": "1137（1137）",
+   "path": "numbers/1xxx/1137.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1137 1137 千百三十七 阡佰參拾柒 せんひゃくさんじゅうなな one thousand one hundred thirty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1138,
+   "id": "1138",
+   "title": "1138（1138）",
+   "path": "numbers/1xxx/1138.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1138 1138 千百三十八 阡佰參拾捌 せんひゃくさんじゅうはち one thousand one hundred thirty-eight 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1139,
+   "id": "1139",
+   "title": "1139（1139）",
+   "path": "numbers/1xxx/1139.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1139 1139 千百三十九 阡佰參拾玖 せんひゃくさんじゅうきゅう one thousand one hundred thirty-nine 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1140,
+   "id": "1140",
+   "title": "1140（1140）",
+   "path": "numbers/1xxx/1140.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "tetrahedral",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1140 1140 千百四十 阡佰肆拾 せんひゃくよんじゅう one thousand one hundred forty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 三角錐数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1141,
+   "id": "1141",
+   "title": "1141（1141）",
+   "path": "numbers/1xxx/1141.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "harshad",
+    "happy",
+    "centered_polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1141 1141 千百四十一 阡佰肆拾壹 せんひゃくよんじゅういち one thousand one hundred forty-one 数秘・エンジェル 合成数 奇数 不足数 半素数 ハーシャッド数 ハッピー数 中心つき多角数"
+  },
+  {
+   "n": 1142,
+   "id": "1142",
+   "title": "1142（1142）",
+   "path": "numbers/1xxx/1142.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1142 1142 千百四十二 阡佰肆拾貳 せんひゃくよんじゅうに one thousand one hundred forty-two 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1143,
+   "id": "1143",
+   "title": "1143（1143）",
+   "path": "numbers/1xxx/1143.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad"
+   ],
+   "snippets": [],
+   "searchText": "1143 1143 千百四十三 阡佰肆拾參 せんひゃくよんじゅうさん one thousand one hundred forty-three 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数"
+  },
+  {
+   "n": 1144,
+   "id": "1144",
+   "title": "1144（1144）",
+   "path": "numbers/1xxx/1144.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1144 1144 千百四十四 阡佰肆拾肆 せんひゃくよんじゅうよん one thousand one hundred forty-four 数秘・エンジェル 合成数 偶数 過剰数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1145,
+   "id": "1145",
+   "title": "1145（1145）",
+   "path": "numbers/1xxx/1145.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1145 1145 千百四十五 阡佰肆拾伍 せんひゃくよんじゅうご one thousand one hundred forty-five 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1146,
+   "id": "1146",
+   "title": "1146（1146）",
+   "path": "numbers/1xxx/1146.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1146 1146 千百四十六 阡佰肆拾陸 せんひゃくよんじゅうろく one thousand one hundred forty-six 数秘・エンジェル 合成数 偶数 過剰数 楔数 疑似完全数"
+  },
+  {
+   "n": 1147,
+   "id": "1147",
+   "title": "1147（1147）",
+   "path": "numbers/1xxx/1147.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1147 1147 千百四十七 阡佰肆拾柒 せんひゃくよんじゅうなな one thousand one hundred forty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 幸運数"
+  },
+  {
+   "n": 1148,
+   "id": "1148",
+   "title": "1148（1148）",
+   "path": "numbers/1xxx/1148.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1148 1148 千百四十八 阡佰肆拾捌 せんひゃくよんじゅうはち one thousand one hundred forty-eight 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 疑似完全数"
+  },
+  {
+   "n": 1149,
+   "id": "1149",
+   "title": "1149（1149）",
+   "path": "numbers/1xxx/1149.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1149 1149 千百四十九 阡佰肆拾玖 せんひゃくよんじゅうきゅう one thousand one hundred forty-nine 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1150,
+   "id": "1150",
+   "title": "1150（1150）",
+   "path": "numbers/1xxx/1150.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1150 1150 千百五十 阡佰伍拾 せんひゃくごじゅう one thousand one hundred fifty 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1151,
+   "id": "1151",
+   "title": "1151（1151）",
+   "path": "numbers/1xxx/1151.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "happy",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1151 1151 千百五十一 阡佰伍拾壹 せんひゃくごじゅういち one thousand one hundred fifty-one 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 ハッピー数 陳素数"
+  },
+  {
+   "n": 1152,
+   "id": "1152",
+   "title": "1152（1152）",
+   "path": "numbers/1xxx/1152.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "powerful",
+    "achilles",
+    "hamming",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1152 1152 千百五十二 阡佰伍拾貳 せんひゃくごじゅうに one thousand one hundred fifty-two 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 多冪数 アキレス数 ハミング数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1153,
+   "id": "1153",
+   "title": "1153（1153）",
+   "path": "numbers/1xxx/1153.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "twin_prime",
+    "proth",
+    "pythagorean_prime",
+    "super_prime"
+   ],
+   "snippets": [],
+   "searchText": "1153 1153 千百五十三 阡佰伍拾參 せんひゃくごじゅうさん one thousand one hundred fifty-three 数秘・エンジェル 素数 奇数 不足数 エマープ 双子素数 プロス数 ピタゴラス素数 スーパー素数"
+  },
+  {
+   "n": 1154,
+   "id": "1154",
+   "title": "1154（1154）",
+   "path": "numbers/1xxx/1154.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1154 1154 千百五十四 阡佰伍拾肆 せんひゃくごじゅうよん one thousand one hundred fifty-four 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1155,
+   "id": "1155",
+   "title": "1155（1155）",
+   "path": "numbers/1xxx/1155.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "lucky",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1155 1155 千百五十五 阡佰伍拾伍 せんひゃくごじゅうご one thousand one hundred fifty-five 数秘・エンジェル 合成数 奇数 不足数 幸運数 ウラム数"
+  },
+  {
+   "n": 1156,
+   "id": "1156",
+   "title": "1156（1156）",
+   "path": "numbers/1xxx/1156.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "square",
+    "deficient",
+    "centered_polygonal",
+    "powerful"
+   ],
+   "snippets": [],
+   "searchText": "1156 1156 千百五十六 阡佰伍拾陸 せんひゃくごじゅうろく one thousand one hundred fifty-six 数秘・エンジェル 合成数 偶数 平方数 不足数 中心つき多角数 多冪数"
+  },
+  {
+   "n": 1157,
+   "id": "1157",
+   "title": "1157（1157）",
+   "path": "numbers/1xxx/1157.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1157 1157 千百五十七 阡佰伍拾柒 せんひゃくごじゅうなな one thousand one hundred fifty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 ウラム数"
+  },
+  {
+   "n": 1158,
+   "id": "1158",
+   "title": "1158（1158）",
+   "path": "numbers/1xxx/1158.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "happy",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1158 1158 千百五十八 阡佰伍拾捌 せんひゃくごじゅうはち one thousand one hundred fifty-eight 数秘・エンジェル 合成数 偶数 過剰数 楔数 ハッピー数 疑似完全数"
+  },
+  {
+   "n": 1159,
+   "id": "1159",
+   "title": "1159（1159）",
+   "path": "numbers/1xxx/1159.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1159 1159 千百五十九 阡佰伍拾玖 せんひゃくごじゅうきゅう one thousand one hundred fifty-nine 数秘・エンジェル 合成数 奇数 不足数 半素数"
+  },
+  {
+   "n": 1160,
+   "id": "1160",
+   "title": "1160（1160）",
+   "path": "numbers/1xxx/1160.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "polygonal",
+    "cake",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1160 1160 千百六十 阡佰陸拾 せんひゃくろくじゅう one thousand one hundred sixty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 多角数 ケーキ数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1161,
+   "id": "1161",
+   "title": "1161（1161）",
+   "path": "numbers/1xxx/1161.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad"
+   ],
+   "snippets": [],
+   "searchText": "1161 1161 千百六十一 阡佰陸拾壹 せんひゃくろくじゅういち one thousand one hundred sixty-one 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数"
+  },
+  {
+   "n": 1162,
+   "id": "1162",
+   "title": "1162（1162）",
+   "path": "numbers/1xxx/1162.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic",
+    "polygonal",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1162 1162 千百六十二 阡佰陸拾貳 せんひゃくろくじゅうに one thousand one hundred sixty-two 数秘・エンジェル 合成数 偶数 不足数 楔数 多角数 トーシェント数"
+  },
+  {
+   "n": 1163,
+   "id": "1163",
+   "title": "1163（1163）",
+   "path": "numbers/1xxx/1163.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "euler_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1163 1163 千百六十三 阡佰陸拾參 せんひゃくろくじゅうさん one thousand one hundred sixty-three 数秘・エンジェル 素数 奇数 不足数 オイラー素数 陳素数"
+  },
+  {
+   "n": 1164,
+   "id": "1164",
+   "title": "1164（1164）",
+   "path": "numbers/1xxx/1164.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "ulam",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1164 1164 千百六十四 阡佰陸拾肆 せんひゃくろくじゅうよん one thousand one hundred sixty-four 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ウラム数 疑似完全数"
+  },
+  {
+   "n": 1165,
+   "id": "1165",
+   "title": "1165（1165）",
+   "path": "numbers/1xxx/1165.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "smith"
+   ],
+   "snippets": [],
+   "searchText": "1165 1165 千百六十五 阡佰陸拾伍 せんひゃくろくじゅうご one thousand one hundred sixty-five 数秘・エンジェル 合成数 奇数 不足数 半素数 スミス数"
+  },
+  {
+   "n": 1166,
+   "id": "1166",
+   "title": "1166（1166）",
+   "path": "numbers/1xxx/1166.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1166 1166 千百六十六 阡佰陸拾陸 せんひゃくろくじゅうろく one thousand one hundred sixty-six 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1167,
+   "id": "1167",
+   "title": "1167（1167）",
+   "path": "numbers/1xxx/1167.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "lucky",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1167 1167 千百六十七 阡佰陸拾柒 せんひゃくろくじゅうなな one thousand one hundred sixty-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 幸運数 ウラム数"
+  },
+  {
+   "n": 1168,
+   "id": "1168",
+   "title": "1168（1168）",
+   "path": "numbers/1xxx/1168.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "harshad",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1168 1168 千百六十八 阡佰陸拾捌 せんひゃくろくじゅうはち one thousand one hundred sixty-eight 数秘・エンジェル 合成数 偶数 不足数 ハーシャッド数 トーシェント数"
+  },
+  {
+   "n": 1169,
+   "id": "1169",
+   "title": "1169（1169）",
+   "path": "numbers/1xxx/1169.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "ulam"
+   ],
+   "snippets": [],
+   "searchText": "1169 1169 千百六十九 阡佰陸拾玖 せんひゃくろくじゅうきゅう one thousand one hundred sixty-nine 数秘・エンジェル 合成数 奇数 不足数 半素数 ウラム数"
+  },
+  {
+   "n": 1170,
+   "id": "1170",
+   "title": "1170（1170）",
+   "path": "numbers/1xxx/1170.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "polygonal",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1170 1170 千百七十 阡佰柒拾 せんひゃくななじゅう one thousand one hundred seventy 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 多角数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1171,
+   "id": "1171",
+   "title": "1171（1171）",
+   "path": "numbers/1xxx/1171.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "centered_polygonal",
+    "super_prime"
+   ],
+   "snippets": [],
+   "searchText": "1171 1171 千百七十一 阡佰柒拾壹 せんひゃくななじゅういち one thousand one hundred seventy-one 数秘・エンジェル 素数 奇数 不足数 中心つき多角数 スーパー素数"
+  },
+  {
+   "n": 1172,
+   "id": "1172",
+   "title": "1172（1172）",
+   "path": "numbers/1xxx/1172.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1172 1172 千百七十二 阡佰柒拾貳 せんひゃくななじゅうに one thousand one hundred seventy-two 数秘・エンジェル 合成数 偶数 不足数 トーシェント数"
+  },
+  {
+   "n": 1173,
+   "id": "1173",
+   "title": "1173（1173）",
+   "path": "numbers/1xxx/1173.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1173 1173 千百七十三 阡佰柒拾參 せんひゃくななじゅうさん one thousand one hundred seventy-three 数秘・エンジェル 合成数 奇数 不足数 楔数"
+  },
+  {
+   "n": 1174,
+   "id": "1174",
+   "title": "1174（1174）",
+   "path": "numbers/1xxx/1174.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime"
+   ],
+   "snippets": [],
+   "searchText": "1174 1174 千百七十四 阡佰柒拾肆 せんひゃくななじゅうよん one thousand one hundred seventy-four 数秘・エンジェル 合成数 偶数 不足数 半素数"
+  },
+  {
+   "n": 1175,
+   "id": "1175",
+   "title": "1175（1175）",
+   "path": "numbers/1xxx/1175.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient"
+   ],
+   "snippets": [],
+   "searchText": "1175 1175 千百七十五 阡佰柒拾伍 せんひゃくななじゅうご one thousand one hundred seventy-five 数秘・エンジェル 合成数 奇数 不足数"
+  },
+  {
+   "n": 1176,
+   "id": "1176",
+   "title": "1176（1176）",
+   "path": "numbers/1xxx/1176.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "triangular",
+    "abundant",
+    "zuckerman",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1176 1176 千百七十六 阡佰柒拾陸 せんひゃくななじゅうろく one thousand one hundred seventy-six 数秘・エンジェル 合成数 偶数 三角数 過剰数 ズッカーマン数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1177,
+   "id": "1177",
+   "title": "1177（1177）",
+   "path": "numbers/1xxx/1177.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "semiprime",
+    "happy",
+    "polygonal"
+   ],
+   "snippets": [],
+   "searchText": "1177 1177 千百七十七 阡佰柒拾柒 せんひゃくななじゅうなな one thousand one hundred seventy-seven 数秘・エンジェル 合成数 奇数 不足数 半素数 ハッピー数 多角数"
+  },
+  {
+   "n": 1178,
+   "id": "1178",
+   "title": "1178（1178）",
+   "path": "numbers/1xxx/1178.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "sphenic"
+   ],
+   "snippets": [],
+   "searchText": "1178 1178 千百七十八 阡佰柒拾捌 せんひゃくななじゅうはち one thousand one hundred seventy-eight 数秘・エンジェル 合成数 偶数 不足数 楔数"
+  },
+  {
+   "n": 1179,
+   "id": "1179",
+   "title": "1179（1179）",
+   "path": "numbers/1xxx/1179.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1179 1179 千百七十九 阡佰柒拾玖 せんひゃくななじゅうきゅう one thousand one hundred seventy-nine 数秘・エンジェル 合成数 奇数 不足数 幸運数"
+  },
+  {
+   "n": 1180,
+   "id": "1180",
+   "title": "1180（1180）",
+   "path": "numbers/1xxx/1180.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1180 1180 千百八十 阡佰捌拾 せんひゃくはちじゅう one thousand one hundred eighty 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1181,
+   "id": "1181",
+   "title": "1181（1181）",
+   "path": "numbers/1xxx/1181.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "emirp",
+    "pythagorean_prime"
+   ],
+   "snippets": [],
+   "searchText": "1181 1181 千百八十一 阡佰捌拾壹 せんひゃくはちじゅういち one thousand one hundred eighty-one 数秘・エンジェル 素数 奇数 不足数 エマープ ピタゴラス素数"
+  },
+  {
+   "n": 1182,
+   "id": "1182",
+   "title": "1182（1182）",
+   "path": "numbers/1xxx/1182.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "sphenic",
+    "happy",
+    "semiperfect"
+   ],
+   "snippets": [],
+   "searchText": "1182 1182 千百八十二 阡佰捌拾貳 せんひゃくはちじゅうに one thousand one hundred eighty-two 数秘・エンジェル 合成数 偶数 過剰数 楔数 ハッピー数 疑似完全数"
+  },
+  {
+   "n": 1183,
+   "id": "1183",
+   "title": "1183（1183）",
+   "path": "numbers/1xxx/1183.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "harshad",
+    "polygonal",
+    "pentagonal_pyramidal",
+    "lucky"
+   ],
+   "snippets": [],
+   "searchText": "1183 1183 千百八十三 阡佰捌拾參 せんひゃくはちじゅうさん one thousand one hundred eighty-three 数秘・エンジェル 合成数 奇数 不足数 ハーシャッド数 多角数 五角錐数 幸運数"
+  },
+  {
+   "n": 1184,
+   "id": "1184",
+   "title": "1184（1184）",
+   "path": "numbers/1xxx/1184.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "happy",
+    "centered_polygonal",
+    "zuckerman",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1184 1184 千百八十四 阡佰捌拾肆 せんひゃくはちじゅうよん one thousand one hundred eighty-four 数秘・エンジェル 合成数 偶数 過剰数 ハッピー数 中心つき多角数 ズッカーマン数 疑似完全数 トーシェント数"
+  },
+  {
+   "n": 1185,
+   "id": "1185",
+   "title": "1185（1185）",
+   "path": "numbers/1xxx/1185.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "odd",
+    "deficient",
+    "sphenic",
+    "harshad",
+    "happy"
+   ],
+   "snippets": [],
+   "searchText": "1185 1185 千百八十五 阡佰捌拾伍 せんひゃくはちじゅうご one thousand one hundred eighty-five 数秘・エンジェル 合成数 奇数 不足数 楔数 ハーシャッド数 ハッピー数"
+  },
+  {
+   "n": 1186,
+   "id": "1186",
+   "title": "1186（1186）",
+   "path": "numbers/1xxx/1186.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "deficient",
+    "semiprime",
+    "ulam",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1186 1186 千百八十六 阡佰捌拾陸 せんひゃくはちじゅうろく one thousand one hundred eighty-six 数秘・エンジェル 合成数 偶数 不足数 半素数 ウラム数 トーシェント数"
+  },
+  {
+   "n": 1187,
+   "id": "1187",
+   "title": "1187（1187）",
+   "path": "numbers/1xxx/1187.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "prime",
+    "odd",
+    "deficient",
+    "safe_prime",
+    "balanced_prime",
+    "chen_prime"
+   ],
+   "snippets": [],
+   "searchText": "1187 1187 千百八十七 阡佰捌拾柒 せんひゃくはちじゅうなな one thousand one hundred eighty-seven 数秘・エンジェル 素数 奇数 不足数 安全素数 平衡素数 陳素数"
+  },
+  {
+   "n": 1188,
+   "id": "1188",
+   "title": "1188（1188）",
+   "path": "numbers/1xxx/1188.md",
+   "loreFilters": [
+    "numerology"
+   ],
+   "propertyFilters": [
+    "composite",
+    "even",
+    "abundant",
+    "harshad",
+    "happy",
+    "semiperfect",
+    "totient_value"
+   ],
+   "snippets": [],
+   "searchText": "1188 1188 千百八十八 阡佰捌拾捌 せんひゃくはちじゅうはち one thousand one hundred eighty-eight 数秘・エンジェル 合成数 偶数 過剰数 ハーシャッド数 ハッピー数 疑似完全数 トーシェント数"
   }
  ]
 }

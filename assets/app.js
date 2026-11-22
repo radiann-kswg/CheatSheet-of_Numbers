@@ -6,7 +6,8 @@ const propertyFiltersEl = document.getElementById("property-filters");
 const resultCountEl = document.getElementById("result-count");
 const clearFiltersEl = document.getElementById("clear-filters");
 const jumpEl = document.getElementById("jump");
-const jumpGoEl = document.getElementById("jump-go");
+const jumpRangeEl = document.getElementById("jump-range");
+const jumpFormEl = document.getElementById("jump-form");
 
 const state = {
 	records: [],
@@ -15,11 +16,12 @@ const state = {
 	selectedProperties: new Set(),
 	currentPath: "",
 };
+const visibleButtons = new Map();
+let documentRequest = null;
 
-const markdownRenderer = new marked.Marked({
-	gfm: true,
-	breaks: false,
-});
+const markdownRenderer = globalThis.marked?.Marked && globalThis.DOMPurify?.sanitize
+	? new marked.Marked({ gfm: true, breaks: false })
+	: null;
 
 function normalizeDocPath(href, basePath) {
 	if (!href || href.startsWith("http://") || href.startsWith("https://") || href.startsWith("#")) {
@@ -144,6 +146,7 @@ function filterRecords() {
 
 function renderDocumentList(records) {
 	docListEl.innerHTML = "";
+	visibleButtons.clear();
 	resultCountEl.textContent = `${records.length}件`;
 
 	if (records.length === 0) {
@@ -158,7 +161,7 @@ function renderDocumentList(records) {
 		const li = document.createElement("li");
 		const button = document.createElement("button");
 		button.type = "button";
-		button.className = record.path === state.currentPath ? "active" : "";
+		visibleButtons.set(record.path, button);
 		button.addEventListener("click", () => {
 			loadDocument(record.path).catch(showError);
 		});
@@ -174,6 +177,17 @@ function renderDocumentList(records) {
 		li.appendChild(button);
 		docListEl.appendChild(li);
 	}
+	markCurrentDocument(state.currentPath);
+}
+
+function markCurrentDocument(path) {
+	const previous = visibleButtons.get(state.currentPath);
+	previous?.classList.remove("active");
+	previous?.removeAttribute("aria-current");
+	const current = visibleButtons.get(path);
+	current?.classList.add("active");
+	current?.setAttribute("aria-current", "page");
+	state.currentPath = path;
 }
 
 function renderListByCurrentFilters() {
@@ -181,21 +195,55 @@ function renderListByCurrentFilters() {
 	renderDocumentList(filtered);
 }
 
-async function loadDocument(path) {
-	const response = await fetch(path);
-	if (!response.ok) {
-		throw new Error(`読み込みに失敗しました: ${path}`);
+function renderMarkdownSource(markdown, path) {
+	const source = document.createElement("pre");
+	source.className = "markdown-source";
+	let offset = 0;
+	// プレーンテキストのまま、リポジトリ内の Markdown リンクだけを開けるようにする。
+	for (const match of markdown.matchAll(/\[[^\]\n]+\]\(((?:[\w.-]+\/)*[\w.-]+\.md)\)/g)) {
+		if (!normalizeDocPath(match[1], path)) {
+			continue;
+		}
+		const link = document.createElement("a");
+		link.setAttribute("href", match[1]);
+		link.textContent = match[0];
+		source.append(markdown.slice(offset, match.index), link);
+		offset = match.index + match[0].length;
 	}
+	source.append(markdown.slice(offset));
+	docViewEl.replaceChildren(source);
+}
 
-	state.currentPath = path;
-
-	const markdown = await response.text();
-	const { replaced, spans } = extractMathSpans(markdown);
-	const html = markdownRenderer.parse(replaced);
-	docViewEl.innerHTML = DOMPurify.sanitize(html);
-	restoreMathSpans(docViewEl, spans);
-	renderMathIn(docViewEl);
-	renderListByCurrentFilters();
+async function loadDocument(path) {
+	documentRequest?.abort();
+	const request = new AbortController();
+	documentRequest = request;
+	let markdown;
+	try {
+		const response = await fetch(path, { signal: request.signal });
+		if (!response.ok) {
+			throw new Error(`読み込みに失敗しました: ${path}`);
+		}
+		markdown = await response.text();
+	} catch (error) {
+		if (!request.signal.aborted) {
+			showError(error);
+		}
+		return;
+	}
+	if (request.signal.aborted) {
+		return;
+	}
+	if (markdownRenderer) {
+		const { replaced, spans } = extractMathSpans(markdown);
+		const html = markdownRenderer.parse(replaced);
+		docViewEl.innerHTML = DOMPurify.sanitize(html);
+		restoreMathSpans(docViewEl, spans);
+		renderMathIn(docViewEl);
+	} else {
+		renderMarkdownSource(markdown, path);
+	}
+	markCurrentDocument(path);
 
 	history.replaceState({}, "", `#${encodeURIComponent(path)}`);
 
@@ -213,10 +261,19 @@ async function loadDocument(path) {
 }
 
 function showError(error) {
-	docViewEl.innerHTML = `<p>表示に失敗しました: ${error.message}</p>`;
+	markCurrentDocument("");
+	docViewEl.textContent = `表示に失敗しました: ${error.message}`;
 }
 
 async function bootstrap() {
+	jumpFormEl.addEventListener("submit", (event) => {
+		event.preventDefault();
+		const record = state.records.find((r) => r.n === jumpEl.valueAsNumber);
+		if (record) {
+			loadDocument(record.path).catch(showError);
+		}
+	});
+
 	const response = await fetch("assets/numbers-index.json");
 	if (!response.ok) {
 		throw new Error("assets/numbers-index.json の読み込みに失敗しました。");
@@ -225,6 +282,10 @@ async function bootstrap() {
 	const data = await response.json();
 	state.records = data.numbers || [];
 	state.filters = data.filters || { lore: [], properties: [] };
+	if (state.records.length > 0) {
+		jumpEl.max = state.records[state.records.length - 1].n;
+		jumpRangeEl.textContent = `（${jumpEl.min}〜${jumpEl.max}）`;
+	}
 
 	setupFilterGroup(loreFiltersEl, state.filters.lore, state.selectedLore, renderListByCurrentFilters);
 	setupFilterGroup(
@@ -233,24 +294,6 @@ async function bootstrap() {
 		state.selectedProperties,
 		renderListByCurrentFilters,
 	);
-
-	function jumpToNumber() {
-		const value = Number.parseInt(jumpEl.value, 10);
-		if (!Number.isInteger(value) || value < 0 || value > 999) {
-			return;
-		}
-		const record = state.records.find((r) => r.n === value);
-		if (record) {
-			loadDocument(record.path).catch(showError);
-		}
-	}
-	jumpGoEl.addEventListener("click", jumpToNumber);
-	jumpEl.addEventListener("keydown", (event) => {
-		if (event.key === "Enter") {
-			event.preventDefault();
-			jumpToNumber();
-		}
-	});
 
 	searchEl.addEventListener("input", renderListByCurrentFilters);
 	clearFiltersEl.addEventListener("click", () => {

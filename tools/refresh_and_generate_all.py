@@ -8,37 +8,35 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
+from number_range import MAX_NUMBER, number_folder
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 @dataclass(frozen=True)
 class RangeSpec:
-    label: str
     start: int
     end: int
 
+    @property
+    def label(self) -> str:
+        return f"{self.start}-{self.end}"
+
 
 RANGES: list[RangeSpec] = [
-    RangeSpec("0-99", 0, 99),
-    RangeSpec("100-199", 100, 199),
-    RangeSpec("200-299", 200, 299),
-    RangeSpec("300-399", 300, 399),
-    RangeSpec("400-499", 400, 499),
-    RangeSpec("500-599", 500, 599),
-    RangeSpec("600-699", 600, 699),
-    RangeSpec("700-799", 700, 799),
-    RangeSpec("800-899", 800, 899),
-    RangeSpec("900-999", 900, 999),
+    RangeSpec(start, min(start + 99, MAX_NUMBER))
+    for start in range(0, MAX_NUMBER + 1, 100)
 ]
 
 
 def _number_file_path(n: int) -> Path:
-    h = n // 100
-    return ROOT / "numbers" / f"{h}xx" / f"{n:03d}.md"
+    return ROOT / "numbers" / number_folder(n) / f"{n:03d}.md"
 
 
 def _fmt_mtime(path: Path) -> str:
+    if not path.exists():
+        return f"{path.as_posix()}\t(missing)"
     st = path.stat()
     ts = dt.datetime.fromtimestamp(st.st_mtime).isoformat(timespec="seconds")
     return f"{path.as_posix()}\t{ts}\t{st.st_size}"
@@ -128,6 +126,9 @@ def main() -> None:
     print(f"[info] python: {python_exe}")
     print(f"[info] root:   {ROOT.as_posix()}")
 
+    wikidata_cache = ROOT / "tools" / "_cache" / "wikidata_enrichment_v1.json"
+    initial_mtime = wikidata_cache.stat().st_mtime_ns if wikidata_cache.exists() else None
+    refresh_wikidata = True
     for r in RANGES:
         print("\n== range", r.label, "==")
 
@@ -152,11 +153,9 @@ def main() -> None:
         def _run_generate(online_refresh: bool) -> None:
             args = list(base_args)
             if online_refresh:
-                args += [
-                    "--refresh-wikidata",
-                    "--refresh-wikipedia",
-                    "--refresh-wikipedia-sections",
-                ]
+                if refresh_wikidata:
+                    args.append("--refresh-wikidata")
+                args += ["--refresh-wikipedia", "--refresh-wikipedia-sections"]
             else:
                 args += ["--offline"]
 
@@ -180,6 +179,10 @@ def main() -> None:
                 _run_generate(online_refresh=False)
             else:
                 raise
+
+        if net and refresh_wikidata and wikidata_cache.exists():
+            # A failed refresh may use the old cache and still generate pages successfully.
+            refresh_wikidata = wikidata_cache.stat().st_mtime_ns == initial_mtime
 
         dt_s = time.time() - t0
         print(f"[ok] generated in {dt_s:.1f}s")
