@@ -59,7 +59,8 @@ python tools/generate_numbers.py --wikipedia-sections
 ```
 
 - セクション取得キャッシュを更新したい場合: `--refresh-wikipedia-sections`
-- ネットワーク無しで生成したい場合: `--offline`（キャッシュのみ使用）
+- ネットワーク無しで引用を含めて生成する場合: `--offline --wikipedia-sections`（キャッシュのみ使用）
+- 引用の取り込みと数式整形の回帰検査: `python -m unittest discover -s tools -p "test_wikipedia_*.py"`。全ページの引用は公開前にビューアーと同じ版の KaTeX でも検査します。
 
 特定の固有名詞を含む引用を優先したい場合は pins 設定で部分一致ピン留めできます:
 - pins: `tools/wikipedia_ja_pins_v1.json`

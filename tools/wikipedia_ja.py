@@ -354,82 +354,112 @@ def fetch_section_wikitext(title: str, section_index: str) -> str:
     return ""
 
 
-def _strip_templates(text: str, max_passes: int = 10) -> str:
-    # very small, non-recursive template stripping; good enough for our summaries
-    prev = text
-    for _ in range(max_passes):
-        cur = re.sub(r"\{\{[^{}]*\}\}", " ", prev)
-        if cur == prev:
-            return cur
-        prev = cur
-    return prev
-
-
-def _replace_common_templates(text: str) -> str:
-    # Preserve a few common math-related templates before stripping the rest.
-    text = re.sub(
-        r"\{\{\s*sup\s*\|\s*([^{}|]+?)\s*\}\}", r"^\1", text, flags=re.IGNORECASE)
-    text = re.sub(
-        r"\{\{\s*sub\s*\|\s*([^{}|]+?)\s*\}\}", r"_\1", text, flags=re.IGNORECASE)
-    text = re.sub(
-        r"\{\{\s*overline\s*\|\s*([^{}|]+?)\s*\}\}", r"\1", text, flags=re.IGNORECASE)
-    # Symbol templates
-    text = re.sub(r"\{\{\s*π\s*\}\}", "π", text)
-    text = re.sub(r"\{\{\s*pi\s*\}\}", "π", text, flags=re.IGNORECASE)
-    return text
-
-
-def wikitext_to_plain_text(wikitext: str) -> str:
-    text = wikitext
-    text = re.sub(r"<!--.*?-->", " ", text, flags=re.DOTALL)
-    text = re.sub(r"<ref[^>/]*/>", " ", text)
-    text = re.sub(r"<ref[^>]*>.*?</ref>", " ", text, flags=re.DOTALL)
-    text = _replace_common_templates(text)
-    text = _strip_templates(text)
-    # external links: [url label] -> label
-    text = re.sub(r"\[(https?://\S+)\s+([^\]]+)\]", r"\2", text)
-    text = re.sub(r"\[(https?://\S+)\]", " ", text)
-    # internal links: [[A|B]] -> B, [[A]] -> A
-    text = re.sub(r"\[\[([^\]|]+)\|([^\]]+)\]\]", r"\2", text)
-    text = re.sub(r"\[\[([^\]]+)\]\]", r"\1", text)
-    # bold/italic
-    text = text.replace("'''''", "").replace("'''", "").replace("''", "")
-    # headings/list markers
-    text = re.sub(r"^=+\s*", "", text, flags=re.MULTILINE)
-    text = re.sub(r"\s*=+$", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^[\*#;:]+\s*", "", text, flags=re.MULTILINE)
-    # any remaining tags
-    text = re.sub(r"<[^>]+>", " ", text)
-    # Decode HTML entities (e.g. &minus; / &times;) left by wiki markup or math
-    # templates. Applied twice to also resolve double-escaped entities (&amp;minus;).
-    text = html.unescape(html.unescape(text))
-    return _clean_text(text)
+_WIKI_ATOM = re.compile("\ue000([0-9]+)\ue001")
+_WIKI_MATH = re.compile("\ue002([0-9]+)\ue003")
+_UNKNOWN_TEMPLATE = "\ufffc"
+_LOST_MATH = "\ufffd"
 
 
 def wikitext_to_plain_text_keep_newlines(wikitext: str) -> str:
-    text = wikitext
+    """引用をリスト項目ごとに残し、MediaWiki の数式を本文の処理から保護する。"""
+    atoms: list[str] = []
+    formulas: list[str] = []
+
+    def save(value: str) -> str:
+        atoms.append(value)
+        return f"\ue000{len(atoms) - 1}\ue001"
+
+    def restore(value: str) -> str:
+        return _WIKI_ATOM.sub(lambda m: atoms[int(m[1])], value)
+
+    def math_span(match: re.Match) -> str:
+        # 改行は TeX の空白。\\（行列などの改行指定）とグループはそのまま保持する。
+        formula = _clean_text(html.unescape(html.unescape(match[1])))
+        if not formula or "$" in formula:
+            return _LOST_MATH
+        formulas.append(formula)
+        return f"\ue002{len(formulas) - 1}\ue003"
+
+    def template(match: re.Match) -> str:
+        name, *args = (s.strip() for s in match[1].split("|"))
+        name = name.casefold()
+        args = [_WIKI_MATH.sub(lambda m: formulas[int(m[1])], restore(s)) for s in args]
+        if name in ("oeis", "oeis2", "see", "see also", "seealso"):
+            return " "
+        if name in ("π", "pi") and not args:
+            return save("π")
+        if len(args) == 1 and args[0]:
+            if name in ("math", "mvar"):
+                return save(args[0].removeprefix("1="))
+            if name in ("sup", "sub"):
+                return save(("^" if name == "sup" else "_") + "{" + args[0] + "}")
+            if name in ("overline", "underline"):
+                return save("\\" + name + "{" + args[0] + "}")
+        if name in ("sfrac", "frac", "分数") and 1 <= len(args) <= 3 and all(args):
+            if len(args) == 1:
+                args.insert(0, "1")
+            fraction = rf"\frac{{{args[-2]}}}{{{args[-1]}}}"
+            return save((args[0] if len(args) == 3 else "") + fraction)
+        if name in ("math", "mvar", "sup", "sub", "overline", "underline", "sfrac", "frac", "分数"):
+            return _LOST_MATH
+        return _UNKNOWN_TEMPLATE
+
+    def html_notation(match: re.Match) -> str:
+        tag, attributes, body = match.groups()
+        if tag.lower() == "span" and not re.search(
+            r"""\bstyle\s*=\s*["']?[^"'<>]*?\btext-decoration(?:-line)?\s*:[^;"'<>]*\bunderline\b""",
+            attributes, re.I,
+        ):
+            return body
+        mark = {"sup": "^", "sub": "_", "u": r"\underline", "span": r"\underline"}[tag.lower()]
+        content = _WIKI_MATH.sub(lambda m: formulas[int(m[1])], body).strip()
+        return mark + "{" + content + "}" if content else _LOST_MATH
+
+    # 不正な入力の私用領域文字が保存した数式と取り違えられないようにする。
+    text = re.sub("[\ue000-\ue003]", "", wikitext)
     text = re.sub(r"<!--.*?-->", " ", text, flags=re.DOTALL)
-    text = re.sub(r"<ref[^>/]*/>", " ", text)
-    text = re.sub(r"<ref[^>]*>.*?</ref>", " ", text, flags=re.DOTALL)
-    text = _replace_common_templates(text)
-    text = _strip_templates(text)
-    # external links: [url label] -> label
-    text = re.sub(r"\[(https?://\S+)\s+([^\]]+)\]", r"\2", text)
-    text = re.sub(r"\[(https?://\S+)\]", " ", text)
-    # internal links: [[A|B]] -> B, [[A]] -> A
+    text = re.sub(r"<ref\b[^>]*?/\s*>|<ref\b[^>]*>.*?</ref\s*>", " ", text, flags=re.I | re.S)
+    text = re.sub(r"<math\b[^>]*>((?:(?!</?math\b).)*?)</math\s*>", math_span, text, flags=re.I | re.S)
+    # 閉じていないタグの行から不完全な数式を取り出さない。
+    text = re.sub(r"^[^\n]*</?math\b.*?(?=\n[ \t]*[*#;:=]|\Z)", "", text, flags=re.I | re.S | re.M)
+    text = re.sub(r"<br\s*/?>", "\n", text, flags=re.I)
+    # [[項目|表示名]] の区切りは、外側の分数テンプレートの引数に数えない。
     text = re.sub(r"\[\[([^\]|]+)\|([^\]]+)\]\]", r"\2", text)
     text = re.sub(r"\[\[([^\]]+)\]\]", r"\1", text)
-    # bold/italic
+    # Wiki構文を先に解く。退避した入れ子の結果（TeXの波括弧）は再解釈しない。
+    for _ in range(10):
+        text, count = re.subn(r"\{\{([^{}]*)\}\}", template, text)
+        if not count:
+            break
+    text = re.sub(r"^.*\{\{.*$", "", text, flags=re.M)
+    text = restore(text)
+    text = re.sub(r"\[(https?://\S+)\s+([^\]]+)\]", r"\2", text)
+    text = re.sub(r"\[https?://\S+\]", " ", text)
     text = text.replace("'''''", "").replace("'''", "").replace("''", "")
-    # headings/list markers
-    text = re.sub(r"^=+\s*", "", text, flags=re.MULTILINE)
-    text = re.sub(r"\s*=+$", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^[\*#;:]+\s*", "", text, flags=re.MULTILINE)
-    # any remaining tags
-    text = re.sub(r"<[^>]+>", " ", text)
-    # Decode HTML entities (see wikitext_to_plain_text).
+    text = re.sub(r"^[ \t]*=+[ \t]*(.*?)[ \t]*=+[ \t]*$", r"\1", text, flags=re.M)
+    text = re.sub(r"^[*#;:]+[ \t]*", "", text, flags=re.M)
+    # 数字や式に付いた表示上の意味を、入れ子の内側から残す。
+    for _ in range(10):
+        text, count = re.subn(r"<(sup|sub|u|span)\b([^>\n]*)>([^<>\n]*)</\1\s*>", html_notation, text, flags=re.I)
+        if not count:
+            break
+    text = re.sub(r"</?(?:sup|sub|u)\b[^>]*>", _LOST_MATH, text, flags=re.I)
+    text = re.sub(r"</?[A-Za-z][\w:-]*(?:\s[^<>\n]*)?\s*/?>", " ", text)
     text = html.unescape(html.unescape(text))
-    return _clean_text_preserve_newlines(text)
+    lines: list[str] = []
+    for line in text.splitlines():
+        # 未対応テンプレートで数式の項を落とすと、原文にない等式を作ってしまう。
+        if _LOST_MATH in line:
+            continue
+        if _UNKNOWN_TEMPLATE in line and re.search(r"[=+×÷^_√\ue002]|\\(?:frac|overline|underline)", line):
+            continue
+        lines.append(line.replace(_UNKNOWN_TEMPLATE, " "))
+    text = _clean_text_preserve_newlines("\n".join(lines))
+    return _WIKI_MATH.sub(lambda m: "$" + formulas[int(m[1])] + "$", text)
+
+
+def wikitext_to_plain_text(wikitext: str) -> str:
+    return _clean_text(wikitext_to_plain_text_keep_newlines(wikitext))
 
 
 _IMPORTANCE_THRESHOLD = 30
@@ -1344,21 +1374,34 @@ _PROPERTY_KEYWORDS = [
 ]
 
 
-def extract_property_sentences_from_plain_text(text: str, limit: int = 3) -> list[str]:
-    text = _clean_text(text)
-    if not text:
-        return []
-
-    parts = [p.strip() for p in text.split("。")]
+def _quote_sentences(text: str) -> list[str]:
+    """箇条書きや文の区切りを残す。明示的な数式内の句点は数式に属する。"""
     sentences: list[str] = []
-    for p in parts:
-        if not p:
+    start = 0
+    for match in re.finditer(r"\$[^\n$]*\$|[。\n]", text):
+        if match[0].startswith("$"):
             continue
-        s = p + "。"
+        part = _clean_text(text[start:match.start()])
+        if part:
+            sentences.append(part + "。")
+        start = match.end()
+    part = _clean_text(text[start:])
+    if part:
+        sentences.append(part + "。")
+    return sentences
+
+
+def _is_short_equation(text: str) -> bool:
+    return "=" in text and bool(re.search(r"\d", text))
+
+
+def extract_property_sentences_from_plain_text(text: str, limit: int = 3) -> list[str]:
+    sentences: list[str] = []
+    for s in _quote_sentences(text):
         # Drop only definitional lines about the number itself, not general math claims.
         if re.search(r"は\s*自然数(、また\s*整数において|また\s*整数において|または\s*整数において|である)", s):
             continue
-        if len(s) < 18:
+        if len(s) < 18 and not _is_short_equation(s):
             continue
         sentences.append(s)
 
@@ -1389,19 +1432,11 @@ def extract_property_sentences_from_plain_text(text: str, limit: int = 3) -> lis
 
 
 def extract_property_candidate_sentences_from_plain_text(text: str, max_candidates: int = 12) -> list[str]:
-    text = _clean_text(text)
-    if not text:
-        return []
-
-    parts = [p.strip() for p in text.split("。")]
     sentences: list[str] = []
-    for p in parts:
-        if not p:
-            continue
-        s = p + "。"
+    for s in _quote_sentences(text):
         if re.search(r"は\s*自然数(、また\s*整数において|また\s*整数において|または\s*整数において|である)", s):
             continue
-        if len(s) < 18:
+        if len(s) < 18 and not _is_short_equation(s):
             continue
         if len(s) > 280:
             continue
@@ -1444,7 +1479,7 @@ def extract_property_candidate_sentences_from_title(title: str, section_name_hin
     if not wikitext:
         return []
 
-    plain = wikitext_to_plain_text(wikitext)
+    plain = wikitext_to_plain_text_keep_newlines(wikitext)
     return extract_property_candidate_sentences_from_plain_text(plain)
 
 
@@ -1470,7 +1505,7 @@ def extract_property_sentences_from_title(title: str, section_name_hint: str = "
     if not wikitext:
         return []
 
-    plain = wikitext_to_plain_text(wikitext)
+    plain = wikitext_to_plain_text_keep_newlines(wikitext)
     return extract_property_sentences_from_plain_text(plain)
 
 
@@ -1499,20 +1534,8 @@ def extract_other_items_from_plain_text(text: str, limit: int = 3) -> list[str]:
     if not text:
         return []
 
-    candidates: list[str] = []
-    for line in text.split("\n"):
-        if not line:
-            continue
-        # split into sentences as well; keep the original line if it looks list-like
-        parts = [p.strip() for p in re.split(r"[。]", line) if p.strip()]
-        if parts:
-            for p in parts:
-                candidates.append(p + "。")
-        else:
-            candidates.append(line)
-
     cleaned: list[str] = []
-    for s in candidates:
+    for s in _quote_sentences(text):
         s = _clean_text(s)
         if not s:
             continue
@@ -1555,19 +1578,8 @@ def extract_other_candidate_items_from_plain_text(text: str, max_candidates: int
     if not text:
         return []
 
-    candidates: list[str] = []
-    for line in text.split("\n"):
-        if not line:
-            continue
-        parts = [p.strip() for p in re.split(r"[。]", line) if p.strip()]
-        if parts:
-            for p in parts:
-                candidates.append(p + "。")
-        else:
-            candidates.append(line)
-
     cleaned: list[str] = []
-    for s in candidates:
+    for s in _quote_sentences(text):
         s = _clean_text(s)
         if not s:
             continue

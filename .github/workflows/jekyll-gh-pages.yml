@@ -31,6 +31,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Check Wikipedia quotations
+        run: |
+          python3 -m unittest discover -s tools -p 'test_wikipedia_*.py'
+          katex="$RUNNER_TEMP/numbers-katex.cjs"
+          curl --fail --silent --show-error --retry 3 https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js -o "$katex"
+          echo "e6bfe5deebd4c7ccd272055bab63bd3ab2c73b907b6e6a22d352740a81381fd4  $katex" | sha256sum --check
+          node tools/check_wikipedia_katex.cjs "$katex"
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Prepare static site

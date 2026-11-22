@@ -5,9 +5,9 @@ from collections.abc import Sequence
 import math
 from fractions import Fraction
 from functools import cache
+from hashlib import sha256
 from dataclasses import dataclass
 from itertools import groupby
-import html
 import json
 import os
 from pathlib import Path
@@ -16,6 +16,7 @@ import re
 from number_range import MAX_NUMBER, number_folder
 from progress import ProgressBar, ProgressSpinner
 from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
+from wikipedia_quote_math import format_quote
 from wikipedia_ja import (
     extract_wikipedia_facts,
     load_or_build_wikipedia_intros_for_numbers,
@@ -152,223 +153,51 @@ def _looks_like_number_wikipedia_intro(intro_extract: str) -> bool:
     return ("自然数" in intro_extract) or ("整数" in intro_extract)
 
 
-def _sanitize_excerpt(s: str) -> str:
-    """Clean cached Wikipedia excerpts before quoting.
-
-    - Decode HTML entities (&minus; / &times; ...) that may remain in older caches.
-    - Remove stub "( )" fragments left by stripped templates.
-    - Repair known template-stripping artifacts that create false equations,
-      e.g. "715 = 714と715は…" -> "714と715は…" / "57 = = 素数 p = 7 …" -> "素数 p = 7 …".
-    """
-
-    t = html.unescape(html.unescape(s))
-    t = re.sub(r"[（(]\s*[)）]", " ", t)
-    t = re.sub(r"^\s*\d+\s*=\s*(?=\d+\s*と)", "", t)
-    t = re.sub(r"^\s*\d+\s*=\s*=\s*", "", t)
-    t = re.sub(r"\s+", " ", t).strip()
-    return t
+@cache
+def _verified_wikipedia_quotes() -> dict:
+    path = ROOT / "tools" / "wikipedia_ja_verified_quotes_v1.json"
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _math_prefix_is_false(prefix: str) -> bool:
-    """Return True only when the prefix is a *pure-arithmetic* equation that is false.
-
-    Used as a publication gate: excerpts whose leading equation is provably wrong
-    (source typos or extraction damage) must not be published. Expressions with
-    variables (n, p, σ ...) cannot be judged and return False.
-    """
-
-    s = prefix.replace("×", "*").replace("÷", "/").replace("−", "-")
-    s = s.replace("^", "**").replace(" ", "")
-    if not re.fullmatch(r"[0-9+\-*/().=]+", s):
-        return False
-    parts = [q for q in s.split("=") if q]
-    if len(parts) < 2:
-        return False
-    try:
-        values = [_bounded_arith_eval(q) for q in parts]
-    except Exception:
-        return False
-    return any(abs(v - values[0]) > 1e-9 for v in values[1:])
-
-
-def _bounded_arith_eval(expr: str):
-    """Evaluate a small arithmetic expression with hard bounds.
-
-    eval() だと巨大な冪（例: 破損テキスト由来の 3**50**5）で停止するため、
-    AST を辿って値域を制限しながら評価する。
-    """
-
-    import ast
-
-    def _ev(node):
-        if isinstance(node, ast.Expression):
-            return _ev(node.body)
-        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
-            return node.value
-        if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.USub, ast.UAdd)):
-            v = _ev(node.operand)
-            return -v if isinstance(node.op, ast.USub) else v
-        if isinstance(node, ast.BinOp):
-            left = _ev(node.left)
-            right = _ev(node.right)
-            if isinstance(node.op, ast.Add):
-                out = left + right
-            elif isinstance(node.op, ast.Sub):
-                out = left - right
-            elif isinstance(node.op, ast.Mult):
-                out = left * right
-            elif isinstance(node.op, ast.Div):
-                out = left / right
-            elif isinstance(node.op, ast.Pow):
-                if abs(right) > 64 or abs(left) > 10**9:
-                    raise ValueError("exponent out of bounds")
-                out = left ** right
+def _wikipedia_quote_lines(sentences: Sequence[str], n: int, section: str) -> list[str]:
+    """性質・その他・冒頭の出典、改変表示、省略の扱いをそろえる。"""
+    limit, anchor = {
+        "性質": (140, "#%E6%80%A7%E8%B3%AA"),
+        "その他": (160, "#%E3%81%9D%E3%81%AE%E4%BB%96"),
+        "冒頭": (120, ""),
+    }[section]
+    heading = "Wikipedia冒頭" if section == "冒頭" else f"Wikipedia『{section}』より"
+    verified = _verified_wikipedia_quotes().get(str(n), {})
+    repairs = [r for r in verified.get("repairs", []) if r.get("section", "性質") == section]
+    lines: list[str] = []
+    for text in sentences:
+        digest = sha256(text.encode("utf-8")).hexdigest() if repairs else None
+        repair = next((r for r in repairs if r["sha256"] == digest), None)
+        source = (f"https://ja.wikipedia.org/w/index.php?oldid={verified['revision']}"
+                  if repair else f"https://ja.wikipedia.org/wiki/{n}") + anchor
+        for part in (repair["quotes"] if repair else [text]):
+            formatted = format_quote(part, limit)
+            if formatted is None:
+                continue
+            excerpt, changed, shortened = formatted
+            notes = ["CC BY-SA"]
+            if repair:
+                label = "原文照合・要約"
+                body = excerpt
+                notes.append("数式・説明を再構成")
+            elif changed:
+                label = "短い引用・整形"
+                body = f"「{excerpt}」"
+                notes.append("表記を整形")
             else:
-                raise ValueError("unsupported operator")
-            if abs(out) > 10**18:
-                raise ValueError("value out of bounds")
-            return out
-        raise ValueError("unsupported expression")
-
-    return _ev(ast.parse(expr, mode="eval"))
-
-
-def _split_math_prefix(text: str) -> tuple[str, str] | None:
-    """Split a Wikipedia excerpt into (math_like_prefix, remainder).
-
-    We do NOT modify the quote itself. Instead, we optionally add a separate
-    line that re-states the excerpt with KaTeX formatting.
-
-    Prefix stops at:
-    - Japanese characters
-    - Japanese punctuation (。 、)
-    - Parentheses ( ( / （ ), except a numeric base suffix such as _(20)
-    """
-
-    s = text.strip()
-    if not s:
-        return None
-
-    # 上付き指数の平坦化（"2 2 + 4 2" ← 2²+4²）を修復する。
-    # 単一桁の指数が直後に演算子/等号/文末を伴う場合のみ対象。
-    s = re.sub(r"(\d+) (\d)(?=\s*[+\-−×÷=)]|$|\s+\d+[^\d\s])", r"\1^\2", s)
-
-    def _is_japanese_char(ch: str) -> bool:
-        code = ord(ch)
-        return (
-            (0x3040 <= code <= 0x30FF)  # Hiragana/Katakana
-            or (0x4E00 <= code <= 0x9FFF)  # CJK Unified Ideographs
-        )
-
-    end = 0
-    for i, ch in enumerate(s):
-        # Stop at delimiters (keep '.'/',' because decimals are common).
-        if ch in "。、(（":
-            end = i
-            # Wikipedia の「100_(20)」は基数付きの数。添字までを式に含める。
-            if ch == "(" and i > 0 and s[i - 1] == "_":
-                radix = re.match(r"\([0-9]+\)", s[i:])
-                if radix:
-                    end += radix.end()
-            break
-        if _is_japanese_char(ch):
-            end = i
-            break
-        if ch.isdigit() and i + 1 < len(s) and _is_japanese_char(s[i + 1]):
-            if i > 0 and s[i - 1] == " ":
-                end = i
-                break
-        end = i + 1
-
-    # Trim trailing spaces from the prefix but keep remainder intact.
-    prefix_end = end
-    while prefix_end > 0 and s[prefix_end - 1] == " ":
-        prefix_end -= 1
-    prefix = s[:prefix_end]
-    remainder = s[prefix_end:]
-
-    if not prefix:
-        return None
-
-    # Avoid cases like "= 0." that are missing the left-hand side.
-    if prefix.startswith("=") or prefix.startswith("＝"):
-        return None
-
-    # Must contain at least one digit and a math signal.
-    if not re.search(r"\d", prefix):
-        return None
-    if not re.search(r"[=^×÷√π]", prefix):
-        return None
-
-    # 演算子を挟まずに数値項が連続する場合、後続は説明文の断片
-    # （例: "276 = 0^5 + 1^5 + 2^5 + 3^5 0^5を含めて…" の 2 つ目の 0^5）。
-    m_gap = re.search(r"(?<=[\d)]) +(?=\d)", prefix)
-    if m_gap:
-        remainder = prefix[m_gap.start():] + remainder
-        prefix = prefix[: m_gap.start()].rstrip()
-
-    # A completed equation followed by a fresh "<var> = ..." belongs to the
-    # explanation, not the formula (e.g. "57 = 2^6 − 2^3 + 1 n = 2 のときの…").
-    first_eq = prefix.find("=")
-    if first_eq != -1:
-        m2 = re.search(r"\s(?=[A-Za-z]\s*=)", prefix[first_eq + 1:])
-        if m2:
-            cut = first_eq + 1 + m2.start()
-            remainder = prefix[cut:] + remainder
-            prefix = prefix[:cut].rstrip()
-
-    # Reject fragments that would produce broken KaTeX.
-    if prefix.count("{") != prefix.count("}") or prefix.count("(") != prefix.count(")"):
-        return None
-    if prefix.endswith(("=", "＝", "_")):
-        return None
-    if len(prefix) < 6:
-        return None
-    if not re.search(r"\d", prefix) or not re.search(r"[=^×÷√π]", prefix):
-        return None
-    return prefix, remainder
-
-
-def _katex_balanced(s: str) -> bool:
-    """KaTeX 式として明らかに破綻していないか（\\left/\\right・波括弧の均衡）を確認する。"""
-    return (
-        s.count("\\left") == s.count("\\right")
-        and s.count("{") == s.count("}")
-    )
-
-
-def _to_katex_math(expr: str) -> str:
-    s = expr
-
-    # Defensive normalization:
-    # Some pipelines/tools may double-escape backslashes, resulting in strings like
-    # "\\times" in the final Markdown. For KaTeX macros, a single backslash is enough.
-    # We only collapse when the backslashes are immediately followed by a macro name
-    # (alphabetic), so we don't touch LaTeX line breaks ("\\\\") if they ever appear.
-    s = re.sub(r"\\{2,}(?=[A-Za-z])", r"\\", s)
-
-    # Normalize characters.
-    s = s.replace("×", r"\times")
-    s = s.replace("÷", r"\div")
-    s = s.replace("π", r"\pi")
-    s = s.replace("…", r"\dots")
-    s = s.replace("−", "-")  # U+2212
-    s = re.sub(r"(?<=\d)#", r"\\#", s)  # 素数階乗（例: 11#）
-
-    # Root notations seen in Japanese Wikipedia excerpts.
-    # Example: ^3√31 -> \sqrt[3]{31}
-    # IMPORTANT: replacement strings in re.sub treat backslashes specially.
-    # Use double backslash to emit a literal backslash for KaTeX macros.
-    s = re.sub(r"\^(\d+)√\s*(\d+)", r"\\sqrt[\1]{\2}", s)
-    # Example: √10 -> \sqrt{10}
-    s = re.sub(r"√\s*(\d+)", r"\\sqrt{\1}", s)
-
-    # Use braces for exponents, including negative ones.
-    s = re.sub(r"\^(-?\d+)", r"^{\1}", s)
-    s = re.sub(r"_\(([0-9]+)\)", r"_{\1}", s)
-
-    # Keep ASCII spaces (KaTeX ignores extra spaces reasonably).
-    return s.strip()
+                label = "短い引用"
+                body = f"「{excerpt}」"
+            if shortened:
+                notes.append("一部省略")
+            lines.append(f"- {heading}（{label}）: {body}（出典: {source} / {' / '.join(notes)}）")
+    if sentences and not lines:
+        lines.append(f"- [Wikipediaの{section}で原文を確認](https://ja.wikipedia.org/wiki/{n}{anchor})")
+    return lines
 
 
 ELEMENTS_JA: list[str | None] = [
@@ -2264,7 +2093,7 @@ def render_number_page(
     reps_lines = "\n".join(
         [f"- **{k}**: `{v}`" for k, v in info.representations.items()])
 
-    factorization_katex = _to_katex_math(info.factorization)
+    factorization_katex = re.sub(r"\^(\d+)", r"^{\1}", info.factorization.replace("×", r"\times"))
     math_lines: list[str] = [
         f"- **素因数分解**: ${factorization_katex}$",
         f"- **各位の和**: {info.digit_sum}",
@@ -2430,45 +2259,7 @@ def render_number_page(
             (wikipedia_properties or {}).get(n),
             (wikipedia_properties_legacy or {}).get(n),
         )
-        if props_pairs:
-            for s in props_pairs:
-                if not isinstance(s, str) or not s.strip():
-                    continue
-                excerpt = _sanitize_excerpt(s)
-                excerpt = re.sub(r"^\(\s*\)\s*", "", excerpt)
-                excerpt = re.sub(
-                    r"^[（(]\s*[0-9一二三四五六七八九十]*\s*[)）]\s*", "", excerpt)
-                if not excerpt:
-                    continue
-                _gate = _split_math_prefix(excerpt)
-                if _gate and _math_prefix_is_false(_gate[0]):
-                    # 数学的に誤りの等式（出典側の誤植や抽出破損）は掲載しない
-                    continue
-                omitted = False
-                if len(excerpt) > 140:
-                    excerpt = excerpt[:140].rstrip() + "…"
-                    omitted = True
-                split = _split_math_prefix(excerpt)
-                if split:
-                    prefix, remainder = split
-                    normalized = _to_katex_math(prefix)
-                    if not _katex_balanced(normalized):
-                        # \left/\right や括弧が不均衡な壊れた式は整形しない（素の引用のまま）
-                        split = None
-                if split:
-                    formatted_sentence = f"${normalized}${remainder}".strip()
-                    notes: list[str] = ["表記を整形"]
-                    if omitted:
-                        notes.append("一部省略")
-                    note_text = " / " + " / ".join(notes) if notes else ""
-                    wikipedia_points.append(
-                        f"- Wikipedia『性質』より（短い引用・整形）: 「{formatted_sentence}」（出典: https://ja.wikipedia.org/wiki/{n}#%E6%80%A7%E8%B3%AA / CC BY-SA{note_text}）"
-                    )
-                else:
-                    note = "一部省略" if omitted else ""
-                    wikipedia_points.append(
-                        f"- Wikipedia『性質』より（短い引用）: 「{excerpt}」（出典: https://ja.wikipedia.org/wiki/{n}#%E6%80%A7%E8%B3%AA / CC BY-SA{(' / ' + note) if note else ''}）"
-                    )
+        wikipedia_points.extend(_wikipedia_quote_lines(props_pairs, n, "性質"))
 
     other_points: list[str] = []
 
@@ -2480,67 +2271,14 @@ def render_number_page(
         pinned_for_n = (wikipedia_pins or {}).get(n, {}).get("other")
         other_pairs = _filter_wikipedia_other_excerpts_for_number(
             other_pairs, n, pinned_substrings=pinned_for_n)
-    if other_pairs:
-        for s in other_pairs:
-            if not isinstance(s, str) or not s.strip():
-                continue
-            excerpt = _sanitize_excerpt(s)
-            excerpt = re.sub(r"^\(\s*\)\s*", "", excerpt)
-            excerpt = re.sub(
-                r"^[（(]\s*[0-9一二三四五六七八九十]*\s*[)）]\s*", "", excerpt)
-            if not excerpt:
-                continue
-            _gate = _split_math_prefix(excerpt)
-            if _gate and _math_prefix_is_false(_gate[0]):
-                continue
+    if info.atomic_element is not None:
+        other_pairs = [s for s in other_pairs if "原子番号" not in s]
+    other_points.extend(_wikipedia_quote_lines(other_pairs, n, "その他"))
 
-            # Avoid duplication with the dedicated Science section.
-            if info.atomic_element is not None and "原子番号" in excerpt:
-                continue
-
-            omitted = False
-            if len(excerpt) > 160:
-                excerpt = excerpt[:160].rstrip() + "…"
-                omitted = True
-            split = _split_math_prefix(excerpt)
-            if split:
-                prefix, remainder = split
-                normalized = _to_katex_math(prefix)
-                if not _katex_balanced(normalized):
-                    # \left/\right や括弧が不均衡な壊れた式は整形しない（素の引用のまま）
-                    split = None
-            if split:
-                formatted_sentence = f"${normalized}${remainder}".strip()
-                notes: list[str] = ["表記を整形"]
-                if omitted:
-                    notes.append("一部省略")
-                note_text = " / " + " / ".join(notes) if notes else ""
-                other_points.append(
-                    f"- Wikipedia『その他』より（短い引用・整形）: 「{formatted_sentence}」（出典: https://ja.wikipedia.org/wiki/{n}#%E3%81%9D%E3%81%AE%E4%BB%96 / CC BY-SA{note_text}）"
-                )
-            else:
-                note = "一部省略" if omitted else ""
-                other_points.append(
-                    f"- Wikipedia『その他』より（短い引用）: 「{excerpt}」（出典: https://ja.wikipedia.org/wiki/{n}#%E3%81%9D%E3%81%AE%E4%BB%96 / CC BY-SA{(' / ' + note) if note else ''}）"
-                )
-
-    # The intro sentence is a generic definition. Use it only as a last resort
-    # when there are no other "その他" excerpts.
-    if (not other_points) and intro_extract and _looks_like_number_wikipedia_intro(intro_extract):
-        facts = extract_wikipedia_facts(intro_extract)
-        first_sentence = facts.get("first_sentence")
-        if isinstance(first_sentence, str) and first_sentence:
-            # Keep it short: this is a *very* small excerpt.
-            excerpt = first_sentence
-            omitted = False
-            if len(excerpt) > 120:
-                excerpt = excerpt[:120].rstrip() + "…"
-                omitted = True
-            note = "一部省略" if omitted else ""
-            # Attribution + license hint to stay CC BY-SA-friendly.
-            other_points.append(
-                f"- Wikipedia冒頭（短い引用）: 「{excerpt}」（出典: https://ja.wikipedia.org/wiki/{n} / CC BY-SA{(' / ' + note) if note else ''}）"
-            )
+    if not other_points and intro_extract and _looks_like_number_wikipedia_intro(intro_extract):
+        first_sentence = extract_wikipedia_facts(intro_extract).get("first_sentence")
+        if isinstance(first_sentence, str):
+            other_points.extend(_wikipedia_quote_lines([first_sentence], n, "冒頭"))
 
     wikipedia_points = _dedupe_preserve_order(wikipedia_points)
     other_points = _dedupe_preserve_order(other_points)
@@ -2853,7 +2591,8 @@ def render_readme() -> str:
             "```",
             "",
             "- セクション取得キャッシュを更新したい場合: `--refresh-wikipedia-sections`",
-            "- ネットワーク無しで生成したい場合: `--offline`（キャッシュのみ使用）",
+            "- ネットワーク無しで引用を含めて生成する場合: `--offline --wikipedia-sections`（キャッシュのみ使用）",
+            "- 引用の取り込みと数式整形の回帰検査: `python -m unittest discover -s tools -p \"test_wikipedia_*.py\"`。全ページの引用は公開前にビューアーと同じ版の KaTeX でも検査します。",
             "",
             "特定の固有名詞を含む引用を優先したい場合は pins 設定で部分一致ピン留めできます:",
             "- pins: `tools/wikipedia_ja_pins_v1.json`",

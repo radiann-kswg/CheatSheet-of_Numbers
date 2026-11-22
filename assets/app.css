@@ -272,6 +272,16 @@ body {
 	overflow-x: auto;
 }
 
+.doc-view li .katex {
+	display: inline-block;
+	max-inline-size: 100%;
+	overflow-x: auto;
+	vertical-align: middle;
+	/* 分数・積分の字形がスクロール領域から切れず、前後の行間も保つ。 */
+	padding-block: 0.4em;
+	margin-block: -0.4em;
+}
+
 .content {
 	min-width: 0;
 	overflow-x: auto;

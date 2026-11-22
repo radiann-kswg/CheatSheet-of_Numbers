@@ -52,6 +52,9 @@
 │   ├── check_internal_links.py  # 内部リンク検査
 │   ├── check_viewer_filters.py  # ページのフラグとビューアーのフィルタの同期検査
 │   ├── wikipedia_ja.py      # Wikipedia（日本語）連携
+│   ├── wikipedia_quote_math.py        # 引用中の数式の整形、旧キャッシュの欠損判定
+│   ├── wikipedia_ja_verified_quotes_v1.json # 原文照合で復元した旧引用と出典の版番号
+│   ├── check_wikipedia_katex.cjs      # 生成済みの引用をビューアーと同じKaTeXで検査
 │   ├── wikidata_cc0.py      # Wikidata（CC0）連携
 │   ├── wikipedia_ja_pins_v1.json                 # 引用ピン留め設定
 │   ├── wikipedia_ja_importance_overrides_v1.json # 重要度閾値の上書き設定
@@ -89,6 +92,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
   - **数式表記を KaTeX に整形して掲載する場合**は「整形版（改変あり）」として扱い、引用行に `整形`（例: 「短い引用・整形」）と改変がある旨を明記する。
   - 原文と整形版の併記は原則不要（可読性を優先）。
 - **整形時の注意（既知の不具合防止）**: HTML 実体参照（`&times;` `&minus;` など）は KaTeX 記号（`\times` `-`）へ**必ずデコードしてから**整形すること。数式と後続の説明文が連結されて誤った等式（例: `$715 = 714$`）にならないよう、式と文の境界を保持すること。
+- Wikipedia の箇条書き、`<math>`、上付き・下付き、分数の境界は取得時に保存する。旧キャッシュで項が失われている場合は、原文を特定できたときだけ復元し、対応する版番号を残す。引用を短くするときは、完結した式や文の境界で区切り「一部省略」を付ける。
 
 ### 内容の方針（公開に耐えるための注意）
 
@@ -186,6 +190,7 @@ Wikidata Query Service / Action API から以下を自動追記（ネットワ�
    - ネットワークが使えない環境（Cowork のサンドボックス等）では `--offline` を付けてキャッシュのみで生成する。`--offline` 単体だと Wikipedia の『性質』『その他』が消えるので、**必ず `--wikipedia-sections` と併用**すること。
 3. 内部リンク検査: `python tools/check_internal_links.py`（Missing links: 0 を確認）
 4. ビューアー同期検査: `python tools/check_viewer_filters.py`（不整合 0 を確認）
+5. Wikipedia の引用を変更したら、`python -m unittest discover -s tools -p "test_wikipedia_*.py"` で取得・整形の回帰例を検査する。生成済みの全引用は `node tools/check_wikipedia_katex.cjs <katex.min.jsのパス>` で検査できる。`index.html` と同じ版の KaTeX を使い、GitHub Pages へのデプロイ前にも両方を自動実行する。
 
 ### フラグを追加・改名したときの必須手順
 
