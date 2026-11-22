@@ -61,6 +61,7 @@
 │   ├── wolfram_enrichment_v1.json                # Wolfram Knowledgebase 由来の科学データ（元素/小惑星/NGC）
 │   ├── science_notes_v1.json                     # 核種・波長・メシエ番号などの説明と出典
 │   ├── number_math_notes_v1.json                 # 定数の近似・幾何・暦など、個別の数についての数学ノート
+│   ├── real_constants_v1.json                    # 実数の定義・十進展開・出典。先頭桁と丸め値は生成時に算出
 │   ├── number_lore_v1.json                       # 数秘・占術・名数など『文化的ないわれ』のキュレーションデータ
 │   ├── oeis_comments_ja_v1.json                  # OEIS %C コメントの和訳（CC BY-SA 4.0、oeisdata ミラー由来）
 │   └── _cache/              # 取得キャッシュ（通常 Git 管理しない）
@@ -105,6 +106,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 - 数列への所属（多角数・幸運数・ウラム数・各種特殊素数など）は **`generate_numbers.py` 内で自前計算**し、出典として OEIS の A 番号リンクを添える。外部サイトから所属データを取得・転載しない。
 - 元素・小惑星・NGC 等の科学データの詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来（`tools/wolfram_enrichment_v1.json` に同梱）とし、出典を明記する。
 - 個別の数学ノートは `tools/number_math_notes_v1.json` に、科学の補足は `tools/science_notes_v1.json` に説明と出典をまとめる。本文とビューアー検索は同じデータを使う。
+- 実数の数字列を追加する場合は、`tools/real_constants_v1.json` に定義・出典と、検算した十進展開の先頭を固定小数点の文字列で記録する。4桁に丸めるために、少なくとも5番目の有効数字まで保存する。数字ページへの対応は、符号と小数点を除いて最初の非ゼロの桁から数えた3・4桁と、有効数字3・4桁に四捨五入した値から生成する。例えば $\ln 3 = 1.098612\ldots$ の先頭4桁は1098、丸め値は1.099で1099に対応する。
 - 数秘術・エンジェルナンバー・吉凶・語呂合わせ等の「文化的ないわれ」は『数秘・占術・文化のいわれ』セクションに集約する。科学的根拠のない伝承である旨を各ページで明記し、断定を避ける（『〜とされる』）。
   - 機械導出（数秘還元値・エンジェルナンバー・ヘブライ数字）は `generate_numbers.py`、キュレーション項目は `tools/number_lore_v1.json` を編集する（生成物の手編集をしない）。
   - **収録しないもの**: 性的・差別的・反社会的な含意を持つネットスラング、現役占術家の独自体系（数意学・数魂など。著作権・独自性への配慮）。
@@ -125,6 +127,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 | Wolfram Knowledgebase | 元素・小惑星・NGC | — | **採用**。`tools/wolfram_enrichment_v1.json` に同梱（オフライン） |
 | [Mattia Verga / OpenNGC](https://github.com/mattiaverga/OpenNGC) | NGC とメシエ番号の対応 | CC BY-SA 4.0 | **採用**。公開 CSV から収録範囲を抽出し、帰属・ライセンス・抜粋した旨を掲載する |
 | 原論文、大学・学会・公的機関の資料、国立国会図書館の書影 | 数学・科学・暦の事実、歴史的な記載の確認 | 資料ごと | **参照リンク**。検算した数値や確認した事実を自分の言葉で記述する |
+| NIST Digital Library of Mathematical Functions (DLMF) | 定数や特殊関数の定義式 | NIST 著作権 | **参照リンク**。数値は独立に計算し、式の意味・用途を自分の言葉で記す。[利用条件](https://dlmf.nist.gov/about/notices) |
 | OEIS | 数列の A 番号・定義 | CC BY-SA 4.0 | **採用（リンクのみ）**。⚠️ 利用規約 §10 と robots.txt が自動アクセスを禁止。`oeis.org/search` をバッチで叩かないこと。データが要る場合は GitHub ミラー `oeis/oeisdata` を clone する |
 | ja.Wiktionary / Wikibooks | 漢数字の字源など | CC BY-SA 4.0 | 未採用（採用可）。Wikipedia と同じ基盤で追加できる |
 | 青空文庫（PD 本文）/ NDL（保護期間満了資料） | 文化的いわれの一次資料 | PD ほか | 未採用（採用可）。PD 部分は CC BY-SA を後付けせず、由来をファイル単位で明記する |

@@ -15,6 +15,7 @@ import re
 
 from number_range import MAX_NUMBER, number_folder
 from progress import ProgressBar, ProgressSpinner
+from real_digit_notes import build_real_digit_notes
 from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
 from wikipedia_quote_math import format_quote
 from wikipedia_ja import (
@@ -2035,7 +2036,12 @@ def _format_wikidata_refs(refs: Sequence[object], limit: int = 10) -> list[str]:
 @cache
 def _load_number_math_notes() -> dict[str, list[dict]]:
     path = ROOT / "tools" / "number_math_notes_v1.json"
-    return json.loads(path.read_text(encoding="utf-8"))["entries"]
+    notes = json.loads(path.read_text(encoding="utf-8"))["entries"]
+    constants_path = ROOT / "tools" / "real_constants_v1.json"
+    constants = json.loads(constants_path.read_text(encoding="utf-8"))["constants"]
+    for key, extra in build_real_digit_notes(constants, MAX_NUMBER).items():
+        notes.setdefault(key, []).extend(extra)
+    return notes
 
 
 def render_number_page(
@@ -2544,6 +2550,7 @@ def render_readme() -> str:
             "- 数秘術・エンジェルナンバー・吉凶・語呂合わせなどの『文化的ないわれ』も収録します（機械導出＋`tools/number_lore_v1.json` のキュレーション。科学的根拠のない伝承である旨を明記）",
             "- 多角数・幸運数・ブラジル数など **約 60 種の数列への所属** を自前計算で判定し、各数列の定義を確認できる OEIS の A 番号を示します。",
             "- 定数の有理近似、回転の自由度、暦の周期など、個別の数に結び付く計算と出典を `tools/number_math_notes_v1.json` に収録しています。数学・科学・文化の補足はビューアーから本文中の語句で検索できます。",
+            "- [314のページ](numbers/3xx/314.md)では、円周率 π = 3.14159… の先頭3桁「314」と、有効数字4桁に丸めた「3.142」を見比べられます。ビューアーで「実数の数字列」と検索すると、同じ読み方で紹介している数を一覧できます。",
             "- 数列の補足コメントは OEIS（CC BY-SA 4.0）の和訳を `tools/oeis_comments_ja_v1.json` に収録しています",
             "- 中国語圏の数字文化・英語数詞の語源・パブリックドメイン古典などは、再利用可能なライセンスのものだけを和訳して収録します",
             "",
