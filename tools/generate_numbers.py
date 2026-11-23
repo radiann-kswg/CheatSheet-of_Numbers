@@ -20,6 +20,7 @@ from wikidata_cc0 import WikidataEnrichment, load_or_build_enrichment
 from wikipedia_quote_math import format_quote
 from wikipedia_ja import (
     extract_wikipedia_facts,
+    issue_quote_bonus,
     load_or_build_wikipedia_intros_for_numbers,
     load_or_build_wikipedia_other_item_sets_for_numbers,
     load_or_build_wikipedia_property_sentence_sets_for_numbers,
@@ -158,6 +159,14 @@ def _looks_like_number_wikipedia_intro(intro_extract: str) -> bool:
 def _verified_wikipedia_quotes() -> dict:
     path = ROOT / "tools" / "wikipedia_ja_verified_quotes_v1.json"
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _prioritize_cached_quotes(sentences: list[str], n: int, kind: str, pins: Sequence[str]) -> list[str]:
+    # 旧キャッシュには元の点数がない。加点対象だけを前に出し、同点なら元の順序を保つ。
+    bonuses = {s: issue_quote_bonus(n, kind, s) for s in sentences}
+    if not any(bonuses.values()):
+        return sentences
+    return sorted(sentences, key=lambda s: 101 if any(p in s for p in pins) else bonuses[s], reverse=True)
 
 
 def _wikipedia_quote_lines(sentences: Sequence[str], n: int, section: str) -> list[str]:
@@ -1598,6 +1607,7 @@ SCIENCE_FILTER_LABELS = {
     "wavelength": "レーザー波長",
     "messier": "メシエ天体",
     "pregnancy_duration": "妊娠期間",
+    "ic_part_numbers": "IC型番",
 }
 
 
@@ -2265,6 +2275,8 @@ def render_number_page(
             (wikipedia_properties or {}).get(n),
             (wikipedia_properties_legacy or {}).get(n),
         )
+        property_pins = (wikipedia_pins or {}).get(n, {}).get("property", [])
+        props_pairs = _prioritize_cached_quotes(props_pairs, n, "property", property_pins)
         wikipedia_points.extend(_wikipedia_quote_lines(props_pairs, n, "性質"))
 
     other_points: list[str] = []
@@ -2274,9 +2286,10 @@ def render_number_page(
         (wikipedia_other_items_legacy or {}).get(n),
     )
     if other_pairs:
-        pinned_for_n = (wikipedia_pins or {}).get(n, {}).get("other")
+        pinned_for_n = (wikipedia_pins or {}).get(n, {}).get("other", [])
         other_pairs = _filter_wikipedia_other_excerpts_for_number(
             other_pairs, n, pinned_substrings=pinned_for_n)
+        other_pairs = _prioritize_cached_quotes(other_pairs, n, "other", pinned_for_n)
     if info.atomic_element is not None:
         other_pairs = [s for s in other_pairs if "原子番号" not in s]
     other_points.extend(_wikipedia_quote_lines(other_pairs, n, "その他"))
@@ -2550,6 +2563,7 @@ def render_readme() -> str:
             "- 数秘術・エンジェルナンバー・吉凶・語呂合わせなどの『文化的ないわれ』も収録します（機械導出＋`tools/number_lore_v1.json` のキュレーション。科学的根拠のない伝承である旨を明記）",
             "- 多角数・幸運数・ブラジル数など **約 60 種の数列への所属** を自前計算で判定し、各数列の定義を確認できる OEIS の A 番号を示します。",
             "- 定数の有理近似、回転の自由度、暦の周期など、個別の数に結び付く計算と出典を `tools/number_math_notes_v1.json` に収録しています。数学・科学・文化の補足はビューアーから本文中の語句で検索できます。",
+            "- Issue #6〜#8 の掲載内容は、ビューアーの検索欄に `#6`（717の回文）、`#7`（フィボナッチ数）、`#8`（IC型番）を入力して探せます。`#8 SRAM` のように続けて語句を入れると、該当するページに絞り込めます。",
             "- [314のページ](numbers/3xx/314.md)では、円周率 π = 3.14159… の先頭3桁「314」と、有効数字4桁に丸めた「3.142」を見比べられます。ビューアーで「実数の数字列」と検索すると、同じ読み方で紹介している数を一覧できます。",
             "- 数列の補足コメントは OEIS（CC BY-SA 4.0）の和訳を `tools/oeis_comments_ja_v1.json` に収録しています",
             "- 中国語圏の数字文化・英語数詞の語源・パブリックドメイン古典などは、再利用可能なライセンスのものだけを和訳して収録します",
@@ -2605,6 +2619,7 @@ def render_readme() -> str:
             "- pins: `tools/wikipedia_ja_pins_v1.json`",
             "重要度の採用閾値を数字ごとに調整したい場合は上書き設定を使います:",
             "- overrides: `tools/wikipedia_ja_importance_overrides_v1.json`",
+            "同じファイルの `issue_weights` で、Issue の話題に合う引用候補に加点できます。各ルールは対象の数字・節・語句のパターンを指定します。キャッシュのみで生成するときも、ピン留めに続いて該当する引用が上位に並びます。",
             "",
             "Wikidata 連携の制御（任意）:",
             "",

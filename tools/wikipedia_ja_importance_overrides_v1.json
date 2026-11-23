@@ -1,8 +1,23 @@
 {
   "meta": {
     "version": 1,
-    "note": "重要度指数の閾値を数字ごと・種別(property/other)ごとに上書きします。値は 1..100。未指定は wikipedia_ja.py のデフォルト閾値を使用します。"
+    "note": "thresholds は番号・節別の採用閾値。issue_weights は指定した数字と節で正規表現に一致する候補への加点（1〜100）。複数一致では最大値を使う。英字の大小は区別しない。"
   },
+  "issue_weights": [
+    {"issue": 6, "numbers": [717], "kind": "property", "bonus": 30, "pattern": "(?=.*回文)(?=.*(?:二進|2進|二つの素数|素因数|半素数))|1011001101"},
+    {"issue": 7, "numbers": [8, 144], "kind": "property", "bonus": 30, "pattern": "(?=.*フィボナッチ)(?=.*(?:完全冪|完全べき|平方数|立方数))"},
+    {"issue": 7, "numbers": [89, 109, 112, 1123, 1124], "kind": "property", "bonus": 30, "pattern": "(?=.*フィボナッチ)(?=.*(?:逆数|母関数|級数|交代和|sum|総和))|0\\.\\s*0112359"},
+    {"issue": 7, "numbers": [377], "kind": "other", "bonus": 30, "pattern": "算盤の書|Liber Abaci|(?=.*(?:フィボナッチ|つがい))(?=.*(?:ウサギ|うさぎ|兎))"},
+    {"issue": 7, "numbers": [377], "kind": "property", "bonus": 30, "pattern": "算盤の書|Liber Abaci|(?=.*(?:フィボナッチ|つがい))(?=.*(?:ウサギ|うさぎ|兎))"},
+    {"issue": 7, "numbers": [1123], "kind": "other", "bonus": 30, "pattern": "フィボナッチの日|Fibonacci Day"},
+    {"issue": 7, "numbers": [1094, 1123, 1124, 1154, 1176, 1187, 1188], "kind": "property", "bonus": 30, "pattern": "ピサノ周期|自己フィボナッチ約数|(?=.*フィボナッチ)(?=.*(?:整除|割り切|倍数|剰余|余り|周期))"},
+    {"issue": 8, "numbers": [24, 25, 27, 28, 93], "kind": "other", "bonus": 30, "pattern": "EEPROM|EPROM|24LC256|25LC256|W25Q64|AT2[78]C|93LC(?:46|56|66|76|86)"},
+    {"issue": 8, "numbers": [62], "kind": "other", "bonus": 30, "pattern": "SRAM|スタティックRAM|AS6C62|HM62(?:64|256|08)|CY62(?:256|128)|IS62WV"},
+    {"issue": 8, "numbers": [74], "kind": "other", "bonus": 30, "pattern": "標準ロジックIC|TTLロジック|74(?:LS|HC)(?:00|08)"},
+    {"issue": 8, "numbers": [78, 79], "kind": "other", "bonus": 30, "pattern": "LM7[89](?:05|12|15)|L78L33|三端子レギュレータ"},
+    {"issue": 8, "numbers": [555, 556], "kind": "other", "bonus": 30, "pattern": "NE55[56]|タイマー?\\s*IC|555タイマー?"},
+    {"issue": 8, "numbers": [831, 832, 834, 838], "kind": "other", "bonus": 30, "pattern": "ADC083[1248]|(?=.*(?:A/D変換器|ADコンバータ))(?=.*(?:8ビット|チャネル))"}
+  ],
   "thresholds": {
     "22": { "property": 20 },
     "25": { "property": 20, "other": 20 },

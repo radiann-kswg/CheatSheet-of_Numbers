@@ -1,6 +1,16 @@
 {
   "constants": [
     {
+      "issue": 7,
+      "name": "89の逆数",
+      "symbol": "1/89",
+      "decimal": "0.01123595505617977528089887640449",
+      "description": "フィボナッチ数を十進の位を一つずつずらして足すと、[89](../0xx/089.md) の逆数になる。数列の項が2桁以上になると、足し算で桁上がりが起こる。",
+      "sources": {
+        "C. T. Long「The Decimal Expansion of 1/89 and Related Results」式 (1)": "https://www.fq.math.ca/Scanned/19-1/long.pdf"
+      }
+    },
+    {
       "name": "円周率",
       "symbol": "π",
       "decimal": "3.1415926535897932384",

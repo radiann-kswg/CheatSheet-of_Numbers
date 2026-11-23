@@ -59,9 +59,12 @@ def build_real_digit_notes(constants: list[dict], max_number: int) -> dict[str, 
                 f"四捨五入すると、有効数字3桁で ${approximation3}$（数字列 {mark(rounded3)}）、"
                 f"有効数字4桁で ${approximation4}$（数字列 {mark(rounded4)}）になる。"
             )
-            notes.setdefault(key, []).append({
+            note = {
                 "title": f"実数の数字列・{constant['name']}（{constant['symbol']}）",
                 "text": text,
                 "sources": constant["sources"],
-            })
+            }
+            if "issue" in constant:
+                note["issue"] = constant["issue"]
+            notes.setdefault(key, []).append(note)
     return notes

@@ -133,18 +133,17 @@ function matchesCategory(recordValues, selectedSet) {
 	return false;
 }
 
-function filterRecords() {
-	const keyword = searchEl.value.trim().toLowerCase();
-
+function filterRecords(keyword, issue) {
 	return state.records.filter((record) => {
+		const issueOk = !issue || Boolean(record.issueSnippets?.[issue]);
 		const keywordOk = !keyword || record.searchText.includes(keyword);
 		const loreOk = matchesCategory(record.loreFilters, state.selectedLore);
 		const propOk = matchesCategory(record.propertyFilters, state.selectedProperties);
-		return keywordOk && loreOk && propOk;
+		return issueOk && keywordOk && loreOk && propOk;
 	});
 }
 
-function renderDocumentList(records) {
+function renderDocumentList(records, issue) {
 	docListEl.innerHTML = "";
 	visibleButtons.clear();
 	resultCountEl.textContent = `${records.length}件`;
@@ -170,7 +169,7 @@ function renderDocumentList(records) {
 		title.textContent = record.title;
 
 		const meta = document.createElement("small");
-		meta.textContent = record.snippets[0] || "数秘・性質を表示";
+		meta.textContent = record.issueSnippets?.[issue] || record.snippets[0] || "数秘・性質を表示";
 
 		button.appendChild(title);
 		button.appendChild(meta);
@@ -191,8 +190,11 @@ function markCurrentDocument(path) {
 }
 
 function renderListByCurrentFilters() {
-	const filtered = filterRecords();
-	renderDocumentList(filtered);
+	const query = searchEl.value.trim().toLowerCase();
+	const prefix = /^(?:#|issue[:\s]+#?)(\d+)(?:\s+|$)/.exec(query);
+	const issue = prefix?.[1];
+	const keyword = prefix ? query.slice(prefix[0].length) : query;
+	renderDocumentList(filterRecords(keyword, issue), issue);
 }
 
 function renderMarkdownSource(markdown, path) {

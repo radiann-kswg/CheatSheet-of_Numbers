@@ -1,11 +1,38 @@
 {
   "meta": {
     "version": 1,
-    "checked": "2026-11-22",
+    "checked": "2026-11-23",
     "notes": "各項の日本語は事実に基づく独自記述。核種の半減期は Wolfram Knowledgebase と評価値を照合。NGC とメシエ番号の対応は Mattia Verga / OpenNGC（CC BY-SA 4.0）の NGC 1〜1188 を抽出し、重複番号 NGC 651 を照合したもの。",
     "openngc_license": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   "sources": {
+    "as6264": ["Alliance Memory・AS6C6264","https://www.alliancememory.com/wp-content/uploads/Alliance-Memory_64K_AS6C6264v2.0July2017.pdf"],
+    "as62256": ["Alliance Memory・AS6C62256","https://www.alliancememory.com/wp-content/uploads/AS6C62256-23-March-2016-rev1.2.pdf"],
+    "cy62256": ["Cypress・CY62256N 注文コード表","https://www.infineon.com/assets/row/public/documents/10/49/infineon-cy62256n-256-kbit-32-k-8-static-ram-datasheet-en.pdf#page=13"],
+    "cy62128": ["Cypress・CY62128EV30 注文コード表","https://www.infineon.com/assets/row/public/documents/10/49/infineon-cy62128ev30-mobl-1-mbit-128k-x-8-static-ram-datasheet-en.pdf#page=12"],
+    "hitachi_sram": ["日立・IC Memory Data Book（1988年、125・201・209頁）","https://www.bitsavers.org/components/hitachi/_dataBooks/1988_M11_Hitachi_IC_Memory_Data_Book.pdf"],
+    "issi1288": ["ISSI・IS62WV1288BLL","https://www.issi.com/WW/pdf/62WV1288ALL.pdf"],
+    "mc24": ["Microchip・24LC256","https://www.microchip.com/en-us/product/24LC256"],
+    "mc25": ["Microchip・25LC256","https://www.microchip.com/en-us/product/25LC256"],
+    "mc27": ["Microchip・AT27C256R","https://www.microchip.com/en-us/product/AT27C256R"],
+    "mc020": ["Microchip・AT27C020","https://www.microchip.com/en-us/product/AT27C020"],
+    "mc28": ["Microchip・AT28C256","https://www.microchip.com/en-us/product/AT28C256"],
+    "winbond25": ["Winbond・W25Q64JVSSIQ","https://www.winbond.com/hq/product/code-storage-flash/qspi-nor/w25q-jv/?__locale=en&partNo=W25Q64JVSSIQ"],
+    "mc93small": ["Microchip・93LC46/56/66","https://ww1.microchip.com/downloads/en/devicedoc/21712B.pdf"],
+    "mc93large": ["Microchip・93LC76/86","https://ww1.microchip.com/downloads/en/devicedoc/21131e.pdf"],
+    "mc93org": ["Microchip・93LC46A/B/C","https://www.microchip.com/content/dam/mchp/documents/OTH/ProductDocuments/DataSheets/20001749K.pdf"],
+    "ti_logic": ["TI・ロジックICの型番ガイド","https://www.ti.com/lit/ml/slyb236/slyb236.pdf"],
+    "ti_ls00": ["TI・SN74LS00","https://www.ti.com/lit/ds/symlink/sn74ls00.pdf"],
+    "ti_hc00": ["TI・SN74HC00","https://www.ti.com/product/SN74HC00"],
+    "ti_hc08": ["TI・SN74HC08","https://www.ti.com/product/SN74HC08"],
+    "ti78": ["TI・LM7800系列","https://www.ti.com/lit/ds/symlink/lm7800.pdf"],
+    "ti79": ["TI・LM79XX系列","https://www.ti.com/lit/ds/symlink/lm79.pdf"],
+    "st78": ["ST・L78L 表12","https://www.st.com/resource/en/datasheet/l78l.pdf#page=9"],
+    "ti083x": ["TI・ADC0831/0832/0834/0838 接続図","https://www.ti.com/lit/ds/symlink/adc0834-n.pdf#page=2"],
+    "ti0804": ["TI・ADC0804-N","https://www.ti.com/product/ADC0804-N"],
+    "camenzind": ["Hans Camenzindの口述史、2頁","https://semiconductormuseum.com/Transistors/LectureHall/Camenzind/Camenzind_Page2.htm"],
+    "ti555": ["TI・NE555","https://www.ti.com/product/NE555"],
+    "ti556": ["TI・NE556","https://www.ti.com/product/NE556"],
     "nubase": ["NUBASE2020","https://doi.org/10.1088/1674-1137/abddae"],
     "neptunium": ["米国エネルギー省資料（ネプツニウム系列）","https://www.osti.gov/servlets/purl/841368"],
     "ciaaw": ["IUPAC・CIAAW","https://ciaaw.org/radioactive-elements.htm"],
@@ -19,6 +46,35 @@
     "brucia": ["ハイデルベルク大学天文学センター","https://t3ext.zah.uni-heidelberg.de/institutes/astronomisches-rechen-institut/about-the-ari/minor-planets"]
   },
   "entries": {
+    "24": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "Microchipの24LC256はI²Cを使うシリアルEEPROMで、256は記憶容量256 Kibit（32 KiB）に対応する。同容量でSPIを使う製品に[25LC256](025.md)がある。", "sources": ["mc24", "mc25"]}
+    ],
+    "25": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "Microchipの25LC256はSPI接続のEEPROMで、容量は256 Kibit（32 KiB）。25を型番に含むWinbondのW25Q64JVはSPI接続のNORフラッシュで、64は64 Mibit（8 MiB）を表す。", "sources": ["mc25", "winbond25"]}
+    ],
+    "27": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "MicrochipのAT27C256Rは一度だけ書き込めるOTP EPROMで、256 Kibit（32 KiB）を記憶する。同じ27系列のAT27C020では、020が表す容量は2 Mibit（256 KiB）になる。", "sources": ["mc27", "mc020"]}
+    ],
+    "28": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "MicrochipのAT28C256は、電気的に消去・書き換えができるパラレルEEPROM。容量は[AT27C256R](027.md)と同じ256 Kibit（32 KiB）で、1回に8ビットを並列に読み出す。", "sources": ["mc28", "mc27"]}
+    ],
+    "62": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "Cypressの非同期SRAM「CY62256N」の注文コードでは、62がMoBL SRAM系列、256が容量256 Kibit（32 KiB）を表す。CY62128EV30では区切りが変わり、621が系列、2が容量1 Mibit、8がデータ幅8ビット。131,072語×8ビットで128 KiBになる。", "sources": ["cy62256", "cy62128"]},
+      {"issue": 8, "category": "ic_part_numbers", "text": "Alliance MemoryではAS6Cの後の6264・62256がデバイス番号。AS6C6264は8,192語×8ビットで64 Kibit（8 KiB）、AS6C62256は32,768語×8ビットで256 Kibit（32 KiB）。両方の注文型番にある「-55PCN」は、アクセス時間55 ns、幅600 milの28ピンPDIP、商用温度範囲0～70 °C、鉛フリーを順に示す。1番・26番ピンは前者では無接続（NC）・チップ選択端子CE2、後者ではアドレス端子A14・A13に割り当てられる。", "sources": ["as6264", "as62256"]},
+      {"issue": 8, "category": "ic_part_numbers", "text": "日立にも8 KiBのHM6264と32 KiBのHM62256がある。同社のHM6208は65,536語×4ビット（32 KiB）、ISSIのIS62WV1288BLLは131,072語×8ビット（128 KiB）で、62に続く数字の読み方は各製品の資料で確かめられる。", "sources": ["hitachi_sram", "issi1288"]}
+    ],
+    "74": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのロジックICでは接頭の74が商用区分（54は軍用区分）、続くLS・HCがロジックファミリー、末尾が機能番号を示す。SN74LS00とSN74HC00の00は2入力NANDゲート4回路、SN74HC08の08は2入力ANDゲート4回路を指す。", "sources": ["ti_logic", "ti_ls00", "ti_hc00", "ti_hc08"]}
+    ],
+    "78": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIの固定出力レギュレータLM7805・LM7812・LM7815では、78に続く05・12・15が正の出力電圧（+5・+12・+15 V）に対応する。STの小電流品L78L33AB・L78L33ACでは33が+3.3 Vを表す。", "sources": ["ti78", "st78"]}
+    ],
+    "79": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのLM7905・LM7912・LM7915は、負の電圧を出す固定出力レギュレータ。末尾の05・12・15は出力電圧の絶対値を表し、出力は順に−5・−12・−15 Vになる。正電圧の対応例は[78のページ](078.md)で比較できる。", "sources": ["ti79"]}
+    ],
+    "93": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "MicrochipのMicrowire EEPROMでは、93LC46・93LC56・93LC66・93LC76・93LC86の末尾2桁が容量コードで、順に1・2・4・8・16 Kibitを表す。1 Kibitの93LC46Aは128語×8ビット、93LC46Bは64語×16ビット、93LC46CはORG端子でこの2通りを選べる。", "sources": ["mc93small", "mc93large", "mc93org"]}
+    ],
     "205": [
       {"category": "messier", "text": "NGC 205 のメシエ番号は M110。", "sources": ["openngc"]}
     ],
@@ -48,6 +104,12 @@
     "532": [
       {"category": "wavelength", "text": "Nd:YAGレーザーの基本波（1064 nm）の第2高調波は波長532 nmの緑色光。", "sources": ["laser"]}
     ],
+    "555": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "タイマIC「NE555」の設計者Hans Camenzindは、Signetics社が使っていた500番台の中から、マーケティング責任者Art Furyが555を選んだと回想している。NE555はタイマを1回路備え、[NE556](556.md)は2回路を備える。", "sources": ["camenzind", "ti555", "ti556"]}
+    ],
+    "556": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "NE556は独立に使えるタイマ2回路を一つのパッケージに収めたIC。単体の[NE555](555.md)から型番が一つ進むと、内蔵するタイマは二つになる。", "sources": ["ti555", "ti556"]}
+    ],
     "581": [
       {"category": "messier", "text": "NGC 581 のメシエ番号は M103。", "sources": ["openngc"]}
     ],
@@ -62,6 +124,18 @@
     ],
     "651": [
       {"category": "messier", "text": "NGC 651 は小あれい状星雲 M76 に付された二つの番号（NGC 650・651）の一つ。", "sources": ["openngc", "m76"]}
+    ],
+    "831": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのADC0831-Nは、差動入力1チャネルの電圧を8ビットの数値に変換してシリアル出力するA/D変換器。0831の末尾の1は、二つの入力端子を一組として測る1チャネルに対応する。", "sources": ["ti083x"]}
+    ],
+    "832": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのADC0832-Nは、二つのアナログ入力を切り替えて測れるシリアルA/D変換器。型番末尾の2は入力チャネル数を示し、変換の分解能は[ADC0831-N](831.md)と同じ8ビット。", "sources": ["ti083x"]}
+    ],
+    "834": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのADC0834-Nは4チャネルの入力切替器を備えた8ビットのシリアルA/D変換器で、末尾の4が入力チャネル数に対応する。同社でも別系列のADC0804-Nは1チャネルで、変換結果を並列に出力する。", "sources": ["ti083x", "ti0804"]}
+    ],
+    "838": [
+      {"issue": 8, "category": "ic_part_numbers", "text": "TIのシリアルA/D変換器ADC0838-Nでは、末尾の8が切り替えられるアナログ入力8チャネルに対応する。変換の分解能は系列共通の8ビットで、[4チャネル品](834.md)でも変わらない。", "sources": ["ti083x"]}
     ],
     "1039": [
       {"category": "messier", "text": "NGC 1039 のメシエ番号は M34。", "sources": ["openngc"]}

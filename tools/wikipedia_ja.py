@@ -10,6 +10,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
+from functools import cache
 from pathlib import Path
 
 from number_range import MAX_NUMBER
@@ -466,6 +467,32 @@ _IMPORTANCE_THRESHOLD = 30
 _MAX_SEARCH_QUERIES_PER_NUMBER = 6
 
 
+@cache
+def _issue_quote_rules() -> dict[tuple[int, str], list[tuple[re.Pattern[str], int]]]:
+    path = Path(__file__).with_name("wikipedia_ja_importance_overrides_v1.json")
+    try:
+        config = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}
+    rules: dict[tuple[int, str], list[tuple[re.Pattern[str], int]]] = {}
+    for rule in config.get("issue_weights", []):
+        bonus = rule["bonus"]
+        if not 1 <= bonus <= 100:
+            raise ValueError(f"Issue #{rule['issue']} の引用加点は1〜100で指定してください")
+        pattern = re.compile(rule["pattern"], re.IGNORECASE)
+        for n in rule["numbers"]:
+            rules.setdefault((n, rule["kind"]), []).append((pattern, bonus))
+    return rules
+
+
+def issue_quote_bonus(n: int | None, kind: str, text: str) -> int:
+    """この数字・節の話題に一致したルールのうち最大の加点を返す。"""
+    if n is None:
+        return 0
+    rules = _issue_quote_rules().get((n, kind), ())
+    return max((bonus for pattern, bonus in rules if pattern.search(text)), default=0)
+
+
 def _load_pins_config(pins_path: Path) -> dict[int, dict[str, list[str]]]:
     """Load per-number pinned substrings for forced selection.
 
@@ -802,6 +829,7 @@ def _select_by_importance(
     threshold: int,
     kind: str,
     pinned_substrings: list[str] | None = None,
+    n: int | None = None,
 ) -> list[str]:
     # NOTE:
     # Precision-first selection.
@@ -869,8 +897,9 @@ def _select_by_importance(
         heur = _heuristic_other_score
 
     # Limit expensive search queries per number.
+    bonuses = {s: issue_quote_bonus(n, kind, s) for s in cleaned_for_scoring}
     ranked_for_search = sorted(
-        cleaned_for_scoring, key=lambda s: (heur(s), len(s)), reverse=True)
+        cleaned_for_scoring, key=lambda s: (heur(s) + bonuses[s], len(s)), reverse=True)
     search_terms: set[str] = set()
     for s in ranked_for_search[:_MAX_SEARCH_QUERIES_PER_NUMBER]:
         term = _extract_scoring_term(s)
@@ -888,7 +917,7 @@ def _select_by_importance(
                 term) in search_terms),
         )
         uniq = _estimate_uniqueness_score(term, term_freq)
-        importance = max(1, min(100, fame * uniq))
+        importance = max(1, min(100, fame * uniq + bonuses[s]))
         scored.append((importance, fame, uniq, len(s), s))
 
     scored.sort(key=lambda x: (x[0], x[1], x[2], x[3]), reverse=True)
@@ -1144,7 +1173,7 @@ def load_or_build_wikipedia_property_sentence_sets_for_numbers(
                 title = str(n)
                 try:
                     candidates = extract_property_candidate_sentences_from_title(
-                        title)
+                        title, pinned_substrings=pins_config.get(n, {}).get("property"))
                 except Exception:
                     candidates = []
                 if candidates:
@@ -1174,6 +1203,7 @@ def load_or_build_wikipedia_property_sentence_sets_for_numbers(
                 threshold=threshold,
                 kind="property",
                 pinned_substrings=pinned,
+                n=n,
             )
             cached_all[n] = selected_current
 
@@ -1278,7 +1308,8 @@ def load_or_build_wikipedia_other_item_sets_for_numbers(
             for completed, n in enumerate(sorted_to_fetch, start=1):
                 title = str(n)
                 try:
-                    candidates = extract_other_candidate_items_from_title(title)
+                    candidates = extract_other_candidate_items_from_title(
+                        title, pinned_substrings=pins_config.get(n, {}).get("other"))
                 except Exception:
                     candidates = []
                 if candidates:
@@ -1310,6 +1341,7 @@ def load_or_build_wikipedia_other_item_sets_for_numbers(
                 threshold=threshold,
                 kind="other",
                 pinned_substrings=pinned,
+                n=n,
             )
             cached_all[n] = selected_current
 
@@ -1431,7 +1463,25 @@ def extract_property_sentences_from_plain_text(text: str, limit: int = 3) -> lis
     return out
 
 
-def extract_property_candidate_sentences_from_plain_text(text: str, max_candidates: int = 12) -> list[str]:
+def _candidate_sort_key(
+    text: str, n: int | None, kind: str, pinned_substrings: list[str] | None,
+) -> tuple[bool, int, int]:
+    if kind == "property":
+        score, length_key = _heuristic_property_score(text), len(text)
+    else:
+        score, length_key = _heuristic_other_score(text), -len(text)
+    if n is None or (n, kind) not in _issue_quote_rules():
+        return False, score, length_key
+
+    # 取得件数の上限で明示的なピンが加点候補に押し出されるのを防ぐ。
+    pinned = any(pin in text for pin in (pinned_substrings or ()))
+    return pinned, min(100, score + issue_quote_bonus(n, kind, text)), length_key
+
+
+def extract_property_candidate_sentences_from_plain_text(
+    text: str, max_candidates: int = 12, *, n: int | None = None,
+    pinned_substrings: list[str] | None = None,
+) -> list[str]:
     sentences: list[str] = []
     for s in _quote_sentences(text):
         if re.search(r"は\s*自然数(、また\s*整数において|また\s*整数において|または\s*整数において|である)", s):
@@ -1442,8 +1492,8 @@ def extract_property_candidate_sentences_from_plain_text(text: str, max_candidat
             continue
         sentences.append(s)
 
-    ranked = sorted(sentences, key=lambda s: (
-        _heuristic_property_score(s), len(s)), reverse=True)
+    ranked = sorted(
+        sentences, key=lambda s: _candidate_sort_key(s, n, "property", pinned_substrings), reverse=True)
     out: list[str] = []
     seen: set[str] = set()
     for s in ranked:
@@ -1457,7 +1507,9 @@ def extract_property_candidate_sentences_from_plain_text(text: str, max_candidat
     return out
 
 
-def extract_property_candidate_sentences_from_title(title: str, section_name_hint: str = "性質") -> list[str]:
+def extract_property_candidate_sentences_from_title(
+    title: str, section_name_hint: str = "性質", *, pinned_substrings: list[str] | None = None,
+) -> list[str]:
     sections = fetch_sections(title)
     if not sections:
         return []
@@ -1480,7 +1532,8 @@ def extract_property_candidate_sentences_from_title(title: str, section_name_hin
         return []
 
     plain = wikitext_to_plain_text_keep_newlines(wikitext)
-    return extract_property_candidate_sentences_from_plain_text(plain)
+    return extract_property_candidate_sentences_from_plain_text(
+        plain, n=int(title) if title.isdecimal() else None, pinned_substrings=pinned_substrings)
 
 
 def extract_property_sentences_from_title(title: str, section_name_hint: str = "性質") -> list[str]:
@@ -1573,7 +1626,10 @@ def extract_other_items_from_plain_text(text: str, limit: int = 3) -> list[str]:
     return out
 
 
-def extract_other_candidate_items_from_plain_text(text: str, max_candidates: int = 16) -> list[str]:
+def extract_other_candidate_items_from_plain_text(
+    text: str, max_candidates: int = 16, *, n: int | None = None,
+    pinned_substrings: list[str] | None = None,
+) -> list[str]:
     text = _clean_text_preserve_newlines(text)
     if not text:
         return []
@@ -1591,8 +1647,8 @@ def extract_other_candidate_items_from_plain_text(text: str, max_candidates: int
             continue
         cleaned.append(s)
 
-    ranked = sorted(cleaned, key=lambda s: (
-        _heuristic_other_score(s), -len(s)), reverse=True)
+    ranked = sorted(
+        cleaned, key=lambda s: _candidate_sort_key(s, n, "other", pinned_substrings), reverse=True)
     out: list[str] = []
     seen: set[str] = set()
     for s in ranked:
@@ -1605,7 +1661,9 @@ def extract_other_candidate_items_from_plain_text(text: str, max_candidates: int
     return out
 
 
-def extract_other_candidate_items_from_title(title: str, section_name_hint: str = "その他") -> list[str]:
+def extract_other_candidate_items_from_title(
+    title: str, section_name_hint: str = "その他", *, pinned_substrings: list[str] | None = None,
+) -> list[str]:
     sections = fetch_sections(title)
     if not sections:
         return []
@@ -1628,7 +1686,8 @@ def extract_other_candidate_items_from_title(title: str, section_name_hint: str 
         return []
 
     plain = wikitext_to_plain_text_keep_newlines(wikitext)
-    return extract_other_candidate_items_from_plain_text(plain)
+    return extract_other_candidate_items_from_plain_text(
+        plain, n=int(title) if title.isdecimal() else None, pinned_substrings=pinned_substrings)
 
 
 def extract_other_items_from_title(title: str, section_name_hint: str = "その他") -> list[str]:

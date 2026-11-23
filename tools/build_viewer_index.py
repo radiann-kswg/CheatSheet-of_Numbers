@@ -1,7 +1,7 @@
 """assets/numbers-index.json（Numbers Lore Viewer 用の検索インデックス）を生成する。
 
 ビューアー（index.html / assets/app.js）は本 JSON の filters をチップ UI として描画し、
-records の loreFilters / propertyFilters / searchText で絞り込みを行う。
+records の loreFilters / propertyFilters / searchText と、任意の issueSnippets で絞り込みを行う。
 `generate_numbers.py` の実行後（または単体で）呼び出して、ページ内容と同期させる。
 
 重要: フラグを追加・改名したら **本ファイルの PROPERTY_FILTER_DEFS / FLAG_NAME_TO_KEY**
@@ -273,12 +273,14 @@ def _build_record(n: int, lore: dict) -> dict:
     _, reduction = gen.numerology_reduction(n)
     tokens.append(gen.NUMEROLOGY_MEANINGS.get(reduction, ""))
     tokens.extend(lore_texts)
-    tokens.extend(note["text"] for note in gen.science_notes(n))
-    for note in gen._load_number_math_notes().get(str(n), []):
+    science_notes = gen.science_notes(n)
+    math_notes = gen._load_number_math_notes().get(str(n), [])
+    tokens.extend(note["text"] for note in science_notes)
+    for note in math_notes:
         tokens.extend((note["title"], note["text"]))
     search_text = " ".join(tokens).lower()
 
-    return {
+    record = {
         "n": n,
         "id": f"{n:03d}",
         "title": f"{n}（{n:03d}）",
@@ -288,6 +290,15 @@ def _build_record(n: int, lore: dict) -> dict:
         "snippets": snippets,
         "searchText": search_text,
     }
+    # Issue 検索の一覧には、その Issue に由来する見出しまたは最初の一文を出す。
+    issue_snippets: dict[str, str] = {}
+    for note in [*math_notes, *science_notes, *entries]:
+        if isinstance(note, dict) and "issue" in note:
+            summary = note.get("title") or note["text"].split("。", 1)[0]
+            issue_snippets.setdefault(str(note["issue"]), summary)
+    if issue_snippets:
+        record["issueSnippets"] = issue_snippets
+    return record
 
 
 def build_viewer_index() -> dict:

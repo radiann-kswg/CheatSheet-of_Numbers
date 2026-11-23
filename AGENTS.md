@@ -106,6 +106,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 - 数列への所属（多角数・幸運数・ウラム数・各種特殊素数など）は **`generate_numbers.py` 内で自前計算**し、出典として OEIS の A 番号リンクを添える。外部サイトから所属データを取得・転載しない。
 - 元素・小惑星・NGC 等の科学データの詳細（分類・原子量・発見年・星座など）は Wolfram Knowledgebase 由来（`tools/wolfram_enrichment_v1.json` に同梱）とし、出典を明記する。
 - 個別の数学ノートは `tools/number_math_notes_v1.json` に、科学の補足は `tools/science_notes_v1.json` に説明と出典をまとめる。本文とビューアー検索は同じデータを使う。
+- Issue に由来する数学・科学・文化の項目や実数の定義には `"issue": 7` のように起票番号を付けると、対応するページをビューアーで `#7` と検索できる。
 - 実数の数字列を追加する場合は、`tools/real_constants_v1.json` に定義・出典と、検算した十進展開の先頭を固定小数点の文字列で記録する。4桁に丸めるために、少なくとも5番目の有効数字まで保存する。数字ページへの対応は、符号と小数点を除いて最初の非ゼロの桁から数えた3・4桁と、有効数字3・4桁に四捨五入した値から生成する。例えば $\ln 3 = 1.098612\ldots$ の先頭4桁は1098、丸め値は1.099で1099に対応する。
 - 数秘術・エンジェルナンバー・吉凶・語呂合わせ等の「文化的ないわれ」は『数秘・占術・文化のいわれ』セクションに集約する。科学的根拠のない伝承である旨を各ページで明記し、断定を避ける（『〜とされる』）。
   - 機械導出（数秘還元値・エンジェルナンバー・ヘブライ数字）は `generate_numbers.py`、キュレーション項目は `tools/number_lore_v1.json` を編集する（生成物の手編集をしない）。
@@ -127,6 +128,7 @@ VS Code 上で **KaTeX** 記法（拡張機能 `jeff-tian.markdown-katex`、`.vs
 | Wolfram Knowledgebase | 元素・小惑星・NGC | — | **採用**。`tools/wolfram_enrichment_v1.json` に同梱（オフライン） |
 | [Mattia Verga / OpenNGC](https://github.com/mattiaverga/OpenNGC) | NGC とメシエ番号の対応 | CC BY-SA 4.0 | **採用**。公開 CSV から収録範囲を抽出し、帰属・ライセンス・抜粋した旨を掲載する |
 | 原論文、大学・学会・公的機関の資料、国立国会図書館の書影 | 数学・科学・暦の事実、歴史的な記載の確認 | 資料ごと | **参照リンク**。検算した数値や確認した事実を自分の言葉で記述する |
+| ICメーカーのデータシート・型番ガイド、設計者の口述史 | IC型番の区分、仕様、命名の経緯 | 各権利者に帰属 | **参照リンク**。メーカー・製品ごとに確認した仕様や設計者が語った事実を独自に説明する。本文・図表の転載や一括取得は行わない |
 | NIST Digital Library of Mathematical Functions (DLMF) | 定数や特殊関数の定義式 | NIST 著作権 | **参照リンク**。数値は独立に計算し、式の意味・用途を自分の言葉で記す。[利用条件](https://dlmf.nist.gov/about/notices) |
 | OEIS | 数列の A 番号・定義 | CC BY-SA 4.0 | **採用（リンクのみ）**。⚠️ 利用規約 §10 と robots.txt が自動アクセスを禁止。`oeis.org/search` をバッチで叩かないこと。データが要る場合は GitHub ミラー `oeis/oeisdata` を clone する |
 | ja.Wiktionary / Wikibooks | 漢数字の字源など | CC BY-SA 4.0 | 未採用（採用可）。Wikipedia と同じ基盤で追加できる |
@@ -185,6 +187,7 @@ Wikidata Query Service / Action API から以下を自動追記（ネットワ�
 - 採用制御（ハードコード回避）:
   - 固有名詞のピン留め: `tools/wikipedia_ja_pins_v1.json`（本文内の部分一致）
   - 重要度閾値の上書き: `tools/wikipedia_ja_importance_overrides_v1.json`
+  - 同ファイルの `issue_weights` は対象の数字・節・話題に一致した引用候補への加点。Issue 本文から設定する際は、同じ番号の作品名なども使って誤一致を確かめる。
 
 ### 追加・更新時の最低限手順
 
