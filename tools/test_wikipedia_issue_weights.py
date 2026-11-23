@@ -1,10 +1,32 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 import generate_numbers as gen
 import wikipedia_ja as wiki
 
 
 class WikipediaIssueWeightTests(unittest.TestCase):
+    def test_failed_refresh_keeps_both_cached_selections(self):
+        cases = [
+            ("properties", wiki.load_or_build_wikipedia_property_sentence_sets_for_numbers,
+             "extract_property_candidate_sentences_from_title"),
+            ("others", wiki.load_or_build_wikipedia_other_item_sets_for_numbers,
+             "extract_other_candidate_items_from_title"),
+        ]
+        for key, load, extract in cases:
+            with self.subTest(key=key), tempfile.TemporaryDirectory() as temp:
+                path = Path(temp) / "section.json"
+                cached = {key: {"555": ["current"]}, key + "_legacy": {"555": ["legacy"]}}
+                path.write_text(json.dumps(cached), encoding="utf-8")
+                with patch.object(wiki, extract, side_effect=RuntimeError("fetch failed")):
+                    current, legacy = load(path, refresh=True, numbers=[555, 556])
+                self.assertEqual(current, {555: ["current"]})
+                self.assertEqual(legacy, {555: ["legacy"]})
+                self.assertEqual(load(path, refresh=False, numbers=[555, 556], offline=True), (current, legacy))
+
     def test_specific_topics_need_the_right_number_and_section(self):
         cases = [
             (717, "property", "717は二進法でも回文となる。", True),

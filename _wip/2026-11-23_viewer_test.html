@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja"><meta charset="utf-8"><title>ビューアーの表示検査</title>
+<script type="module">
+// Live Server 用。公開ワークフローは _wip/ を配信対象から除外する。
+const mode = new URLSearchParams(location.search).get("data") || "demo";
+const options = {demo: "通常", worst: "長文・省略項目", empty: "0件", one: "1件", all: "全1,189件"};
+const originalFetch = window.fetch.bind(window);
+const html = await (await originalFetch("../index.html")).text();
+window.fetch = async (url, init) => {
+  const response = await originalFetch(url, init);
+  if (!String(url).endsWith("numbers-index.json") || mode === "demo" || mode === "all") return response;
+  const index = await response.json();
+  if (mode === "empty") index.numbers = [];
+  if (mode === "one") index.numbers = index.numbers.slice(-1);
+  if (mode === "worst") {
+    const longest = index.numbers.flatMap(r => r.snippets).sort((a, b) => b.length - a.length)[0];
+    index.numbers[0].snippets = [longest];
+    index.numbers[1].snippets = [];
+    index.numbers[2].snippets = ["AS6C62256-55PCN・CY62128EV30／8ビット幅の非同期SRAM"];
+  }
+  return Response.json(index);
+};
+// 本番と同じHTML・JavaScriptを起動し、索引のレスポンスだけを入れ替える。
+document.open();
+document.write(html.replace("<head>", '<head><base href="../">'));
+document.close();
+const select = document.createElement("select");
+select.setAttribute("aria-label", "検査データ");
+for (const [key, label] of Object.entries(options)) select.add(new Option(label, key, false, mode === key));
+select.style.cssText = "position:fixed;bottom:.5rem;left:50%;transform:translateX(-50%);z-index:10";
+select.onchange = () => {
+  const url = new URL(location.href);
+  url.searchParams.set("data", select.value);
+  url.hash = "";
+  location.assign(url);
+};
+document.body.append(select);
+</script>

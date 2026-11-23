@@ -21,7 +21,7 @@ body {
 		radial-gradient(circle at 15% -10%, #ffe7bb 0%, transparent 35%),
 		radial-gradient(circle at 96% 8%, #ffc6b5 0%, transparent 40%),
 		var(--bg);
-	font-family: "M PLUS 1p", sans-serif;
+	font-family: "M PLUS 1p", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", system-ui, sans-serif;
 	min-height: 100vh;
 }
 
@@ -54,7 +54,7 @@ body {
 
 .topbar h1 {
 	margin: 0;
-	font-family: "Zen Kaku Gothic New", sans-serif;
+	font-family: "Zen Kaku Gothic New", "Yu Gothic UI", system-ui, sans-serif;
 	font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
 
@@ -219,6 +219,12 @@ body {
 	color: var(--muted);
 	padding: 8px;
 	font-size: 0.9rem;
+}
+
+#more-results {
+	margin: 0 12px 12px;
+	padding: 6px 12px;
+	font: inherit;
 }
 
 .doc-list button {

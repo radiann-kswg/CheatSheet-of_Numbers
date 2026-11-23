@@ -1174,8 +1174,10 @@ def load_or_build_wikipedia_property_sentence_sets_for_numbers(
                 try:
                     candidates = extract_property_candidate_sentences_from_title(
                         title, pinned_substrings=pins_config.get(n, {}).get("property"))
-                except Exception:
-                    candidates = []
+                except Exception as error:
+                    print(f"[warn] Wikipedia 性質 {n}: {error}")
+                    progress.update(completed, detail=title)
+                    continue
                 if candidates:
                     candidates = _filter_candidates_relevant_to_number(
                         candidates, n, kind="property")
@@ -1310,8 +1312,10 @@ def load_or_build_wikipedia_other_item_sets_for_numbers(
                 try:
                     candidates = extract_other_candidate_items_from_title(
                         title, pinned_substrings=pins_config.get(n, {}).get("other"))
-                except Exception:
-                    candidates = []
+                except Exception as error:
+                    print(f"[warn] Wikipedia その他 {n}: {error}")
+                    progress.update(completed, detail=title)
+                    continue
                 if candidates:
                     pinned_for_n = pins_config.get(n, {}).get("other")
                     candidates = _filter_candidates_relevant_to_number(

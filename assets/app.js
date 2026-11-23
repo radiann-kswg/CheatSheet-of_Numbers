@@ -8,6 +8,7 @@ const clearFiltersEl = document.getElementById("clear-filters");
 const jumpEl = document.getElementById("jump");
 const jumpRangeEl = document.getElementById("jump-range");
 const jumpFormEl = document.getElementById("jump-form");
+const moreResultsEl = document.getElementById("more-results");
 
 const state = {
 	records: [],
@@ -17,6 +18,8 @@ const state = {
 	currentPath: "",
 };
 const visibleButtons = new Map();
+let filteredRecords = [];
+let filteredIssue;
 let documentRequest = null;
 
 const markdownRenderer = globalThis.marked?.Marked && globalThis.DOMPurify?.sanitize
@@ -146,6 +149,9 @@ function filterRecords(keyword, issue) {
 function renderDocumentList(records, issue) {
 	docListEl.innerHTML = "";
 	visibleButtons.clear();
+	filteredRecords = records;
+	filteredIssue = issue;
+	moreResultsEl.hidden = true;
 	resultCountEl.textContent = `${records.length}件`;
 
 	if (records.length === 0) {
@@ -156,7 +162,13 @@ function renderDocumentList(records, issue) {
 		return;
 	}
 
-	for (const record of records) {
+	appendResults();
+}
+
+function appendResults() {
+	const start = visibleButtons.size;
+	const batch = document.createDocumentFragment();
+	for (const record of filteredRecords.slice(start, start + 50)) {
 		const li = document.createElement("li");
 		const button = document.createElement("button");
 		button.type = "button";
@@ -169,13 +181,15 @@ function renderDocumentList(records, issue) {
 		title.textContent = record.title;
 
 		const meta = document.createElement("small");
-		meta.textContent = record.issueSnippets?.[issue] || record.snippets[0] || "数秘・性質を表示";
+		meta.textContent = record.issueSnippets?.[filteredIssue] || record.snippets[0] || "数秘・性質を表示";
 
 		button.appendChild(title);
 		button.appendChild(meta);
 		li.appendChild(button);
-		docListEl.appendChild(li);
+		batch.appendChild(li);
 	}
+	docListEl.appendChild(batch);
+	moreResultsEl.hidden = visibleButtons.size >= filteredRecords.length;
 	markCurrentDocument(state.currentPath);
 }
 
@@ -247,7 +261,9 @@ async function loadDocument(path) {
 	}
 	markCurrentDocument(path);
 
-	history.replaceState({}, "", `#${encodeURIComponent(path)}`);
+	const url = new URL(location.href);
+	url.hash = encodeURIComponent(path);
+	history.replaceState({}, "", url);
 
 	docViewEl.querySelectorAll("a").forEach((anchor) => {
 		const href = anchor.getAttribute("href");
@@ -268,6 +284,25 @@ function showError(error) {
 }
 
 async function bootstrap() {
+	loadDocument(initialDocumentPath).catch(showError);
+	const initialRequest = documentRequest;
+	window.addEventListener("hashchange", () => {
+		const path = documentPathFromHash();
+		const target = path === "index.md" || !state.records.length || state.records.some(r => r.path === path)
+			? path : state.records[0].path;
+		loadDocument(target).catch(showError);
+	});
+	moreResultsEl.addEventListener("click", () => {
+		const firstNew = filteredRecords[visibleButtons.size];
+		appendResults();
+		visibleButtons.get(firstNew?.path)?.focus();
+	});
+	if ("IntersectionObserver" in window) {
+		const observer = new IntersectionObserver(([entry]) => {
+			if (entry.isIntersecting && !moreResultsEl.hidden) appendResults();
+		}, { root: docListEl.parentElement, rootMargin: "150px" });
+		observer.observe(moreResultsEl);
+	}
 	jumpFormEl.addEventListener("submit", (event) => {
 		event.preventDefault();
 		const record = state.records.find((r) => r.n === jumpEl.valueAsNumber);
@@ -312,14 +347,18 @@ async function bootstrap() {
 
 	renderListByCurrentFilters();
 
-	const hashPath = decodeURIComponent(location.hash.replace(/^#/, ""));
-	const initial =
-		state.records.find((record) => record.path === hashPath) ||
-		state.records[0];
-
-	if (initial) {
-		await loadDocument(initial.path);
+	if (documentRequest === initialRequest && initialDocumentPath !== "index.md" &&
+		!state.records.some(record => record.path === initialDocumentPath)) {
+		initialRequest.abort();
+		if (state.records.length) {
+			await loadDocument(state.records[0].path);
+		} else {
+			markCurrentDocument("");
+			docViewEl.textContent = "表示できる数字がありません。";
+		}
 	}
 }
 
-bootstrap().catch(showError);
+bootstrap().catch(error => {
+	resultCountEl.textContent = `索引を読み込めませんでした（${error.message}）`;
+});

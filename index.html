@@ -5,11 +5,25 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Numbers Lore Viewer</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
-		rel="stylesheet">
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<link rel="preload" as="fetch" href="assets/numbers-index.json" crossorigin>
+	<script>
+		// 索引やレンダラーの取得と同時に、開く記事の転送を始める。
+		function documentPathFromHash() {
+			try {
+				const path = decodeURIComponent(location.hash.slice(1));
+				if (path === "index.md" || /^numbers\/(?:\dxx\/\d{3}|1xxx\/\d{4})\.md$/.test(path)) return path;
+			} catch { /* 不完全なパーセント符号を含むURLでは先頭の記事を開く。 */ }
+			return "numbers/0xx/000.md";
+		}
+		const initialDocumentPath = documentPathFromHash();
+		const preload = document.createElement("link");
+		preload.rel = "preload";
+		preload.as = "fetch";
+		preload.crossOrigin = "anonymous";
+		preload.href = initialDocumentPath;
+		document.head.append(preload);
+	</script>
 	<link rel="stylesheet" href="assets/app.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
@@ -54,6 +68,7 @@
 
 			<nav class="doc-scroll" aria-label="数字の索引">
 				<ul id="doc-list" class="doc-list"></ul>
+				<button id="more-results" type="button" hidden>続きを表示</button>
 			</nav>
 		</aside>
 
@@ -64,10 +79,10 @@
 		</section>
 	</main>
 
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" defer></script>
 	<script src="assets/app.js" defer></script>
 </body>
 
