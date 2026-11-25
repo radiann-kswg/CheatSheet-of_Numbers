@@ -207,7 +207,7 @@
       "name": "黒体放射の対数帯域ピーク",
       "symbol": "x = 4(1−e⁻ˣ)",
       "decimal": "3.9206903948728863",
-      "description": "黒体放射のエネルギーを同じ周波数比の帯域（1オクターブなど）ごとに比べると、$x=h\\nu/(k_{\\mathrm B}T)$ として密度は $x^4/(e^x-1)$ に比例する。その最大点は $x=4(1-e^{-x})$ の正の解で、$4+W(-4e^{-4})$ とも書ける。対数帯域では $|d\\ln\\nu|=|d\\ln\\lambda|$ なので波長で数えても同じピークになり、光子の数を単位波長あたりで数えたときのピークも同じ値になる。単位周波数あたりの [282](../2xx/282.md)、単位波長あたりの [496](../4xx/496.md) のピークとは区別される。",
+      "description": "黒体放射のエネルギーを周波数の対数（$\\ln\\nu$）の単位幅あたりで表すと、$x=h\\nu/(k_{\\mathrm B}T)$ として密度は $x^4/(e^x-1)$ に比例する。その最大点は $x=4(1-e^{-x})$ の正の解で、$4+W(-4e^{-4})$ とも書ける。対数帯域では $|d\\ln\\nu|=|d\\ln\\lambda|$ なので波長で数えても同じピークになり、光子の数を単位波長あたりで数えたときのピークも同じ値になる。単位周波数あたりの [282](../2xx/282.md)、単位波長あたりの [496](../4xx/496.md) のピークとは区別される。",
       "sources": {
         "Romanian Reports in Physics 73 (2021), Art. 906、式 (39) の前後": "https://rrp.nipne.ro/2021/AN73906.pdf#page=8",
         "Wikipedia（英語）「Wien's displacement law」": "https://en.wikipedia.org/wiki/Wien%27s_displacement_law",
@@ -219,7 +219,7 @@
       "name": "黒体放射の単位周波数あたりのピーク",
       "symbol": "x = 3(1−e⁻ˣ)",
       "decimal": "2.8214393721220788",
-      "description": "単位周波数あたりの黒体放射スペクトルは、$x=h\\nu/(k_{\\mathrm B}T)$ として $x^3/(e^x-1)$ に比例する。その最大点は $x=3(1-e^{-x})$ の解 $3+W(-3e^{-3})$ で、周波数で表したウィーンの変位則を与える。同じ周波数比の帯域ごとのピーク [392](../3xx/392.md) とは異なる。",
+      "description": "単位周波数あたりの黒体放射スペクトルは、$x=h\\nu/(k_{\\mathrm B}T)$ として $x^3/(e^x-1)$ に比例する。その最大点は $x=3(1-e^{-x})$ の解 $3+W(-3e^{-3})$ で、周波数で表したウィーンの変位則を与える。対数周波数あたりのピーク [392](../3xx/392.md) とは異なる。",
       "sources": {
         "Wikipedia（英語）「Wien's displacement law」": "https://en.wikipedia.org/wiki/Wien%27s_displacement_law",
         "NIST DLMF ランベルトのW関数": "https://dlmf.nist.gov/4.13"
@@ -243,6 +243,7 @@
       "decimal": "1.5936242600400401",
       "description": "黒体放射の光子の数を単位周波数あたりで数えると、$x=h\\nu/(k_{\\mathrm B}T)$ として密度は $x^2/(e^x-1)$ に比例する。その最大点は $x=2(1-e^{-x})$ の解 $2+W(-2e^{-2})$。エネルギーで数えたピーク [282](../2xx/282.md) より低い周波数にある。",
       "sources": {
+        "University of Victoria・J. B. Tatum『Stellar Atmospheres』第2章 §2.6–2.7": "https://www.astro.uvic.ca/~tatum/stellatm/atm2.pdf#page=4",
         "Wikipedia（英語）「Wien's displacement law」": "https://en.wikipedia.org/wiki/Wien%27s_displacement_law",
         "NIST DLMF ランベルトのW関数": "https://dlmf.nist.gov/4.13"
       }
